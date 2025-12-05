@@ -6,6 +6,13 @@ import { Container } from '@/components/ui/Container'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { companyInfo, companyValues, whyChooseUs } from '@/lib/data/company'
 import type { Metadata } from 'next'
+import { Eczar } from 'next/font/google'
+
+const eczar = Eczar({
+  subsets: ['devanagari', 'latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+})
 
 const valueIcons = [Lightbulb, Award, Users, Shield, TrendingUp, Target]
 
@@ -28,20 +35,115 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-20 sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          {/* Orb 1 - Top Left */}
+          <motion.div
+            className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-gradient-to-br from-primary-400/30 to-secondary-400/20 dark:from-blue-500/20 dark:to-purple-500/10 blur-3xl"
+            animate={{
+              y: [0, 30, 0],
+              x: [0, 20, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+
+          {/* Orb 2 - Bottom Right */}
+          <motion.div
+            className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-secondary-400/30 to-primary-400/20 dark:from-purple-500/20 dark:to-blue-500/10 blur-3xl"
+            animate={{
+              y: [0, -30, 0],
+              x: [0, -20, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+          />
+
+          {/* Orb 3 - Center */}
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary-300/20 to-secondary-300/20 dark:from-blue-400/10 dark:to-purple-400/10 blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3]
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative max-w-4xl mx-auto bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-400/20 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/40 p-8 sm:p-12 md:p-16"
+          >
+            <div className="text-center">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl font-bold tracking-tight text-white dark:text-white sm:text-5xl"
+              >
+                About Pātheya Technologies
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-6 text-lg leading-8 text-white/90 dark:text-slate-300"
+              >
+                {companyInfo.tagline}
+              </motion.p>
+            </div>
+          </motion.div>
+        </Container>
+      </section>
+
+      {/* Philosophy Behind the Name Section */}
+      <section className="py-16 sm:py-24 bg-white dark:bg-slate-900">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-              About Patheya Technologies
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
-              {companyInfo.tagline}
-            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl mb-6">
+              Philosophy Behind the Name
+            </h2>
+
+            <div className="prose prose-lg mx-auto text-slate-600 dark:text-slate-300">
+              <p className="text-xl leading-relaxed mb-6">
+                <span className="font-semibold text-slate-900 dark:text-white">Pātheya</span>{' '}
+                <span lang="sa-Deva" className={`${eczar.className} text-2xl align-middle font-medium text-primary-600 dark:text-primary-400`}>
+                  (पाथेय)
+                </span>{' '}
+                <span className="italic">- Sanskrit</span>, word literally means, supportive provisions made for a journey.
+              </p>
+
+              <p className="text-lg leading-relaxed">
+                Here at <span className="font-semibold text-slate-900 dark:text-white">Pātheya</span>,
+                this is exactly what we have our motive to give all technological supportive provisions
+                and consultations to our valued customers in the journey of their Products. We are a
+                startup working with esteemed clients all across India and Globe, who are supported by
+                our enthusiast team members.
+              </p>
+            </div>
           </motion.div>
         </Container>
       </section>
@@ -61,10 +163,9 @@ export default function AboutPage() {
             </h2>
             <div className="prose prose-lg text-slate-600 dark:text-slate-300 space-y-4">
               <p>
-                Founded in Pune, India, Patheya Technologies has grown from a passionate team of developers
-                into a trusted partner for businesses seeking digital transformation. Our name "Patheya" (पथेय)
-                means "provisions for a journey" in Sanskrit, reflecting our commitment to equipping businesses
-                with the tools they need for their digital journey.
+                Founded in Pune, India, Pātheya Technologies has grown from a passionate team of developers
+                into a trusted partner for businesses seeking digital transformation. With a name rooted in Sanskrit,
+                we're committed to equipping businesses with the tools they need for their digital journey.
               </p>
               <p>
                 With over 5 years of experience, we've successfully delivered 25+ projects to 15+ happy clients

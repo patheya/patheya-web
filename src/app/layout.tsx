@@ -11,19 +11,24 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Patheya Technologies - Software Development & Consultancy',
+  title: 'Pātheya Technologies - Software Development & Consultancy',
   description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions. Building at the speed of innovation.',
   keywords: ['software development', 'mobile app development', 'cloud services', 'DevOps', 'ReactJS', 'Next.js', 'Pune'],
-  authors: [{ name: 'Patheya Technologies' }],
-  creator: 'Patheya Technologies',
-  publisher: 'Patheya Technologies',
+  authors: [{ name: 'Pātheya Technologies' }],
+  creator: 'Pātheya Technologies',
+  publisher: 'Pātheya Technologies',
   robots: 'index, follow',
+  icons: {
+    icon: '/images/favicon.ico',
+    shortcut: '/images/favicon.ico',
+    apple: '/images/favicon.ico',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://patheya.tech',
-    siteName: 'Patheya Technologies',
-    title: 'Patheya Technologies - Software Development & Consultancy',
+    siteName: 'Pātheya Technologies',
+    title: 'Pātheya Technologies - Software Development & Consultancy',
     description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions.',
     images: [
       {
@@ -36,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Patheya Technologies - Software Development & Consultancy',
+    title: 'Pātheya Technologies - Software Development & Consultancy',
     description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions.',
     images: ['/images/og-image.png'],
   },
