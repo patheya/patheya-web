@@ -170,7 +170,7 @@ export default function ServicesPage() {
               Not Sure Which Service You Need?
             </h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Let's have a conversation about your project requirements. We'll help you determine
+              Let&apos;s have a conversation about your project requirements. We&apos;ll help you determine
               the best approach for your specific needs.
             </p>
             <motion.div

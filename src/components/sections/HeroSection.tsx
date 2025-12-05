@@ -81,7 +81,7 @@ export function HeroSection() {
               className="mt-6 text-lg leading-8 text-white/90 dark:text-slate-300 max-w-2xl mx-auto"
             >
               Patheya Technologies delivers cutting-edge software solutions that transform your ideas into reality.
-              From web and mobile apps to cloud infrastructure, we're your trusted technology partner.
+              From web and mobile apps to cloud infrastructure, we&apos;re your trusted technology partner.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

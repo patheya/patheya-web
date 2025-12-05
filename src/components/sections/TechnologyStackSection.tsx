@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Container } from '@/components/ui/Container'
 import { Card, CardContent } from '@/components/ui/Card'
-import { technologies, categories, getTechnologiesByCategory } from '@/lib/data/technologies'
+import { categories, getTechnologiesByCategory } from '@/lib/data/technologies'
 import type { Technology } from '@/types'
 
 const container = {

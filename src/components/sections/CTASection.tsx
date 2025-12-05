@@ -20,7 +20,7 @@ export function CTASection() {
             Ready to start your project?
           </h2>
           <p className="mt-4 text-lg text-primary-100">
-            Let's discuss how we can help bring your vision to life
+            Let&apos;s discuss how we can help bring your vision to life
           </p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

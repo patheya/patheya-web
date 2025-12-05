@@ -511,7 +511,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
               Ready to Get Started?
             </h2>
             <p className="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
-              Let's discuss your {service.title.toLowerCase()} needs and create a solution
+              Let&apos;s discuss your {service.title.toLowerCase()} needs and create a solution
               that drives real business value.
             </p>
             <motion.div

@@ -5,7 +5,6 @@ import { Target, Users, Award, Lightbulb, Shield, TrendingUp } from 'lucide-reac
 import { Container } from '@/components/ui/Container'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { companyInfo, companyValues, whyChooseUs } from '@/lib/data/company'
-import type { Metadata } from 'next'
 import { Eczar } from 'next/font/google'
 
 const eczar = Eczar({
@@ -165,10 +164,10 @@ export default function AboutPage() {
               <p>
                 Founded in Pune, India, Pātheya Technologies has grown from a passionate team of developers
                 into a trusted partner for businesses seeking digital transformation. With a name rooted in Sanskrit,
-                we're committed to equipping businesses with the tools they need for their digital journey.
+                we&apos;re committed to equipping businesses with the tools they need for their digital journey.
               </p>
               <p>
-                With over 5 years of experience, we've successfully delivered 25+ projects to 15+ happy clients
+                With over 5 years of experience, we&apos;ve successfully delivered 25+ projects to 15+ happy clients
                 across various industries. Our team of 15 skilled professionals brings expertise in modern web
                 technologies, mobile development, cloud infrastructure, and business consulting.
               </p>

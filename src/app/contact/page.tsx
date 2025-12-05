@@ -132,7 +132,7 @@ export default function ContactPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="mt-6 text-lg leading-8 text-white/90 dark:text-slate-300"
               >
-                Have a project in mind? Let's discuss how we can help bring your vision to life.
+                Have a project in mind? Let&apos;s discuss how we can help bring your vision to life.
                 Reach out to us through any of the channels below.
               </motion.p>
             </div>
@@ -203,8 +203,8 @@ export default function ContactPage() {
               Ready to Start Your Project?
             </h2>
             <p className="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
-              Whether you have a detailed project plan or just an idea, we're here to help.
-              Let's have a conversation about how we can work together.
+              Whether you have a detailed project plan or just an idea, we&apos;re here to help.
+              Let&apos;s have a conversation about how we can work together.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

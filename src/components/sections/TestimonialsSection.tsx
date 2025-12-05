@@ -36,7 +36,7 @@ export function TestimonialsSection() {
             What Our Clients Say
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-            Don't just take our word for it - hear from our satisfied clients
+            Don&apos;t just take our word for it - hear from our satisfied clients
           </p>
         </motion.div>
 
@@ -68,7 +68,7 @@ export function TestimonialsSection() {
 
                   {/* Content */}
                   <p className="text-slate-600 dark:text-slate-400 mb-6 italic">
-                    "{testimonial.content}"
+                    &ldquo;{testimonial.content}&rdquo;
                   </p>
 
                   {/* Author */}
