@@ -7,7 +7,8 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/Button'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
+// Theme toggle commented out until dark theme is fully ready
+// import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -77,7 +78,8 @@ export function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-2 lg:items-center">
-          <ThemeToggle />
+          {/* Theme Toggle - Commented out until dark theme is fully ready */}
+          {/* <ThemeToggle /> */}
           <Button asChild>
             <Link href="/contact">Get Started</Link>
           </Button>
@@ -123,10 +125,11 @@ export function Header() {
                 transition={{ delay: navigation.length * 0.1, duration: 0.3 }}
                 className="pt-2 space-y-2"
               >
-                <div className="flex items-center justify-between px-3 py-2">
+                {/* Theme Toggle - Commented out until dark theme is fully ready */}
+                {/* <div className="flex items-center justify-between px-3 py-2">
                   <span className="text-sm font-semibold text-slate-900 dark:text-slate-50">Theme</span>
                   <ThemeToggle />
-                </div>
+                </div> */}
                 <Button asChild className="w-full">
                   <Link href="/contact">Get Started</Link>
                 </Button>

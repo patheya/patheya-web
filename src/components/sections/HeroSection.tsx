@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
@@ -8,7 +9,23 @@ import { Container } from '@/components/ui/Container'
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
+    <section className="relative overflow-hidden bg-slate-900 py-20 sm:py-32">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero_home.jpg"
+          alt="AI and Technology Innovation"
+          fill
+          priority
+          className="object-cover object-center"
+          quality={90}
+        />
+        {/* Dark Overlay for text readability */}
+        {/* <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-blue-900/75 to-purple-900/80 dark:from-slate-950/90 dark:via-slate-900/85 dark:to-slate-950/90" /> */}
+        {/* Additional gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+      </div>
+
       {/* Animated Background Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         {/* Orb 1 - Top Left */}
@@ -94,8 +111,10 @@ export function HeroSection() {
                   Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/about">Learn More</Link>
+              <Button size="lg" asChild>
+                <Link href="/about">
+                  Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </motion.div>
           </div>

@@ -70,3 +70,11 @@ export interface Testimonial {
   rating: number
   image?: string
 }
+
+// Client types
+export interface Client {
+  id: string
+  name: string
+  logo: string
+  alt?: string
+}
