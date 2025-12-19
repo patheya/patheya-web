@@ -40,7 +40,7 @@ const floatingAnimation = {
 
 export function ClientLogosSection() {
   return (
-    <section className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-20">
+    <section id="clients" className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-20">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

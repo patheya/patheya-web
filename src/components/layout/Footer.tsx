@@ -31,7 +31,7 @@ const navigation = {
       icon: Linkedin,
     },
     {
-      name: 'Pune, India',
+      name: 'Pune, Bharat',
       href: '#',
       icon: MapPin,
     },
@@ -134,7 +134,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center space-x-2 text-sm text-slate-400 dark:text-slate-500">
               <MapPin className="h-4 w-4" />
-              <span>Pune, India</span>
+              <span>Pune, Bharat</span>
             </div>
             <p className="mt-4 text-sm text-slate-400 dark:text-slate-500 md:mt-0">
               &copy; {new Date().getFullYear()} Patheya Technologies. All rights reserved.

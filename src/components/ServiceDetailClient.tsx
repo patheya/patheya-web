@@ -483,13 +483,14 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto"
+            className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto"
           >
             {[
               { step: 1, title: 'Discovery', description: 'Understanding your requirements and goals' },
               { step: 2, title: 'Planning', description: 'Creating a detailed roadmap and strategy' },
               { step: 3, title: 'Development', description: 'Building your solution with best practices' },
-              { step: 4, title: 'Delivery', description: 'Deployment, testing, and ongoing support' },
+              { step: 4, title: 'Delivery', description: 'Deployment, testing, and launch' },
+              { step: 5, title: 'Support', description: 'Continuous application support and maintenance' },
             ].map((phase) => (
               <motion.div key={phase.step} variants={item}>
                 <Card className="text-center h-full hover:shadow-lg transition-shadow">

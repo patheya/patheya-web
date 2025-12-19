@@ -135,9 +135,10 @@ export default function AboutPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative max-w-4xl mx-auto bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-400/20 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/40 p-8 sm:p-12 md:p-16"
+            className="relative max-w-5xl mx-auto bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-400/20 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/40 p-8 sm:p-12 md:p-16"
           >
-            <div className="text-center">
+            {/* Title */}
+            <div className="text-center mb-8">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -150,46 +151,56 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-6 text-lg leading-8 text-white/90 dark:text-slate-300"
+                className="mt-4 text-lg leading-8 text-white/90 dark:text-slate-300"
               >
                 {companyInfo.tagline}
               </motion.p>
             </div>
-          </motion.div>
-        </Container>
-      </section>
 
-      {/* Philosophy Behind the Name Section */}
-      <section className="py-16 sm:py-24 bg-white dark:bg-slate-900">
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl mb-6">
-              Philosophy Behind the Name
-            </h2>
+            {/* Philosophy Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="space-y-6"
+            >
+              {/* Divider */}
+              <div className="w-24 h-1 bg-gradient-to-r from-indigo-400 to-indigo-500 mx-auto rounded-full" />
 
-            <div className="prose prose-lg mx-auto text-slate-600 dark:text-slate-300">
-              <p className="text-xl leading-relaxed mb-6">
-                <span className="font-semibold text-slate-900 dark:text-white">Pātheya</span>{' '}
-                <span lang="sa-Deva" className={`${eczar.className} text-2xl align-middle font-medium text-primary-600 dark:text-primary-400`}>
-                  (पाथेय)
-                </span>{' '}
-                <span className="italic">- Sanskrit</span>, word literally means, supportive provisions made for a journey.
-              </p>
+              {/* Philosophy Title */}
+              <h2 className="text-2xl font-bold text-center text-white dark:text-white sm:text-3xl">
+                Philosophy Behind the Name
+              </h2>
 
-              <p className="text-lg leading-relaxed">
-                Here at <span className="font-semibold text-slate-900 dark:text-white">Pātheya</span>,
-                this is exactly what we have our motive to give all technological supportive provisions
-                and consultations to our valued customers in the journey of their Products. We are a
-                startup working with esteemed clients all across India and Globe, who are supported by
-                our enthusiast team members.
-              </p>
-            </div>
+              {/* Sanskrit Meaning */}
+              <div className="text-center">
+                <p className="text-xl leading-relaxed text-white/95 dark:text-slate-200">
+                  <span className="font-semibold text-white">Pātheya</span>{' '}
+                  <span lang="sa-Deva" className={`${eczar.className} text-3xl align-middle font-medium text-white-300 dark:text-primary-300`}>
+                    (पाथेय)
+                  </span>
+                </p>
+                <p className="mt-2 text-base text-white/80 dark:text-slate-300 italic">
+                  Sanskrit - supportive provisions made for a journey
+                </p>
+              </div>
+
+              {/* Mission Statement */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="max-w-3xl mx-auto"
+              >
+                <p className="text-lg leading-relaxed text-white/90 dark:text-slate-200 text-center">
+                  Here at <span className="font-semibold text-white">Pātheya</span>,
+                  this is exactly what we have our motive to give all technological supportive provisions
+                  and consultations to our valued customers in the journey of their Products. We are a
+                  startup working with esteemed clients all across India and Globe, who are supported by
+                  our enthusiast team members.
+                </p>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </Container>
       </section>
@@ -209,7 +220,7 @@ export default function AboutPage() {
             </h2>
             <div className="prose prose-lg text-slate-600 dark:text-slate-300 space-y-4">
               <p>
-                Founded in Pune, India, Pātheya Technologies has grown from a passionate team of developers
+                Founded in Pune, India(Bharat), Pātheya Technologies has grown from a passionate team of developers
                 into a trusted partner for businesses seeking digital transformation. With a name rooted in Sanskrit,
                 we&apos;re committed to equipping businesses with the tools they need for their digital journey.
               </p>

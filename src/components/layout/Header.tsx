@@ -14,6 +14,8 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
+  { name: 'Clients', href: '/#clients' },
+  { name: 'Technologies', href: '/#technologies' },
   { name: 'Contact', href: '/contact' },
 ]
 
@@ -36,10 +38,10 @@ export function Header() {
               <Image
                 src={resolvedTheme === 'dark' ? '/images/logo-light.png' : '/images/logo-dark.png'}
                 alt="Patheya Technologies"
-                width={180}
-                height={45}
+                width={220}
+                height={55}
                 priority
-                className="h-8 w-auto sm:h-10 transition-opacity duration-300"
+                className="h-12 w-auto sm:h-12 transition-opacity duration-300"
               />
             ) : (
               <div className="h-8 w-[180px] sm:h-10" />
