@@ -15,6 +15,46 @@ const eczar = Eczar({
 
 const valueIcons = [Lightbulb, Award, Users, Shield, TrendingUp, Target]
 
+// Color scheme for each core value icon
+const valueColors = [
+  {
+    // Lightbulb - Innovation
+    bg: 'bg-amber-100 dark:bg-amber-950',
+    text: 'text-amber-600 dark:text-amber-400',
+    border: 'hover:border-amber-300 dark:hover:border-amber-700',
+  },
+  {
+    // Award - Excellence
+    bg: 'bg-violet-100 dark:bg-violet-950',
+    text: 'text-violet-600 dark:text-violet-400',
+    border: 'hover:border-violet-300 dark:hover:border-violet-700',
+  },
+  {
+    // Users - Collaboration
+    bg: 'bg-blue-100 dark:bg-blue-950',
+    text: 'text-blue-600 dark:text-blue-400',
+    border: 'hover:border-blue-300 dark:hover:border-blue-700',
+  },
+  {
+    // Shield - Integrity/Security
+    bg: 'bg-emerald-100 dark:bg-emerald-950',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    border: 'hover:border-emerald-300 dark:hover:border-emerald-700',
+  },
+  {
+    // TrendingUp - Growth
+    bg: 'bg-sky-100 dark:bg-sky-950',
+    text: 'text-sky-600 dark:text-sky-400',
+    border: 'hover:border-sky-300 dark:hover:border-sky-700',
+  },
+  {
+    // Target - Focus
+    bg: 'bg-rose-100 dark:bg-rose-950',
+    text: 'text-rose-600 dark:text-rose-400',
+    border: 'hover:border-rose-300 dark:hover:border-rose-700',
+  },
+]
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -208,12 +248,13 @@ export default function AboutPage() {
           >
             {companyValues.map((value, index) => {
               const Icon = valueIcons[index]
+              const colors = valueColors[index]
               return (
                 <motion.div key={value.title} variants={item}>
-                  <Card className="h-full hover:shadow-lg transition-shadow">
+                  <Card className={`h-full ${colors.border} hover:shadow-lg transition-all duration-300`}>
                     <CardHeader>
-                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
-                        <Icon className="h-6 w-6" />
+                      <div className={`mb-4 inline-flex h-24 w-24 items-center justify-center rounded-lg ${colors.bg} ${colors.text}`}>
+                        <Icon className="h-12 w-12" />
                       </div>
                       <CardTitle className="text-xl">{value.title}</CardTitle>
                       <CardDescription className="text-base mt-2">

@@ -18,6 +18,38 @@ const getServiceIcon = (iconName: string) => {
   return icons[iconName as keyof typeof icons] || Code2
 }
 
+// Color scheme for each service icon
+const getServiceColors = (iconName: string) => {
+  const colorSchemes = {
+    Code2: {
+      bg: 'bg-blue-100 dark:bg-blue-950',
+      text: 'text-blue-600 dark:text-blue-400',
+      border: 'hover:border-blue-300 dark:hover:border-blue-700',
+    },
+    Smartphone: {
+      bg: 'bg-purple-100 dark:bg-purple-950',
+      text: 'text-purple-600 dark:text-purple-400',
+      border: 'hover:border-purple-300 dark:hover:border-purple-700',
+    },
+    Cloud: {
+      bg: 'bg-sky-100 dark:bg-sky-950',
+      text: 'text-sky-600 dark:text-sky-400',
+      border: 'hover:border-sky-300 dark:hover:border-sky-700',
+    },
+    Briefcase: {
+      bg: 'bg-amber-100 dark:bg-amber-950',
+      text: 'text-amber-600 dark:text-amber-400',
+      border: 'hover:border-amber-300 dark:hover:border-amber-700',
+    },
+    Brain: {
+      bg: 'bg-emerald-100 dark:bg-emerald-950',
+      text: 'text-emerald-600 dark:text-emerald-400',
+      border: 'hover:border-emerald-300 dark:hover:border-emerald-700',
+    },
+  }
+  return colorSchemes[iconName as keyof typeof colorSchemes] || colorSchemes.Code2
+}
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -60,17 +92,18 @@ export function ServicesSection() {
         >
           {services.map((service) => {
             const Icon = getServiceIcon(service.icon)
+            const colors = getServiceColors(service.icon)
             return (
               <motion.div key={service.title} variants={item}>
                 <Link href={`/services/${service.slug}`}>
-                  <Card className="h-full hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <CardHeader>
+                  <Card className={`h-full ${colors.border} hover:shadow-lg transition-all duration-300 cursor-pointer`}>
+                    <CardHeader className='flex items-start justify-start'>
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ type: 'spring', stiffness: 300 }}
-                        className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400"
+                        className={`mb-4 inline-flex h-24 w-24 items-center justify-center rounded-lg ${colors.bg} ${colors.text}`}
                       >
-                        <Icon className="h-6 w-6" />
+                        <Icon className="h-12 w-12" />
                       </motion.div>
                       <CardTitle className="text-xl">{service.title}</CardTitle>
                     </CardHeader>

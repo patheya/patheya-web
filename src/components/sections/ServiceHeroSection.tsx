@@ -7,7 +7,7 @@ import { CodeScrollPanel } from '@/components/effects/CodeScrollPanel'
 
 export function ServiceHeroSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-950 py-20 sm:py-32">
+    <section className="relative overflow-hidden bg-slate-950 py-5 sm:py-32">
       {/* Animated gradient mesh background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-purple-950">
         {/* CSS animated gradient overlay */}

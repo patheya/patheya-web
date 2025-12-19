@@ -75,6 +75,12 @@ export const clients: Client[] = [
     alt: 'CARe logo',
   },
   {
+    id: 'client-14',
+    name: 'EASIE',
+    logo: '/images/clients/easie.png',
+    alt: 'EASIE logo',
+  },
+  {
     id: 'client-7',
     name: 'NowWagon',
     logo: '/images/clients/now_wagon.png',

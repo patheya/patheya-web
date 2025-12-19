@@ -17,6 +17,7 @@ const navigation = {
     { name: 'Mobile App Development', href: '/services/mobile-app-development' },
     { name: 'Cloud & DevOps', href: '/services/cloud-devops' },
     { name: 'Business Consultancy', href: '/services/business-consultancy' },
+    { name: 'AI & Machine Learning', href: '/services/ai-ml-solutions' },
   ],
   contact: [
     {

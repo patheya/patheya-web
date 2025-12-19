@@ -89,7 +89,7 @@ export function HeroSection() {
               className="text-4xl font-bold tracking-tight text-white dark:text-slate-50 sm:text-5xl md:text-6xl"
             >
               Build at the speed of{' '}
-              <span className="text-primary-800 dark:text-primary-400">innovation</span>
+              <span className="text-sky-400 dark:text-primary-400">innovation</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}

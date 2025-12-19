@@ -86,7 +86,7 @@ export function CodeScrollPanel() {
       </div>
 
       {/* Scrolling code lines */}
-      <div className="absolute inset-0 pt-8 flex flex-col justify-center overflow-hidden">
+      <div className="absolute inset-0 pt-4 flex flex-col justify-center overflow-hidden">
         <motion.div
           animate={{
             y: [0, -40],
