@@ -41,7 +41,7 @@ export function Header() {
                 width={220}
                 height={55}
                 priority
-                className="h-12 w-auto sm:h-12 transition-opacity duration-300"
+                className="h-13 w-auto sm:h-12 transition-opacity duration-300"
               />
             ) : (
               <div className="h-8 w-[180px] sm:h-10" />
