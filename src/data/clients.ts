@@ -81,11 +81,17 @@ export const clients: Client[] = [
     alt: 'EASIE logo',
   },
   {
-    id: 'client-7',
-    name: 'NowWagon',
-    logo: '/images/clients/now_wagon.png',
-    alt: 'NowWagon logo',
+    id: 'client-15',
+    name: 'The GreenZilla',
+    logo: '/images/clients/gz-logo.png',
+    alt: 'The GreenZilla logo',
   },
+  // {
+  //   id: 'client-7',
+  //   name: 'NowWagon',
+  //   logo: '/images/clients/now_wagon.png',
+  //   alt: 'NowWagon logo',
+  // },
   {
     id: 'client-8',
     name: 'Spark',
