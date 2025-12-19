@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Target, Users, Award, Lightbulb, Shield, TrendingUp } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 import { companyInfo, companyValues, whyChooseUs } from '@/lib/data/company'
 import { Eczar } from 'next/font/google'
 
@@ -71,8 +72,14 @@ const item = {
 }
 
 export default function AboutPage() {
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://patheya.tech' },
+    { name: 'About', url: 'https://patheya.tech/about' },
+  ]
+
   return (
     <>
+      <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
         {/* Animated Background Orbs */}

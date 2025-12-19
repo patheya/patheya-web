@@ -5,6 +5,7 @@ import { Mail, Linkedin, MapPin, Clock } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 import { companyInfo } from '@/lib/data/company'
 
 const contactMethods = [
@@ -58,8 +59,14 @@ const item = {
 }
 
 export default function ContactPage() {
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://patheya.tech' },
+    { name: 'Contact', url: 'https://patheya.tech/contact' },
+  ]
+
   return (
     <>
+      <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
         {/* Animated Background Orbs */}

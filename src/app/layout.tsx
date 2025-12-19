@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import { OrganizationSchema } from '@/components/seo/OrganizationSchema'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -54,6 +55,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <OrganizationSchema />
+      </head>
       <body className={`${inter.className} antialiased flex flex-col min-h-screen`}>
         <ThemeProvider
           attribute="class"

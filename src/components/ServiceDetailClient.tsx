@@ -6,6 +6,8 @@ import { CheckCircle2, ArrowRight, Code2, Smartphone, Cloud, Briefcase, Brain } 
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
+import { ServiceSchema } from '@/components/seo/ServiceSchema'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 import type { Service } from '@/types'
 
 const container = {
@@ -44,8 +46,16 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
   const isClaymorphic = service.slug === 'software-development'
   const isGlassmorph = service.slug === 'mobile-app-development' || service.slug === 'business-consultancy'
 
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://patheya.tech' },
+    { name: 'Services', url: 'https://patheya.tech/services' },
+    { name: service.title, url: `https://patheya.tech/services/${service.slug}` },
+  ]
+
   return (
     <>
+      <ServiceSchema service={service} />
+      <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section - Neonmorphism for AI/ML & Cloud, Claymorphism for Software Dev, Glassmorphism for Mobile & Business */}
       {isNeonmorph ? (
         <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100 dark:from-[#0a0e27] dark:via-[#1a1a2e] dark:to-[#0a0e27] py-20 sm:py-32 transition-colors duration-300">

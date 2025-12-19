@@ -7,6 +7,7 @@ import { Container } from '@/components/ui/Container'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { ServiceHeroSection } from '@/components/sections/ServiceHeroSection'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 import { services, getServiceIcon } from '@/lib/data/services'
 
 // Color scheme for each service icon
@@ -62,8 +63,14 @@ const item = {
 }
 
 export default function ServicesPage() {
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://patheya.tech' },
+    { name: 'Services', url: 'https://patheya.tech/services' },
+  ]
+
   return (
     <>
+      <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section with Matrix Effect */}
       <ServiceHeroSection />
 
