@@ -81,7 +81,7 @@ export default function AboutPage() {
     <>
       <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 transition-colors duration-300">
         {/* Animated Background Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
           {/* Orb 1 - Top Left */}

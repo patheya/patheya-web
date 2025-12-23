@@ -9,7 +9,7 @@ import { Container } from '@/components/ui/Container'
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-900 py-20 sm:py-32">
+    <section className="relative overflow-hidden bg-slate-900 py-20">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image

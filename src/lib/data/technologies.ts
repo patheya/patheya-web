@@ -43,7 +43,8 @@ export const technologies: Technology[] = [
   { name: 'Cursor AI', category: 'ai-tools', proficiency: 95 },
   { name: 'GitHub Copilot', category: 'ai-tools', proficiency: 90 },
   { name: 'Claude Code', category: 'ai-tools', proficiency: 95 },
-  { name: 'V0 by Vercel', category: 'ai-tools', proficiency: 85 },
+  // { name: 'V0 by Vercel', category: 'ai-tools', proficiency: 85 },
+  { name: 'Gemini', category: 'ai-tools', proficiency: 85 },
   { name: 'ChatGPT', category: 'ai-tools', proficiency: 90 },
 ]
 

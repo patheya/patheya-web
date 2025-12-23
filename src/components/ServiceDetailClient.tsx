@@ -58,7 +58,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
       <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section - Neonmorphism for AI/ML & Cloud, Claymorphism for Software Dev, Glassmorphism for Mobile & Business */}
       {isNeonmorph ? (
-        <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100 dark:from-[#0a0e27] dark:via-[#1a1a2e] dark:to-[#0a0e27] py-20 sm:py-32 transition-colors duration-300">
+        <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100 dark:from-[#0a0e27] dark:via-[#1a1a2e] dark:to-[#0a0e27] py-20 transition-colors duration-300">
           {/* Neon Grid Background (Dark mode only) */}
           <div className="absolute inset-0 opacity-0 dark:opacity-20 pointer-events-none" aria-hidden="true">
             <div className="absolute inset-0" style={{
@@ -178,7 +178,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
           `}</style>
         </section>
       ) : isClaymorphic ? (
-        <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 py-20 sm:py-32 transition-colors duration-300">
+        <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 py-20 transition-colors duration-300">
           {/* Floating Clay Shapes */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
             {/* Clay Shape 1 - Top Left */}
@@ -279,7 +279,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
           </Container>
         </section>
       ) : isGlassmorph ? (
-        <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 sm:py-32 transition-colors duration-300">
+        <section className="relative overflow-hidden bg-gradient-to-br from-blue-400 via-sky-500 to-purple-400 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 py-20 transition-colors duration-300">
           {/* Animated Background Orbs */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
             {/* Orb 1 - Top Left */}
@@ -363,7 +363,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
           </Container>
         </section>
       ) : (
-        <section className="bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 py-20 sm:py-32">
+        <section className="bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 py-20">
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

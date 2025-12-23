@@ -29,7 +29,7 @@ export function TechnologyStackSection() {
 
   return (
     <section id="technologies" className="py-16 sm:py-24 bg-white dark:bg-slate-900">
-      <Container>
+      <Container className='py-16'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
