@@ -8,7 +8,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CTASection } from '@/components/sections/CTASection'
 
 export const metadata: Metadata = {
-  title: 'Patheya Technologies - Software Development Company in Pune, India',
+  title: 'Patheya (पाथेय) Technologies - Software Development Company in Pune, India',
   description: 'Leading software development company in Pune specializing in web development, mobile apps, cloud services, AI/ML solutions, and DevOps. 15+ happy clients, 25+ projects delivered. Build at the speed of innovation.',
   keywords: [
     'software development company Pune',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     'custom software development',
   ],
   openGraph: {
-    title: 'Patheya Technologies - Build at the Speed of Innovation',
+    title: 'Patheya (पाथेय) Technologies - Build at the Speed of Innovation',
     description: 'Leading software development company in Pune. Web, mobile, cloud, AI/ML, and DevOps solutions. Trusted by 15+ clients with 25+ successful projects.',
     url: 'https://patheya.tech',
     siteName: 'Patheya Technologies',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Patheya Technologies - Build at the Speed of Innovation',
+    title: 'Patheya (पाथेय) Technologies - Build at the Speed of Innovation',
     description: 'Leading software development company in Pune. Web, mobile, cloud, AI/ML, and DevOps solutions.',
     images: ['/images/og-image.png'],
   },

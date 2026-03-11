@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Pātheya Technologies - Software Development & Consultancy',
+  title: 'Pātheya (पाथेय) Technologies - Software Development & Consultancy',
   description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions. Building at the speed of innovation.',
   keywords: ['software development', 'mobile app development', 'cloud services', 'DevOps', 'ReactJS', 'Next.js', 'Pune'],
   authors: [{ name: 'Pātheya Technologies' }],
@@ -29,20 +29,20 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://patheya.tech',
     siteName: 'Pātheya Technologies',
-    title: 'Pātheya Technologies - Software Development & Consultancy',
+    title: 'Pātheya (पाथेय) Technologies - Software Development & Consultancy',
     description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions.',
     images: [
       {
         url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
+        width: 1280,
+        height: 640,
         alt: 'Patheya Technologies',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pātheya Technologies - Software Development & Consultancy',
+    title: 'Pātheya (पाथेय) Technologies - Software Development & Consultancy',
     description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions.',
     images: ['/images/og-image.png'],
   },
