@@ -26,7 +26,7 @@ export default function PortfolioPage() {
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-shrink-0 flex-wrap gap-3">
+            {/* <div className="flex flex-shrink-0 flex-wrap gap-3">
               <Button asChild variant="outline">
                 <a href={PDF_PATH} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
                   Download PDF
                 </a>
               </Button>
-            </div>
+            </div> */}
           </div>
         </Container>
       </section>
@@ -55,7 +55,7 @@ export default function PortfolioPage() {
               style={{ height: '85vh', minHeight: '600px' }}
             />
           </div>
-          <p className="mt-3 text-center text-xs text-slate-500 dark:text-slate-500">
+          {/* <p className="mt-3 text-center text-xs text-slate-500 dark:text-slate-500">
             Having trouble viewing?{' '}
             <a
               href={PDF_PATH}
@@ -65,7 +65,7 @@ export default function PortfolioPage() {
               Download the PDF
             </a>{' '}
             instead.
-          </p>
+          </p> */}
         </Container>
       </section>
     </main>
