@@ -1,10 +1,9 @@
 'use client'
 
-import { Download, ExternalLink } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
-import { Button } from '@/components/ui/Button'
 
 const PDF_PATH = '/business_portfolio_2026.pdf'
+const PDF_SRC = `${PDF_PATH}#toolbar=0&navpanes=0`
 
 export default function PortfolioPage() {
   return (
@@ -49,7 +48,7 @@ export default function PortfolioPage() {
         <Container>
           <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <iframe
-              src={PDF_PATH}
+              src={PDF_SRC}
               title="Patheya Technologies Business Portfolio 2026"
               className="w-full"
               style={{ height: '85vh', minHeight: '600px' }}
