@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anandini — Community Cancer Screening &amp; Reflex Diagnostic Pathway | PRD</title>
+<style>
+  :root{
+    --primary:#0d9488;
+    --primary-dark:#0f766e;
+    --primary-light:#ccfbf1;
+    --navy:#1e3a5f;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#1e293b;
+    --text-muted:#64748b;
+    --border:#e2e8f0;
+
+    --p0:#059669; --p0-bg:#d1fae5;
+    --p1:#d97706; --p1-bg:#fef3c7;
+    --p2:#6366f1; --p2-bg:#e0e7ff;
+
+    --neg:#16a34a; --neg-bg:#dcfce7;
+    --lvl3:#ca8a04; --lvl3-bg:#fef9c3;
+    --lvl2:#ea580c; --lvl2-bg:#ffedd5;
+    --lvl1:#dc2626; --lvl1-bg:#fee2e2;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
+    color:#fff;
+    padding:56px 24px 64px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08), transparent 50%),
+               radial-gradient(circle at 10% 90%, rgba(255,255,255,0.06), transparent 40%);
+  }
+  .hero-logo{
+    display:block; width:84px; height:84px; margin:0 auto 18px;
+    border-radius:18px; background:#fff; padding:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.18);
+    position:relative; z-index:1; object-fit:contain;
+  }
+  .hero-tag{
+    display:inline-block; font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    background:rgba(255,255,255,0.12); padding:6px 16px; border-radius:20px; margin-bottom:18px;
+    position:relative; z-index:1;
+  }
+  .hero h1{font-size:2.4rem; font-weight:800; margin-bottom:10px; position:relative; z-index:1;}
+  .hero p.lead{font-size:1.15rem; max-width:760px; margin:0 auto 22px; opacity:.92; position:relative; z-index:1;}
+  .hero .meta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;}
+  .meta span{
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.25);
+    padding:6px 14px; border-radius:8px; font-size:13px; font-weight:600;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:#ffffffee; backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+    display:flex; gap:4px; overflow-x:auto; padding:10px 16px;
+    -webkit-overflow-scrolling:touch;
+  }
+  nav.topnav a{
+    white-space:nowrap; font-size:13.5px; font-weight:600; color:var(--text-muted);
+    text-decoration:none; padding:8px 14px; border-radius:8px; transition:.15s;
+  }
+  nav.topnav a:hover{background:var(--primary-light); color:var(--primary-dark);}
+  nav.topnav a.active{background:var(--primary); color:#fff;}
+
+  /* ---------- LAYOUT ---------- */
+  main{max-width:1180px; margin:0 auto; padding:0 24px 80px;}
+  section{padding:56px 0; border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:32px;}
+  .section-head .eyebrow{
+    font-size:12.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--primary-dark);
+  }
+  .section-head h2{font-size:1.9rem; font-weight:800; margin-top:6px; color:var(--navy);}
+  .section-head p{color:var(--text-muted); max-width:760px; margin-top:8px; font-size:15px;}
+
+  /* ---------- CARDS GENERAL ---------- */
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:22px; box-shadow:0 1px 3px rgba(0,0,0,0.03);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{box-shadow:0 8px 24px rgba(15,23,42,0.08); transform:translateY(-2px);}
+
+  /* ---------- KEY DECISIONS ---------- */
+  .decisions-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;}
+  .decision-card{border-left:5px solid var(--primary);}
+  .decision-card .icon{font-size:28px; margin-bottom:10px; display:block;}
+  .decision-card h3{font-size:15px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+  .decision-card p{font-size:14px; color:var(--text-muted);}
+
+  /* ---------- VISION ---------- */
+  .vision-box{
+    background:linear-gradient(135deg, var(--primary-light), #ffffff);
+    border:1px solid var(--primary-light); border-radius:18px;
+    padding:36px 40px; font-size:1.2rem; font-weight:600; color:var(--navy);
+    line-height:1.65; position:relative;
+  }
+  .vision-box::before{content:"“"; font-size:4rem; color:var(--primary); position:absolute; top:0; left:18px; line-height:1; font-family:Georgia, serif;}
+  .vision-box span{display:block; padding-left:8px;}
+
+  /* ---------- ROLES TABLE ---------- */
+  .table-wrap{overflow-x:auto; border-radius:14px; border:1px solid var(--border);}
+  table{width:100%; border-collapse:collapse; background:#fff; font-size:14px;}
+  table th{
+    background:var(--navy); color:#fff; text-align:left; padding:12px 16px; font-weight:600; font-size:13px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  table td{padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:top;}
+  table tr:last-child td{border-bottom:none;}
+  table tr:nth-child(even) td{background:#f8fafc;}
+  .badge{
+    display:inline-block; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:700;
+    white-space:nowrap;
+  }
+  .badge-mobile{background:#e0e7ff; color:#4338ca;}
+  .badge-web{background:#dbeafe; color:#1d4ed8;}
+  .badge-api{background:#f3e8ff; color:#7e22ce;}
+  .badge-none{background:#f1f5f9; color:#64748b;}
+  .badge-future{background:#fef3c7; color:#b45309;}
+
+  /* ---------- ARCHITECTURE DIAGRAM ---------- */
+  .arch{display:flex; flex-direction:column; align-items:center; gap:0;}
+  .arch-platform{
+    width:100%; max-width:760px; background:var(--navy); color:#fff; border-radius:14px;
+    padding:22px 28px; text-align:center; box-shadow:0 8px 24px rgba(30,58,95,0.25);
+  }
+  .arch-platform h3{font-size:1.1rem; margin-bottom:6px;}
+  .arch-platform p{font-size:13px; opacity:.85;}
+  .arch-line{width:2px; height:28px; background:var(--border);}
+  .arch-row{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:18px; width:100%; max-width:1080px;
+  }
+  .arch-node{
+    background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px;
+    text-align:center; position:relative;
+  }
+  .arch-node::before{
+    content:""; position:absolute; top:-28px; left:50%; transform:translateX(-50%);
+    width:2px; height:28px; background:var(--border);
+  }
+  .arch-node .icon{font-size:26px; display:block; margin-bottom:8px;}
+  .arch-node h4{font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px;}
+  .arch-node p{font-size:12.5px; color:var(--text-muted);}
+  .arch-hw{margin-top:36px; text-align:center;}
+  .arch-hw .arch-node{display:inline-block; max-width:260px;}
+
+  /* ---------- JOURNEY STEPPER ---------- */
+  .stepper{
+    display:flex; gap:6px; overflow-x:auto; padding:6px 0 18px; margin-bottom:18px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .step{
+    flex:1 0 130px; text-align:center; padding:12px 8px; border-radius:10px;
+    background:#fff; border:1px solid var(--border); font-size:12.5px; font-weight:700; color:var(--navy);
+    cursor:pointer; transition:.15s; position:relative;
+  }
+  .step .num{
+    display:block; width:26px; height:26px; line-height:26px; border-radius:50%; background:var(--primary-light);
+    color:var(--primary-dark); font-weight:800; margin:0 auto 6px; font-size:13px;
+  }
+  .step:hover{border-color:var(--primary); transform:translateY(-2px);}
+
+  /* ---------- FILTERS ---------- */
+  .filters{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;}
+  .filter-btn{
+    border:1px solid var(--border); background:#fff; padding:8px 16px; border-radius:999px;
+    font-size:13px; font-weight:700; cursor:pointer; color:var(--text-muted); transition:.15s;
+  }
+  .filter-btn.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .filter-btn[data-filter="P0"].active{background:var(--p0); border-color:var(--p0);}
+  .filter-btn[data-filter="P1"].active{background:var(--p1); border-color:var(--p1);}
+  .filter-btn[data-filter="P2"].active{background:var(--p2); border-color:var(--p2);}
+
+  /* ---------- MODULE GROUPS / CARDS ---------- */
+  .group-title{
+    font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+    color:var(--primary-dark); margin:36px 0 14px; display:flex; align-items:center; gap:10px;
+  }
+  .group-title::after{content:""; flex:1; height:1px; background:var(--border);}
+  .module-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:18px;}
+  .module-card{display:flex; flex-direction:column; gap:10px;}
+  .module-card .top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .module-card h3{font-size:16px; font-weight:800; color:var(--navy); line-height:1.3;}
+  .module-card .module-id{font-size:11.5px; color:var(--text-muted); font-weight:700; letter-spacing:.05em;}
+  .priority-pill{
+    font-size:11px; font-weight:800; padding:4px 10px; border-radius:6px; white-space:nowrap; flex-shrink:0;
+  }
+  .priority-pill.P0{background:var(--p0-bg); color:var(--p0);}
+  .priority-pill.P1{background:var(--p1-bg); color:var(--p1);}
+  .priority-pill.P2{background:var(--p2-bg); color:var(--p2);}
+  .module-card .desc{font-size:13px; color:var(--text-muted); font-style:italic;}
+  .module-card ul{padding-left:18px; font-size:13.5px; display:flex; flex-direction:column; gap:5px;}
+  .module-card ul li::marker{color:var(--primary);}
+  .module-card ul li strong{color:var(--navy);}
+
+  /* ---------- TRIAGE LEGEND ---------- */
+  .triage-legend{
+    display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 30px; padding:16px 18px;
+    background:#fff; border:1px dashed var(--border); border-radius:12px; align-items:center;
+  }
+  .triage-legend .label{font-size:12.5px; font-weight:700; color:var(--text-muted); margin-right:6px;}
+  .chip{font-size:12.5px; font-weight:800; padding:6px 14px; border-radius:999px;}
+  .chip.negative{background:var(--neg-bg); color:var(--neg);}
+  .chip.level3{background:var(--lvl3-bg); color:var(--lvl3);}
+  .chip.level2{background:var(--lvl2-bg); color:var(--lvl2);}
+  .chip.level1{background:var(--lvl1-bg); color:var(--lvl1);}
+  .chip.arrow{background:none; color:var(--text-muted); padding:6px 2px;}
+
+  /* ---------- CROSS-CUTTING ---------- */
+  .cc-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px;}
+  .cc-card{border-top:4px solid var(--primary);}
+  .cc-card .icon{font-size:24px; margin-bottom:8px; display:block;}
+  .cc-card h3{font-size:14.5px; font-weight:800; color:var(--navy); margin-bottom:8px;}
+  .cc-card ul{font-size:13px; padding-left:16px; color:var(--text-muted); display:flex; flex-direction:column; gap:4px;}
+
+  /* ---------- DATA MODEL TREE ---------- */
+  .tree{font-size:13.5px;}
+  .tree ul{list-style:none; padding-left:26px; margin-top:6px; border-left:2px dashed var(--border);}
+  .tree > ul{border-left:none; padding-left:0;}
+  .tree li{position:relative; padding:6px 0 0 18px;}
+  .tree li::before{
+    content:""; position:absolute; left:0; top:14px; width:14px; height:2px; background:var(--border);
+  }
+  .tree .entity{
+    display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:12.5px;
+    padding:4px 10px; border-radius:6px;
+  }
+  .tree .sub{
+    display:inline-block; background:#fff; border:1px solid var(--border); color:var(--text);
+    font-size:12px; padding:3px 9px; border-radius:6px;
+  }
+  .tree .note{color:var(--text-muted); font-size:12px; margin-left:6px;}
+
+  /* ---------- NFR TABLE ---------- */
+  .nfr-icon{font-size:18px;}
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:0; position:relative;}
+  .phase{
+    background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; position:relative;
+    margin:10px 8px;
+  }
+  .phase .ph-num{
+    display:inline-block; background:var(--primary); color:#fff; font-weight:800; font-size:12px;
+    padding:4px 10px; border-radius:999px; margin-bottom:10px;
+  }
+  .phase h4{font-size:14.5px; font-weight:800; color:var(--navy); margin-bottom:4px;}
+  .phase .dur{font-size:12px; color:var(--text-muted); margin-bottom:10px; font-weight:600;}
+  .phase .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .phase .chips span{
+    font-size:11px; background:var(--primary-light); color:var(--primary-dark); padding:3px 8px; border-radius:6px; font-weight:700;
+  }
+  .phase:nth-child(5) .ph-num{background:var(--p2);}
+
+  /* ---------- METRICS ---------- */
+  .metrics-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px;}
+  .metric-card{border-top:4px solid var(--primary);}
+  .metric-card h3{font-size:14px; font-weight:800; color:var(--navy); margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .metric-card ul{font-size:13px; color:var(--text-muted); padding-left:18px; display:flex; flex-direction:column; gap:5px;}
+  .metric-card ul li strong{color:var(--primary-dark);}
+
+  /* ---------- OPEN QUESTIONS ---------- */
+  details{
+    background:#fff; border:1px solid var(--border); border-radius:10px; margin-bottom:10px; overflow:hidden;
+  }
+  details summary{
+    padding:14px 18px; font-weight:700; font-size:14px; cursor:pointer; color:var(--navy);
+    display:flex; align-items:center; gap:10px; list-style:none;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::before{
+    content:"+"; font-size:16px; color:var(--primary); font-weight:900; width:20px; text-align:center;
+  }
+  details[open] summary::before{content:"–";}
+  details .body{padding:0 18px 16px 48px; font-size:13.5px; color:var(--text-muted);}
+  .q-num{
+    background:var(--primary-light); color:var(--primary-dark); font-size:12px; font-weight:800;
+    border-radius:6px; padding:2px 8px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center; padding:32px 24px; color:var(--text-muted); font-size:13px;}
+
+  @media print{
+    nav.topnav{display:none;}
+    section{break-inside:avoid; padding:24px 0;}
+    .card:hover{transform:none; box-shadow:none;}
+    details{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-logo" src="https://firebasestorage.googleapis.com/v0/b/food-to-home-staging.appspot.com/o/images%2Fanandini.png?alt=media&token=3ce14cb3-ef25-4f0d-8107-4c0ae987ff0a" alt="Anandini Logo" width="84" height="84">
+  <span class="hero-tag">Product Requirements Document · Stakeholder Walkthrough</span>
+  <h1>Anandini</h1>
+  <p class="lead">Community Cancer Screening &amp; Reflex Diagnostic Pathway — an end-to-end platform connecting mass screening camps, outsourced pathology labs, AI-assisted referral, and multi-level treatment tracking into one longitudinal patient record.</p>
+  <div class="meta">
+    <span>Version 0.1 · Draft</span>
+    <span>June 2026</span>
+    <span>Status: For Review</span>
+  </div>
+</header>
+
+<nav class="topnav" id="topnav">
+  <a href="#overview">Overview</a>
+  <a href="#vision">Vision</a>
+  <a href="#roles">Users &amp; Roles</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#journey">Patient Journey &amp; Modules</a>
+  <a href="#cross-cutting">Cross-Cutting</a>
+  <a href="#data-model">Data Model</a>
+  <a href="#nfr">Quality Attributes</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#metrics">Success Metrics</a>
+  <a href="#open-questions">Open Questions</a>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-head">
+      <div class="eyebrow">01 · Foundational Decisions</div>
+      <h2>What this platform is — and four decisions that shape it</h2>
+      <p>This PRD translates the requirements in <code>notes.md</code> and the reference architecture into a prioritized set of modules. Four decisions, confirmed with stakeholders, shape the design below — most notably the move to a fully <strong>configurable clinical protocol engine</strong> rather than hardcoded cancer logic.</p>
+    </div>
+    <div class="decisions-grid">
+      <div class="card decision-card">
+        <span class="icon">📵</span>
+        <h3>Patient-Facing Access</h3>
+        <p>Phase 1–3: <strong>notification-only</strong> (SMS/Email). A full <strong>Patient Portal</strong> is planned as a later-phase module.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🏥</span>
+        <h3>Treatment Pathway Depth</h3>
+        <p><strong>Full treatment management</strong> — Level 1/2/3 cycles, side effects, hospital integration — is the roadmap target, delivered in phases.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🧬</span>
+        <h3>Cancer Type Scope</h3>
+        <p><strong>Generic &amp; configurable.</strong> No cancer type, marker, or threshold is hardcoded — admins define protocols, test panels, and referral rules.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🏢</span>
+        <h3>Tenancy</h3>
+        <p><strong>Single organization</strong> for now, with org/facility kept first-class so multi-tenancy can be added without a redesign.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision">
+    <div class="section-head">
+      <div class="eyebrow">02 · Vision</div>
+      <h2>Why we're building this</h2>
+    </div>
+    <div class="vision-box">
+      <span>Enable a single organization to run mass cancer screening camps across communities, seamlessly hand off samples to outsourced pathology labs, automatically interpret results against configurable clinical protocols, and guide every patient through the correct care pathway — from a negative result and routine follow-up, to staging, day-care treatment, or hospitalization — while maintaining a complete longitudinal health record for each patient.</span>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-head">
+      <div class="eyebrow">03 · Who Uses This</div>
+      <h2>Users &amp; Roles</h2>
+      <p>All accounts are provisioned by administrators — there is <strong>no self-signup</strong> for any role.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Role</th><th>Primary Interface</th><th>Responsibilities</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Screening Technician</strong> (Field)</td><td><span class="badge badge-mobile">Mobile · Offline</span></td><td>Registers patients at camps, captures demographics/history/questionnaire, records consent, collects samples, prints/scans barcodes, hands off samples</td></tr>
+          <tr><td><strong>Lab Coordinator</strong> (Internal)</td><td><span class="badge badge-web">Web</span></td><td>Manages handover to pathology lab, reconciles sample counts, monitors sample status &amp; turnaround time</td></tr>
+          <tr><td><strong>Pathology Lab Staff</strong> (3rd Party)</td><td><span class="badge badge-api">API / Limited Web</span></td><td>Receives sample notifications, submits results &amp; rejections via API or portal</td></tr>
+          <tr><td><strong>Clinical Reviewer / Oncologist</strong></td><td><span class="badge badge-web">Web</span></td><td>Reviews flagged/auto-assigned referral levels, overrides with justification, creates &amp; manages treatment plans</td></tr>
+          <tr><td><strong>Day-Care / Treatment Coordinator</strong></td><td><span class="badge badge-web">Web</span></td><td>Manages Level 2 treatment cycles, side-effect triage, investigations</td></tr>
+          <tr><td><strong>Hospital Staff</strong> (Level 1)</td><td><span class="badge badge-web">Web</span> <span class="badge badge-api">+ API</span></td><td>Admission, bed assignment, surgery, discharge records</td></tr>
+          <tr><td><strong>Program / Portal Admin</strong></td><td><span class="badge badge-web">Web</span></td><td>Full configuration access — protocols, thresholds, users, facilities, reports</td></tr>
+          <tr><td><strong>Stakeholder / Funder</strong></td><td><span class="badge badge-web">Web (read-only)</span></td><td>Views dashboards, receives periodic summary reports via email</td></tr>
+          <tr><td><strong>Patient</strong></td><td><span class="badge badge-none">None</span> <span class="badge badge-future">→ Portal (future)</span></td><td>Receives SMS/Email notifications; later, may view own results &amp; appointments</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture">
+    <div class="section-head">
+      <div class="eyebrow">04 · System Architecture</div>
+      <h2>How the pieces connect</h2>
+      <p>The Anandini Core Platform is the hub for patient identity, clinical configuration, the referral engine, case management, and analytics. It connects outward to field operations, outsourced labs, hospitals, and patients.</p>
+    </div>
+    <div class="arch">
+      <div class="arch-platform">
+        <h3>⚙️ Anandini Core Platform — Web + APIs</h3>
+        <p>Patient Registry · Protocol Configuration · Referral Engine · Case Management · Analytics</p>
+      </div>
+      <div class="arch-line"></div>
+      <div class="arch-row">
+        <div class="arch-node">
+          <span class="icon">📱</span>
+          <h4>Mobile Screening App</h4>
+          <p>Flutter, offline-first, used at camps by field technicians</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">🧪</span>
+          <h4>Pathology Lab(s)</h4>
+          <p>Outsourced partners via API / webhooks / file-based fallback</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">🏨</span>
+          <h4>Hospitals &amp; Day-Care Centers</h4>
+          <p>Via API where available, manual entry fallback</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">💬</span>
+          <h4>Patient Communication</h4>
+          <p>SMS &amp; Email notifications now; Patient Portal in a future phase</p>
+        </div>
+      </div>
+      <div class="arch-hw">
+        <div class="arch-node">
+          <span class="icon">🖨️</span>
+          <h4>Field Hardware</h4>
+          <p>QR/barcode &amp; card printers, scanners — connected to the mobile app</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY & MODULES -->
+  <section id="journey">
+    <div class="section-head">
+      <div class="eyebrow">05 · Functional Modules</div>
+      <h2>The Patient Journey, Module by Module</h2>
+      <p>Every module maps to a stage in the patient's journey — from first registration at a camp through to long-term survivorship follow-up. Use the filters below to focus on what's needed for launch (P0) vs. the full roadmap.</p>
+    </div>
+
+    <div class="stepper">
+      <div class="step"><span class="num">1</span>Registration &amp; Identity</div>
+      <div class="step"><span class="num">2</span>Mass Screening Camp</div>
+      <div class="step"><span class="num">3</span>Sample Collection</div>
+      <div class="step"><span class="num">4</span>Pathology Lab</div>
+      <div class="step"><span class="num">5</span>Result Validation</div>
+      <div class="step"><span class="num">6</span>Protocol &amp; Rules</div>
+      <div class="step"><span class="num">7</span>Risk &amp; Referral</div>
+      <div class="step"><span class="num">8</span>Staging / Negative</div>
+      <div class="step"><span class="num">9</span>Day-Care Treatment</div>
+      <div class="step"><span class="num">10</span>Hospitalization</div>
+      <div class="step"><span class="num">11</span>Survivorship</div>
+      <div class="step"><span class="num">12</span>Case Oversight</div>
+      <div class="step"><span class="num">13</span>Analytics</div>
+      <div class="step"><span class="num">14</span>Patient Portal</div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="ALL">All Modules (14)</button>
+      <button class="filter-btn" data-filter="P0">P0 — Launch Foundation</button>
+      <button class="filter-btn" data-filter="P1">P1 — Full Care Pathway</button>
+      <button class="filter-btn" data-filter="P2">P2 — Future Enhancements</button>
+    </div>
+
+    <!-- GROUP A -->
+    <div class="group-title">Identity &amp; Field Operations</div>
+    <div class="module-grid">
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 01</div><h3>Patient Registry &amp; Master Health Record</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">The single source of truth for patient identity across multiple screening cycles and years.</p>
+        <ul>
+          <li>Unique Patient ID (optionally mappable to a national health ID, e.g. ABHA)</li>
+          <li>Demographics, household/family linkage, full medical history</li>
+          <li><strong>Longitudinal record:</strong> every session, sample, result, referral &amp; treatment episode linked over time</li>
+          <li>Duplicate detection at registration (fuzzy match)</li>
+          <li>Digital Patient Card with QR code — printable as PVC card, barcode sticker, or paper</li>
+          <li>Versioned digital consent capture &amp; withdrawal handling</li>
+          <li>Admin-only audited patient search &amp; merge tool</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 02</div><h3>Mass Screening &amp; Camp Operations</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">Mobile-first module for field technicians running screening camps.</p>
+        <ul>
+          <li>Camp/session creation: location, date/time, capacity, assigned technicians</li>
+          <li>Batch registration — manual entry, CSV import, or card re-scan for returning patients</li>
+          <li>Configurable questionnaire rendered from the active <strong>Screening Protocol</strong> (Module 06)</li>
+          <li>On-device, offline risk score calculation</li>
+          <li>Offline-first capture with background sync &amp; conflict resolution</li>
+          <li>Session summary: screened vs. declined, data quality, technician activity</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 03</div><h3>Sample Collection &amp; Chain of Custody</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">Tracks every sample from collection to lab result, with full accountability.</p>
+        <ul>
+          <li>Sample registration (type driven by the protocol's test panel), linked to patient &amp; screening record</li>
+          <li>Barcode/QR generation, printable on vial/container stickers</li>
+          <li>Collection metadata: technician, timestamp, optional geo-tag</li>
+          <li>Handover workflow with digital signature &amp; scan-based count reconciliation</li>
+          <li>Status pipeline: <em>Collected → Handed Over → In Transit → Received by Lab → Analyzed → Result Received / Rejected</em></li>
+          <li>Rejection handling with reason capture &amp; automatic re-collection task</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP B -->
+    <div class="group-title">Laboratory &amp; Results</div>
+    <div class="module-grid">
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 04</div><h3>Pathology Lab Integration</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">Two-way integration with outsourced pathology lab partners.</p>
+        <ul>
+          <li><strong>Outbound:</strong> register sample + encrypted patient data, send handover notification, query status, request results</li>
+          <li><strong>Inbound:</strong> receive results, sample-received confirmations, and rejection notices via webhook or polling</li>
+          <li>Adapter framework for multiple lab API formats — REST/JSON primary, CSV/file-drop fallback</li>
+          <li>Lab partner master data: registered labs, supported panels, SLA/TAT targets, credentials</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 05</div><h3>Result Management &amp; Validation</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">Ensures every result is accurate, verified, and traceable before it drives a referral decision.</p>
+        <ul>
+          <li>Auto-ingestion &amp; normalization against protocol-defined markers/units</li>
+          <li>Manual entry path for labs without API integration</li>
+          <li><strong>Critical/urgent result flagging</strong> — bypasses normal queue for immediate alert</li>
+          <li>Clinician verification step before results reach the referral engine</li>
+          <li>Result correction &amp; versioning — no silent overwrites, full audit trail</li>
+          <li>Archival linked to the patient's master record</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP C -->
+    <div class="group-title">Clinical Intelligence — Configuration &amp; Referral Engine</div>
+    <div class="module-grid">
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 06</div><h3>Screening Protocol &amp; Rules Configuration</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc"><strong>New &amp; central module.</strong> The admin-facing engine that defines what is screened for and how results are interpreted — without code changes.</p>
+        <ul>
+          <li><strong>Cancer Type Definitions:</strong> name, description, applicable demographics</li>
+          <li><strong>Test Panel Definitions:</strong> markers/tests (e.g. PSA, CEA, CA-125, HPV-DNA, cytology), units, reference ranges</li>
+          <li><strong>Questionnaire Builder:</strong> configurable risk questions with scoring weights</li>
+          <li><strong>Referral Rule Engine:</strong> threshold/condition rules → Referral Level, incl. multi-marker rules</li>
+          <li><strong>Protocol Versioning:</strong> immutable once used, preserving historical interpretation for audit</li>
+          <li><strong>Follow-up Schedule Templates:</strong> re-screening intervals per cancer type/outcome</li>
+          <li>Admin simulation tool to preview referral outcomes before activation</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 07</div><h3>Risk Stratification &amp; Referral Assignment Engine</h3></div>
+          <span class="priority-pill P0">P0</span>
+        </div>
+        <p class="desc">Turns verified results + patient context into an automatic, explainable referral decision.</p>
+        <ul>
+          <li>Applies the active Screening Protocol's rules to results + demographics + risk score</li>
+          <li>Produces an auto-assigned Referral Level with confidence/score shown alongside</li>
+          <li><strong>AI/ML scoring hook:</strong> rules-only at first; pluggable ML model integration reserved for later phases</li>
+          <li>Manual override workflow — mandatory justification, full audit trail, optional approval step for high-impact changes (e.g. Level 1 → Negative)</li>
+        </ul>
+        <div class="triage-legend">
+          <span class="label">Referral Levels:</span>
+          <span class="chip negative">Negative</span>
+          <span class="chip arrow">→</span>
+          <span class="chip level3">Level 3 · Staging</span>
+          <span class="chip arrow">→</span>
+          <span class="chip level2">Level 2 · Day-Care</span>
+          <span class="chip arrow">→</span>
+          <span class="chip level1">Level 1 · Hospitalization</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP D -->
+    <div class="group-title">Care Pathway &amp; Treatment</div>
+    <div class="module-grid">
+      <div class="card module-card" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 08</div><h3>Referral &amp; Care Pathway Management</h3></div>
+          <span class="priority-pill P1">P1</span>
+        </div>
+        <p class="desc">Covers the <span class="chip negative" style="padding:2px 8px;">Negative</span> pathway and <span class="chip level3" style="padding:2px 8px;">Level 3</span> staging.</p>
+        <ul>
+          <li><strong>Negative:</strong> auto-notification, auto-generated next-screening date, case closed</li>
+          <li><strong>Level 3 (Staging):</strong> urgent notification to patient &amp; clinician, oncology appointment booking, additional diagnostic ordering, TNM staging documentation</li>
+          <li>Decision gate → routes to Level 2 or Level 1</li>
+          <li>Referral history timeline — level changes, overrides, justifications</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 09</div><h3>Level 2: Day-Care Treatment Management</h3></div>
+          <span class="priority-pill P1">P1</span>
+        </div>
+        <p class="desc"><span class="chip level2" style="padding:2px 8px;">Level 2</span> — early-stage, outpatient treatment.</p>
+        <ul>
+          <li>Treatment plan creation/upload (type, goals, duration)</li>
+          <li>Cycle scheduling — chemo rounds, radiation sessions, drugs/doses, attendance</li>
+          <li>Investigation tracking: imaging, metastasis monitoring, tumor response</li>
+          <li>Side-effect monitoring with severity classification &amp; automatic coordinator alerts for severe cases</li>
+          <li>Recovery classification (Complete/Partial/No Response) → continue, pivot, or escalate to Level 1</li>
+          <li>Discharge planning into post-treatment follow-up</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 10</div><h3>Level 1: Hospitalization Management</h3></div>
+          <span class="priority-pill P1">P1</span>
+        </div>
+        <p class="desc"><span class="chip level1" style="padding:2px 8px;">Level 1</span> — advanced-stage, inpatient care.</p>
+        <ul>
+          <li>Hospital/treatment center integration — API where available, manual fallback</li>
+          <li>Admission record: reason, clinical summary, ward/bed assignment</li>
+          <li>Inpatient tracking: transfers, surgery &amp; complications, medications, transfusions, ICU status, daily vitals</li>
+          <li>Discharge: recovery assessment, summary, recommendations, routing to Level 2 or follow-up</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 11</div><h3>Post-Treatment &amp; Survivorship Follow-up</h3></div>
+          <span class="priority-pill P1">P1</span>
+        </div>
+        <p class="desc">Keeps recovered patients on a long-term monitoring cadence.</p>
+        <ul>
+          <li>Recovery monitoring schedule: weekly → monthly → quarterly, per protocol templates</li>
+          <li>Post-treatment imaging &amp; tumor-marker monitoring schedules</li>
+          <li>Case closure workflow (declared recovered/stable)</li>
+          <li>Re-entry into the screening cycle for periodic survivorship screening</li>
+          <li>Overdue follow-up detection &amp; escalation alerts</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP E -->
+    <div class="group-title">Oversight, Insights &amp; Patient Engagement</div>
+    <div class="module-grid">
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 12</div><h3>Case Management Dashboard</h3></div>
+          <span class="priority-pill P0">P0 / P1</span>
+        </div>
+        <p class="desc">Basic view at launch (P0); full real-time view in Phase 3 (P1).</p>
+        <ul>
+          <li>Active cases list — filter/sort by referral level, status, facility, technician, overdue flag</li>
+          <li>Case detail: patient summary, full result history, referral history with overrides, treatment timeline, documents</li>
+          <li>Pending-action queue: awaiting results, appointment, treatment cycle, or follow-up</li>
+          <li>Real-time updates for sample status, critical flags, and overdue escalations</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 13</div><h3>Analytics &amp; Reporting</h3></div>
+          <span class="priority-pill P1">P1 / P2</span>
+        </div>
+        <p class="desc">Basic campaign analytics first (P1); advanced insights &amp; custom builder later (P2).</p>
+        <ul>
+          <li>Screening campaign analytics: totals, result distribution, demographics, geography, time-to-result</li>
+          <li>Technician performance &amp; lab partner performance (TAT, rejection rate, error rate)</li>
+          <li>Referral &amp; treatment outcomes: auto-assignment accuracy, override rate, compliance, recovery rates</li>
+          <li>Compliance dashboard: consent completeness, follow-up adherence, audit exceptions</li>
+          <li>Standard + custom report builder; Excel/PDF export; scheduled email delivery to stakeholders</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P2">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 14</div><h3>Patient Portal</h3></div>
+          <span class="priority-pill P2">P2</span>
+        </div>
+        <p class="desc">A confirmed future-phase module, despite the notification-only starting point.</p>
+        <ul>
+          <li>Secure OTP-based login tied to registered phone — accounts provisioned at registration, no self-signup</li>
+          <li>Dashboard: screening status, results in plain language, upcoming appointments, treatment overview</li>
+          <li>Result viewing &amp; document download (reports, discharge summaries)</li>
+          <li>Appointment view/confirm/reschedule with reminders</li>
+          <li>Side-effect self-reporting feeding Module 09 monitoring</li>
+          <li>Educational content &amp; FAQ links</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-CUTTING -->
+  <section id="cross-cutting">
+    <div class="section-head">
+      <div class="eyebrow">06 · Shared Services</div>
+      <h2>Cross-Cutting Modules</h2>
+      <p>These underpin every module above and should be designed first as shared platform services.</p>
+    </div>
+    <div class="cc-grid">
+      <div class="card cc-card">
+        <span class="icon">🔐</span>
+        <h3>CC1 — Identity, Access &amp; User Management <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>OAuth2/OIDC (e.g. AWS Cognito), no self-signup</li>
+          <li>Role-Based Access Control across all roles</li>
+          <li>MFA for PHI-accessing roles</li>
+          <li>Facility/org-scoped permissions (multi-tenancy ready)</li>
+          <li>Full account lifecycle management</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">✉️</span>
+        <h3>CC2 — Notifications &amp; Communications <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>SMS &amp; Email channels (no patient app needed)</li>
+          <li>Event-driven: registration, results, critical alerts, reminders, follow-up due</li>
+          <li>Templated, multi-language messaging</li>
+          <li>Delivery tracking &amp; retry, India DLT-compliant SMS gateway</li>
+          <li>Scheduled stakeholder summary digests</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🧾</span>
+        <h3>CC3 — Audit Trail &amp; Compliance Logging <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>Immutable audit log: PHI access, edits, overrides, config changes</li>
+          <li>Consent versioning &amp; history</li>
+          <li>Retention/purge aligned to India's DPDP Act, 2023</li>
+          <li>Exportable compliance reports</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🗂️</span>
+        <h3>CC4 — Master Data &amp; Configuration <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>Org/facility hierarchy — sites, camps, labs, hospitals</li>
+          <li>User/role master, location master</li>
+          <li>Links to Module 06 clinical configuration</li>
+          <li>System-wide alert thresholds &amp; default schedules</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">📁</span>
+        <h3>CC5 — Document &amp; Media Storage <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>S3-compatible storage, India region</li>
+          <li>Consent forms, lab reports, scans, discharge summaries</li>
+          <li>Encryption at rest, signed-URL access via RBAC</li>
+          <li>Versioning &amp; retention tagging</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">📡</span>
+        <h3>CC6 — Real-Time Communication Layer <span class="priority-pill P1">P1</span></h3>
+        <ul>
+          <li>WebSocket/SSE for live dashboard updates</li>
+          <li>Sample status board, case alerts, critical results</li>
+          <li>Feeds Module 03 (sample tracking) &amp; Module 12 (case dashboard)</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">📶</span>
+        <h3>CC7 — Offline Sync Engine <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>Local-first storage (SQLite) on mobile</li>
+          <li>Background sync with conflict detection</li>
+          <li>Manual-review queue for unresolved conflicts</li>
+          <li>Sync status indicators for field staff</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🖱️</span>
+        <h3>CC8 — Hardware / Peripheral Integration <span class="priority-pill P0">P0</span></h3>
+        <ul>
+          <li>QR generation for Patient &amp; Sample IDs</li>
+          <li>Barcode/sticker printing via Bluetooth/USB printers</li>
+          <li>PVC/hard-bound card printing workflow</li>
+          <li>Camera or hardware scanner for handover reconciliation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA MODEL -->
+  <section id="data-model">
+    <div class="section-head">
+      <div class="eyebrow">07 · Data Model</div>
+      <h2>High-Level Data Entities</h2>
+      <p>A simplified view of how core entities relate — from organization down to individual treatment records.</p>
+    </div>
+    <div class="card tree">
+      <ul>
+        <li><span class="entity">ORGANIZATION / FACILITY</span> <span class="note">sites, camps, labs, hospitals — multi-tenancy ready</span></li>
+        <li><span class="entity">USER</span> <span class="note">role, facility scope</span></li>
+        <li><span class="entity">PATIENT</span> <span class="note">demographics, household link, medical history</span>
+          <ul>
+            <li><span class="sub">CONSENT</span> <span class="note">versioned</span></li>
+          </ul>
+        </li>
+        <li><span class="entity">SCREENING_PROTOCOL</span> <span class="note">versioned</span>
+          <ul>
+            <li><span class="sub">CANCER_TYPE</span></li>
+            <li><span class="sub">TEST_PANEL / MARKER_DEFINITION</span></li>
+            <li><span class="sub">QUESTIONNAIRE_DEFINITION</span></li>
+            <li><span class="sub">REFERRAL_RULE</span></li>
+            <li><span class="sub">FOLLOWUP_TEMPLATE</span></li>
+          </ul>
+        </li>
+        <li><span class="entity">SCREENING_SESSION</span> <span class="note">camp</span>
+          <ul>
+            <li><span class="sub">SCREENING_RECORD</span> <span class="note">patient × session, protocol version, risk score</span>
+              <ul>
+                <li><span class="sub">SAMPLE</span> <span class="note">barcode, type, chain-of-custody status</span>
+                  <ul>
+                    <li><span class="sub">LAB_RESULT</span> <span class="note">markers, values, verification status</span>
+                      <ul>
+                        <li><span class="sub">REFERRAL_ASSIGNMENT</span> <span class="note">level, auto/override, justification, audit</span>
+                          <ul>
+                            <li><span class="sub">TREATMENT_PLAN</span> <span class="note">Level 2 / Level 1</span>
+                              <ul>
+                                <li><span class="sub">TREATMENT_CYCLE</span></li>
+                                <li><span class="sub">INVESTIGATION</span></li>
+                                <li><span class="sub">SIDE_EFFECT_REPORT</span></li>
+                                <li><span class="sub">ADMISSION</span> <span class="note">bed, surgery, discharge</span></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><span class="entity">FOLLOWUP_SCHEDULE</span> <span class="note">patient × cancer type, derived from FOLLOWUP_TEMPLATE</span></li>
+        <li><span class="entity">AUDIT_LOG</span> <span class="note">entity, action, actor, timestamp, before/after</span></li>
+        <li><span class="entity">NOTIFICATION_LOG</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NFR -->
+  <section id="nfr">
+    <div class="section-head">
+      <div class="eyebrow">08 · Quality Attributes</div>
+      <h2>Non-Functional Requirements</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:220px">Area</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td><span class="nfr-icon">🌍</span> Deployment</td><td>AWS/GCP Mumbai region (primary); DR/backup database in a secondary India region (e.g. Hyderabad/Delhi NCR) for data residency</td></tr>
+          <tr><td><span class="nfr-icon">🔒</span> Security &amp; Privacy</td><td>AES-256 at rest, TLS in transit, RBAC, full audit logging, DPDP Act 2023 (India) compliance, consent-first data handling</td></tr>
+          <tr><td><span class="nfr-icon">📴</span> Offline</td><td>Mobile screening app fully functional offline; syncs on connectivity restoration</td></tr>
+          <tr><td><span class="nfr-icon">⚡</span> Performance</td><td>API p95 &lt; 500ms; dashboard load &lt; 2s; real-time updates &lt; 5s latency</td></tr>
+          <tr><td><span class="nfr-icon">📈</span> Scalability</td><td>Serverless API layer (Node.js/Python) scales with camp volume; async queue for lab result ingestion &amp; notifications</td></tr>
+          <tr><td><span class="nfr-icon">✅</span> Availability</td><td>Target 99.5% uptime for core APIs; queued/retryable design for lab &amp; hospital integrations</td></tr>
+          <tr><td><span class="nfr-icon">🗣️</span> Internationalization</td><td>Multi-language SMS/Email templates (regional languages per deployment area)</td></tr>
+          <tr><td><span class="nfr-icon">🧰</span> Tech Stack Alignment</td><td>React + Vite + Tailwind + ShadCN (Web) · Flutter (Mobile) · Node.js/Python serverless (APIs) · PostgreSQL · OAuth/Cognito · S3-compatible storage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="section-head">
+      <div class="eyebrow">09 · Delivery Plan</div>
+      <h2>Phased Roadmap</h2>
+    </div>
+    <div class="roadmap">
+      <div class="phase">
+        <span class="ph-num">Phase 1</span>
+        <h4>Foundation</h4>
+        <div class="dur">≈ 3 months</div>
+        <div class="chips">
+          <span>CC1–CC8 (core)</span><span>M01 Patient Registry</span><span>M02 Mass Screening</span><span>M03 Sample Collection</span><span>M06 Protocol Config (basic)</span><span>M12 Case Dashboard (basic)</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="ph-num">Phase 2</span>
+        <h4>Lab Loop &amp; Referral</h4>
+        <div class="dur">≈ 2 months</div>
+        <div class="chips">
+          <span>M04 Pathology Integration</span><span>M05 Result Management</span><span>M07 Referral Engine (rules-based)</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="ph-num">Phase 3</span>
+        <h4>Full Care Pathway</h4>
+        <div class="dur">≈ 3 months</div>
+        <div class="chips">
+          <span>M08 Referral/Staging</span><span>M09 Day-Care (L2)</span><span>M10 Hospitalization (L1)</span><span>M11 Survivorship</span><span>CC6 Real-time layer</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="ph-num">Phase 4</span>
+        <h4>Insights &amp; Scale</h4>
+        <div class="dur">≈ 1–2 months</div>
+        <div class="chips">
+          <span>M13 Analytics (advanced)</span><span>AI/ML into M07</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="ph-num">Phase 5</span>
+        <h4>Patient Engagement</h4>
+        <div class="dur">Ongoing</div>
+        <div class="chips">
+          <span>M14 Patient Portal</span><span>Multi-tenancy (if needed)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section id="metrics">
+    <div class="section-head">
+      <div class="eyebrow">10 · Definition of Success</div>
+      <h2>Success Metrics</h2>
+    </div>
+    <div class="metrics-grid">
+      <div class="card metric-card">
+        <h3>🩹 Screening</h3>
+        <ul>
+          <li>Time-to-result <strong>&lt; 7 days</strong></li>
+          <li>Data entry accuracy <strong>&gt; 98%</strong></li>
+          <li>Offline-sync failure rate <strong>&lt; 1%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>🔀 Referral</h3>
+        <ul>
+          <li>Auto-assignment accuracy <strong>&gt; 95%</strong></li>
+          <li>Manual override rate <strong>&lt; 10%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>💊 Treatment</h3>
+        <ul>
+          <li>Follow-up compliance <strong>&gt; 85%</strong></li>
+          <li>Complete recovery/remission tracking</li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>🖥️ System</h3>
+        <ul>
+          <li>API uptime <strong>&gt; 99.5%</strong></li>
+          <li>Dashboard load <strong>&lt; 2s</strong></li>
+          <li>Audit log completeness <strong>100%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>📊 Program</h3>
+        <ul>
+          <li>Camps run &amp; patients screened</li>
+          <li>Early-stage detection rate</li>
+          <li>Re-screening adherence rate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN QUESTIONS -->
+  <section id="open-questions">
+    <div class="section-head">
+      <div class="eyebrow">11 · For Discussion</div>
+      <h2>Open Questions</h2>
+      <p>These don't block the module structure, but resolving them early will sharpen the detailed design.</p>
+    </div>
+
+    <details open>
+      <summary><span class="q-num">Q1</span> National Health ID integration</summary>
+      <div class="body">Should Patient ID generation attempt to link with India's ABHA (Ayushman Bharat Health Account) for interoperability, or remain fully internal?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q2</span> Pathology lab API maturity</summary>
+      <div class="body">Does the intended outsourced lab partner(s) already expose REST/HL7 APIs, or will Phase 2 need a file-based/manual fallback as the primary integration initially?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q3</span> AI/ML scope and data</summary>
+      <div class="body">Is the AI/ML component intended to be a rules-based scoring engine initially (Modules 06/07) with ML introduced later once sufficient historical data exists, or is there an existing model/dataset to integrate from day one?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q4</span> Regional language requirements</summary>
+      <div class="body">Which languages must SMS/Email templates support for the target screening regions?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q5</span> Hardware specifics</summary>
+      <div class="body">Are there preferred/mandated printer models or SDKs for QR/barcode sticker printing and PVC card printing that the Flutter app must support?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q6</span> Consent capture method</summary>
+      <div class="body">On-screen signature pad, OTP-based consent, or printed-and-scanned consent forms?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q7</span> Disaster recovery targets</summary>
+      <div class="body">What RPO/RTO are required for the backup database, and should it be active-passive or active-active?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q8</span> Hospital partner readiness</summary>
+      <div class="body">For Module 10, will Level 1 hospitals provide API access (HL7 FHIR), or will hospitalization data be entered manually by your staff/liaisons?</div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  Anandini — Community Cancer Screening &amp; Reflex Diagnostic Pathway · PRD v0.1 Draft · June 2026
+</footer>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('nav.topnav a');
+  const setActive = () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120) current = sec.id;
+    });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  };
+  document.addEventListener('scroll', setActive);
+  setActive();
+
+  // Priority filter for module cards
+  const filterBtns = document.querySelectorAll('#filters .filter-btn');
+  const moduleCards = document.querySelectorAll('.module-card');
+  const groupTitles = document.querySelectorAll('#journey .group-title');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      moduleCards.forEach(card => {
+        const p = card.dataset.priority; // e.g. "P0" or could include multiple via top-row labels
+        const matches = filter === 'ALL' || p === filter || (filter === 'P1' && p === 'P0/P1') ;
+        card.style.display = (filter === 'ALL' || p === filter) ? '' : 'none';
+      });
+
+      // Hide group titles if all cards within the following grid are hidden
+      document.querySelectorAll('#journey .module-grid').forEach(grid => {
+        const visible = Array.from(grid.querySelectorAll('.module-card')).some(c => c.style.display !== 'none');
+        grid.style.display = visible ? '' : 'none';
+        const titleBefore = grid.previousElementSibling;
+        if (titleBefore && titleBefore.classList.contains('group-title')) {
+          titleBefore.style.display = visible ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Journey stepper -> jump to corresponding module card (best-effort by index)
+  const stepEls = document.querySelectorAll('.stepper .step');
+  const allCards = document.querySelectorAll('.module-card');
+  stepEls.forEach((step, idx) => {
+    step.addEventListener('click', () => {
+      if (allCards[idx]) {
+        allCards[idx].scrollIntoView({behavior:'smooth', block:'center'});
+        allCards[idx].style.outline = '3px solid var(--primary)';
+        setTimeout(()=> allCards[idx].style.outline = '', 1200);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
