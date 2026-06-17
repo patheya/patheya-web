@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shetkari Samruddhi Platform — Deep Dive | Maharashtra AIAIC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --saffron:   #FF6B00;
+      --saffron-l: #FF8C3A;
+      --saffron-xl:#FFF1E6;
+      --green:     #1B6B3A;
+      --green-l:   #2E9D58;
+      --green-xl:  #E8F5EE;
+      --navy:      #0D2B5E;
+      --navy-l:    #1A4499;
+      --navy-xl:   #EEF3FB;
+      --purple:    #6B21A8;
+      --purple-l:  #9333EA;
+      --purple-xl: #F5F3FF;
+      --gold:      #B45309;
+      --gold-xl:   #FFFBEB;
+      --red:       #991B1B;
+      --red-xl:    #FEF2F2;
+      --slate:     #4A5568;
+      --light:     #F7F8FA;
+      --white:     #FFFFFF;
+      --border:    #E2E8F0;
+      --text:      #1A202C;
+      --text-sm:   #718096;
+      --radius:    10px;
+      --shadow:    0 2px 12px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    /* ─── Cover ─────────────────────────────────────────────────── */
+    .cover {
+      background: linear-gradient(140deg, #05153A 0%, var(--navy) 45%, #1B4F20 100%);
+      color: var(--white);
+      padding: 72px 56px 64px;
+      position: relative; overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: rgba(255,107,0,0.10);
+    }
+    .cover::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -60px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: rgba(27,107,58,0.15);
+    }
+    .cover-inner { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
+    .gov-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 40px; padding: 7px 18px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .gov-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--saffron); }
+    .doc-type {
+      display: inline-block;
+      background: rgba(255,107,0,0.22);
+      border: 1px solid rgba(255,107,0,0.4);
+      color: #FFD0A8;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 28px; margin-left: 8px;
+    }
+    .cover-badges { margin-bottom: 28px; }
+    .cover h1 {
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .cover h1 .accent { color: #FFA54F; }
+    .cover h2 {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400; color: rgba(255,255,255,0.72);
+      margin-bottom: 32px; line-height: 1.4;
+    }
+    .cover-meta {
+      display: flex; flex-wrap: wrap; gap: 28px;
+      font-size: 13px; color: rgba(255,255,255,0.6);
+      margin-bottom: 48px;
+    }
+    .cover-meta strong { color: var(--white); display: block; font-size: 14px; }
+    .cover-kpis {
+      display: flex; flex-wrap: wrap; gap: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px; overflow: hidden;
+      margin-top: 8px;
+    }
+    .kpi-box {
+      flex: 1; min-width: 140px;
+      padding: 20px 24px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+    .kpi-box:last-child { border-right: none; }
+    .kpi-box .knum {
+      font-size: 34px; font-weight: 900; color: #FFA54F;
+      line-height: 1; display: block;
+    }
+    .kpi-box .klbl { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 60px 0; }
+    section.alt { background: var(--white); }
+
+    /* ─── Section Headers ────────────────────────────────────────── */
+    .section-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .tag-saffron { background: var(--saffron-xl); color: var(--saffron); }
+    .tag-green   { background: var(--green-xl);   color: var(--green);   }
+    .tag-navy    { background: var(--navy-xl);     color: var(--navy);    }
+    .tag-purple  { background: var(--purple-xl);   color: var(--purple);  }
+    .tag-gold    { background: var(--gold-xl);     color: var(--gold);    }
+    .tag-red     { background: var(--red-xl);      color: var(--red);     }
+    .section-title {
+      font-size: clamp(22px, 3vw, 32px); font-weight: 800;
+      color: var(--navy); margin-bottom: 12px; line-height: 1.2;
+    }
+    .section-sub { color: var(--slate); max-width: 760px; font-size: 15px; }
+    .section-header { margin-bottom: 40px; }
+
+    /* ─── Executive Summary ──────────────────────────────────────── */
+    .exec-summary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-l) 100%);
+      border-radius: 14px;
+      padding: 36px 40px;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+    .exec-summary h3 { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; margin-bottom: 16px; }
+    .exec-summary p { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.88); }
+    .exec-summary p + p { margin-top: 14px; }
+    .exec-summary strong { color: #FFA54F; }
+
+    /* ─── Problem Cards ──────────────────────────────────────────── */
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin-bottom: 32px;
+    }
+    .problem-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--red);
+    }
+    .problem-card.green-border { border-left-color: var(--green); }
+    .problem-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+    .problem-card p  { font-size: 13.5px; color: var(--slate); }
+    .stat-highlight {
+      font-size: 28px; font-weight: 900; color: var(--red);
+      display: block; margin-bottom: 4px; line-height: 1;
+    }
+    .stat-highlight.green { color: var(--green); }
+    .stat-highlight.navy  { color: var(--navy);  }
+
+    /* ─── Two-Column Vision ──────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .vision-col {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+    }
+    .vision-col h4 {
+      font-size: 14px; font-weight: 700; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 2px solid var(--border);
+    }
+    .vision-col.left h4 { border-bottom-color: var(--saffron); }
+    .vision-col.right h4 { border-bottom-color: var(--green); }
+    .check-list { list-style: none; }
+    .check-list li {
+      font-size: 13.5px; color: var(--slate); padding: 6px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list .icon { flex-shrink: 0; margin-top: 2px; }
+
+    /* ─── Architecture Diagram ───────────────────────────────────── */
+    .arch-wrap {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 36px; box-shadow: var(--shadow);
+    }
+    .arch-layers { display: flex; flex-direction: column; gap: 12px; }
+    .arch-layer {
+      border-radius: 10px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .layer-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+      background: rgba(255,255,255,0.25);
+    }
+    .layer-content h5 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .layer-content p  { font-size: 12.5px; opacity: 0.85; }
+    .layer-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .layer-chip {
+      font-size: 11px; font-weight: 600; padding: 2px 10px;
+      border-radius: 20px; background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .al-1 { background: linear-gradient(90deg, #1B6B3A, #2A8A50); color: white; }
+    .al-2 { background: linear-gradient(90deg, #0D2B5E, #1A4499); color: white; }
+    .al-3 { background: linear-gradient(90deg, #7B2D8B, #9B3FAB); color: white; }
+    .al-4 { background: linear-gradient(90deg, #B45309, #D97706); color: white; }
+    .al-5 { background: linear-gradient(90deg, #FF6B00, #FF8C3A); color: white; }
+    .arch-arrow {
+      text-align: center; font-size: 20px; color: var(--border);
+      line-height: 1; margin: -4px 0;
+    }
+
+    /* ─── Stakeholder Benefits ───────────────────────────────────── */
+    .stakeholder-tabs {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+    }
+    .s-tab {
+      font-size: 12px; font-weight: 700;
+      padding: 7px 16px; border-radius: 30px;
+      border: 2px solid var(--border);
+      color: var(--slate); background: var(--white);
+      cursor: default;
+    }
+    .s-farmer   { border-color: var(--green);  color: var(--green);  background: var(--green-xl); }
+    .s-minister { border-color: var(--saffron); color: var(--saffron); background: var(--saffron-xl); }
+    .s-official { border-color: var(--navy);   color: var(--navy);   background: var(--navy-xl); }
+    .s-policy   { border-color: var(--purple); color: var(--purple); background: var(--purple-xl); }
+    .s-finance  { border-color: var(--gold);   color: var(--gold);   background: var(--gold-xl); }
+    .s-aiaic    { border-color: #0891B2;       color: #0891B2;       background: #ECFEFF; }
+
+    .stakeholder-grid { display: grid; gap: 20px; }
+    .s-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+      border-top: 4px solid transparent;
+    }
+    .s-card.farmer  { border-top-color: var(--green); }
+    .s-card.minister{ border-top-color: var(--saffron); }
+    .s-card.official{ border-top-color: var(--navy); }
+    .s-card.policy  { border-top-color: var(--purple); }
+    .s-card.finance { border-top-color: var(--gold); }
+    .s-card.aiaic   { border-top-color: #0891B2; }
+
+    .s-card-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .s-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .s-icon.farmer  { background: var(--green-xl); }
+    .s-icon.minister{ background: var(--saffron-xl); }
+    .s-icon.official{ background: var(--navy-xl); }
+    .s-icon.policy  { background: var(--purple-xl); }
+    .s-icon.finance { background: var(--gold-xl); }
+    .s-icon.aiaic   { background: #ECFEFF; }
+
+    .s-card-head h4 { font-size: 16px; font-weight: 700; }
+    .s-card-head p  { font-size: 12px; color: var(--text-sm); }
+    .benefit-list { list-style: none; }
+    .benefit-list li {
+      font-size: 13.5px; color: var(--slate);
+      padding: 9px 0; display: flex; gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+    }
+    .benefit-list li:last-child { border-bottom: none; }
+    .benefit-list .b-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .benefit-list strong { color: var(--text); }
+
+    /* ─── Schemes Table ──────────────────────────────────────────── */
+    .scheme-wrap { overflow-x: auto; border-radius: 12px; box-shadow: var(--shadow); }
+    table.scheme-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--white); font-size: 13.5px;
+    }
+    .scheme-table thead tr { background: var(--navy); color: white; }
+    .scheme-table thead th {
+      padding: 14px 16px; text-align: left;
+      font-weight: 700; font-size: 11.5px; letter-spacing: 0.5px;
+    }
+    .scheme-table tbody tr { border-bottom: 1px solid var(--border); }
+    .scheme-table tbody tr:hover { background: var(--navy-xl); }
+    .scheme-table tbody td { padding: 13px 16px; vertical-align: top; }
+    .scheme-type {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px;
+      display: inline-block;
+    }
+    .type-central { background: var(--navy-xl); color: var(--navy); }
+    .type-state   { background: var(--saffron-xl); color: var(--saffron); }
+    .scheme-name  { font-weight: 700; display: block; margin-bottom: 4px; }
+    .scheme-amount { font-weight: 800; color: var(--green); }
+    .leak-amount  { font-weight: 700; color: var(--red); }
+    .gap-note { font-size: 12px; color: var(--text-sm); margin-top: 4px; }
+
+    /* ─── Roadmap ────────────────────────────────────────────────── */
+    .roadmap { display: flex; gap: 0; position: relative; }
+    .roadmap::before {
+      content: '';
+      position: absolute; top: 32px; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--saffron), var(--green), var(--navy));
+    }
+    .phase-card {
+      flex: 1; background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 20px;
+      margin: 0 8px; box-shadow: var(--shadow);
+      position: relative;
+    }
+    .phase-card:first-child { margin-left: 0; }
+    .phase-card:last-child  { margin-right: 0; }
+    .phase-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      margin: 0 auto 18px; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: white;
+      position: relative; z-index: 1;
+    }
+    .pd1 { background: var(--saffron); }
+    .pd2 { background: var(--green); }
+    .pd3 { background: var(--navy); }
+    .phase-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .pl1 { color: var(--saffron); }
+    .pl2 { color: var(--green); }
+    .pl3 { color: var(--navy); }
+    .phase-duration {
+      font-size: 12px; font-weight: 700; color: var(--text-sm);
+      margin-bottom: 14px;
+    }
+    .phase-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+    .phase-items { list-style: none; }
+    .phase-items li {
+      font-size: 13px; color: var(--slate); padding: 5px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex; gap: 8px;
+    }
+    .phase-items li:last-child { border-bottom: none; }
+    .phase-items .tick { color: var(--green-l); font-size: 12px; flex-shrink: 0; margin-top: 3px; }
+    .phase-milestone {
+      margin-top: 16px; padding: 10px 14px;
+      border-radius: 8px; font-size: 12px; font-weight: 600;
+    }
+    .m1 { background: var(--saffron-xl); color: var(--saffron); }
+    .m2 { background: var(--green-xl);   color: var(--green); }
+    .m3 { background: var(--navy-xl);    color: var(--navy); }
+
+    /* ─── Challenges ─────────────────────────────────────────────── */
+    .challenges-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .challenge-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    }
+    .challenge-card h4 {
+      font-size: 14px; font-weight: 700; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .c-icon { font-size: 18px; }
+    .challenge-card .risk {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      padding: 2px 8px; border-radius: 12px;
+      margin-left: auto;
+    }
+    .risk-h { background: var(--red-xl);      color: var(--red); }
+    .risk-m { background: var(--gold-xl);     color: var(--gold); }
+    .risk-l { background: var(--green-xl);    color: var(--green); }
+    .challenge-desc { font-size: 13px; color: var(--slate); margin-bottom: 12px; }
+    .mitigation {
+      background: var(--green-xl); border-radius: 7px;
+      padding: 10px 14px; font-size: 12.5px; color: var(--green);
+      display: flex; gap: 8px;
+    }
+    .mitigation strong { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+
+    /* ─── KPIs ───────────────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .kpi-card .kval {
+      font-size: 32px; font-weight: 900; line-height: 1;
+      display: block; margin-bottom: 6px;
+    }
+    .kpi-card .ktitle { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .kpi-card .ksub   { font-size: 11.5px; color: var(--text-sm); }
+    .kv-green  { color: var(--green); }
+    .kv-navy   { color: var(--navy); }
+    .kv-saffron{ color: var(--saffron); }
+    .kv-purple { color: var(--purple); }
+
+    /* ─── Why Now / CTA ──────────────────────────────────────────── */
+    .why-now {
+      background: linear-gradient(135deg, var(--navy) 0%, #1A3A7A 100%);
+      border-radius: 14px; padding: 40px; color: white;
+      margin-bottom: 32px;
+    }
+    .why-now h3 { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: #FFA54F; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .why-item {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 18px;
+    }
+    .why-item h5 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #FFA54F; }
+    .why-item p  { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.55; }
+
+    .cta-box {
+      background: var(--saffron);
+      border-radius: 14px; padding: 36px 40px;
+      color: white; text-align: center;
+    }
+    .cta-box h3 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
+    .cta-box p  { font-size: 15px; color: rgba(255,255,255,0.88); max-width: 600px; margin: 0 auto; }
+
+    /* ─── Info / highlight boxes ─────────────────────────────────── */
+    .info-box {
+      border-radius: var(--radius); padding: 18px 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .info-box .ib-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .info-box.navy-box { background: var(--navy-xl); border: 1px solid #C5D4F0; }
+    .info-box.green-box{ background: var(--green-xl); border: 1px solid #A7D9BE; }
+    .info-box.gold-box { background: var(--gold-xl); border: 1px solid #FCD34D; }
+    .info-box h5 { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .info-box p  { font-size: 13px; color: var(--slate); }
+
+    /* ─── TOC / Nav ──────────────────────────────────────────────── */
+    .toc-strip {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 0 28px; position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .toc-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .toc-inner a {
+      font-size: 12px; font-weight: 600; color: var(--slate);
+      text-decoration: none; padding: 14px 16px;
+      white-space: nowrap; border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .toc-inner a:hover { color: var(--navy); border-bottom-color: var(--navy); }
+    .toc-inner a.active { color: var(--saffron); border-bottom-color: var(--saffron); font-weight: 700; }
+
+    /* ─── Divider ────────────────────────────────────────────────── */
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.55);
+      text-align: center; padding: 32px 24px; font-size: 13px;
+    }
+    footer strong { color: var(--white); }
+
+    /* ─── Utilities ──────────────────────────────────────────────── */
+    .text-center { text-align: center; }
+    .mb-8  { margin-bottom: 8px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-28 { margin-bottom: 28px; }
+    .mb-40 { margin-bottom: 40px; }
+    .mt-24 { margin-top: 24px; }
+    .full-width { width: 100%; }
+    .bold { font-weight: 700; }
+
+    @media print {
+      .toc-strip { display: none; }
+      .cover { page-break-after: always; }
+      .s-card, .challenge-card { break-inside: avoid; }
+    }
+    @media (max-width: 720px) {
+      .cover { padding: 40px 20px; }
+      .two-col, .problem-grid, .roadmap, .why-grid { grid-template-columns: 1fr; flex-direction: column; }
+      .phase-card { margin: 8px 0; }
+      .roadmap::before { display: none; }
+      .kpi-box { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     COVER
+════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-badges">
+      <div class="gov-badge"><span class="dot"></span>Government of Maharashtra &nbsp;|&nbsp; AIAIC</div>
+      <span class="doc-type">Proposal + Policy Brief</span>
+    </div>
+    <h1>Shetkari Samruddhi<br><span class="accent">Platform (SSP)</span></h1>
+    <h2>Unified Farmer Identity &amp; AI-Driven Scheme Delivery —<br>Eliminating Exclusion and Leakage Across Maharashtra's Agricultural Welfare Ecosystem</h2>
+    <div class="cover-meta">
+      <div><strong>Initiative</strong> Digital Public Infrastructure for Agriculture</div>
+      <div><strong>Prepared for</strong> AIAIC — Government of Maharashtra</div>
+      <div><strong>Positioning</strong> Maharashtra Agri-AI Policy 2025–2029 Response</div>
+      <div><strong>Date</strong> June 2026</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="kpi-box">
+        <span class="knum">1.5 Cr</span>
+        <div class="klbl">Farmers to be covered</div>
+      </div>
+      <div class="kpi-box">
+        <span class="knum">50+</span>
+        <div class="klbl">Schemes onboarded</div>
+      </div>
+      <div class="kpi-box">
+        <span class="knum">₹1,500 Cr</span>
+        <div class="klbl">Annual leakage to recover</div>
+      </div>
+      <div class="kpi-box">
+        <span class="knum">36 Mo</span>
+        <div class="klbl">Full rollout timeline</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STICKY NAV
+════════════════════════════════════════════════ -->
+<nav class="toc-strip">
+  <div class="toc-inner">
+    <a href="#exec">Executive Summary</a>
+    <a href="#policy">Policy Alignment</a>
+    <a href="#problem">The Opportunity</a>
+    <a href="#solution">The Solution</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#stakeholders">Stakeholder Benefits</a>
+    <a href="#schemes">Schemes &amp; Numbers</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#kpis">Success Metrics</a>
+    <a href="#whynow">Why Now</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     EXECUTIVE SUMMARY
+════════════════════════════════════════════════ -->
+<section id="exec" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-navy">Executive Summary</span>
+      <h2 class="section-title">One Platform. Every Farmer. Every Scheme.</h2>
+    </div>
+    <div class="exec-summary">
+      <h3>The Opportunity</h3>
+      <p>
+        Maharashtra spends over <strong>₹18,000 Crore annually</strong> across agricultural welfare schemes and has
+        invested significantly in digital infrastructure — <strong>AgriStack / MHFR</strong> for Farmer Identity,
+        <strong>MahaAgX</strong> for consent-based data exchange, <strong>MahaDBT</strong> for disbursement, and the
+        Maharashtra Agri-AI Policy 2025–2029 as an active mandate with funded implementation tracks. The foundations are
+        in place. What is needed now is the <strong>intelligence layer</strong> that connects these investments to
+        farmer outcomes — ensuring the right benefit reaches the right farmer, proactively, every time.
+      </p>
+      <p>
+        The <strong>Shetkari Samruddhi Platform (SSP)</strong> is that intelligence layer. Built on top of Maharashtra's
+        existing digital stack — not alongside it — SSP onboards every agricultural scheme's eligibility rules into a
+        digital knowledge graph and matches them continuously against verified farmer profiles drawn from AgriStack and
+        MahaAgX. An <strong>AI Eligibility Engine</strong> auto-identifies entitlements, notifies farmers proactively
+        in Marathi, flags leakage for audit, and provides real-time governance dashboards for officials at every level.
+      </p>
+      <p>
+        SSP is a direct response to the <strong>Maharashtra Agri-AI Policy 2025–2029 Call for Proposals</strong> — a
+        Track 2 submission with a working interactive prototype, positioned as the Scheme Coverage &amp; Governance
+        AI that completes Maharashtra's agricultural technology stack and delivers measurable outcomes from Month 6.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     POLICY ALIGNMENT
+════════════════════════════════════════════════ -->
+<section id="policy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-navy">Policy Alignment</span>
+      <h2 class="section-title">Built for Maharashtra's Agri-AI Policy 2025–2029</h2>
+      <p class="section-sub">SSP is not a standalone proposal — it is a direct implementation response to the Government of Maharashtra's published AI policy mandate, and a natural extension of AIAIC's own digital infrastructure investments already in the field.</p>
+    </div>
+
+    <div class="info-box navy-box mb-28">
+      <span class="ib-icon">📋</span>
+      <div>
+        <h5>Maharashtra Agri-AI Policy 2025–2029 — Active Call for Proposals</h5>
+        <p>AIAIC is running a funded Call for Proposals under the Agri-AI Policy 2025–2029. SSP aligns with <strong>Track 2 — Pilot &amp; Validation</strong> (up to ₹2 Crore), which supports mature solutions undergoing field validation and scaling, with pilot funding, farmer network access, testbed facilities, and commercial readiness guidance. A working interactive prototype of SSP is available for immediate demonstration. &nbsp;Contact: <strong>pilotcoord-aiaic@mah.gov.in</strong></p>
+      </div>
+    </div>
+
+    <div class="two-col mb-40">
+      <div class="vision-col left">
+        <h4>Track 1 — Discovery &amp; Ideation (up to ₹40 Lakhs)</h4>
+        <ul class="check-list">
+          <li><span class="icon">🔬</span> Early-stage concepts, proof-of-concept, and MVP work</li>
+          <li><span class="icon">💡</span> Seed grants, mentorship, and sandbox environments</li>
+          <li><span class="icon">📊</span> Dataset access from MahaAgX for experimentation</li>
+          <li><span class="icon">🎓</span> Startups, researchers, NGOs, FPOs, and universities</li>
+        </ul>
+      </div>
+      <div class="vision-col right">
+        <h4>Track 2 — Pilot &amp; Validation (up to ₹2 Crore) ← SSP's Track</h4>
+        <ul class="check-list">
+          <li><span class="icon">✅</span> Mature solutions with working prototype — <strong>SSP qualifies now</strong></li>
+          <li><span class="icon">🚀</span> Field validation, scaling support, and testbed access</li>
+          <li><span class="icon">👨‍🌾</span> AIAIC farmer network access across pilot districts</li>
+          <li><span class="icon">🏗️</span> Commercial readiness guidance from AIAIC ecosystem</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box green-box mb-28">
+      <span class="ib-icon">🔗</span>
+      <div>
+        <h5>SSP Is the Intelligence Layer — Not Another Portal</h5>
+        <p>Maharashtra has already built the foundations: <strong>AgriStack / MHFR</strong> (National Farmer Registry, mhfr.agristack.gov.in), <strong>MahaAgX</strong> (consent-based agricultural data exchange DPI, AIAIC), <strong>MahaDBT</strong> (disbursement engine), and <strong>MahaVISTAAR</strong> (bilingual farm advisory). What does not yet exist is the intelligence layer that connects these investments for farmers and officials alike. SSP is that layer — a Scheme Coverage &amp; Governance AI built <em>on top of</em> AIAIC's own infrastructure, extending it rather than duplicating it.</p>
+      </div>
+    </div>
+
+    <div class="arch-wrap">
+      <div style="margin-bottom:20px">
+        <h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">How SSP Completes Maharashtra's Existing Agri-Tech Stack</h5>
+        <p style="font-size:13px;color:var(--slate)">Each layer below is already live. SSP adds the missing intelligence and unified access layer at the top.</p>
+      </div>
+      <div class="arch-layers">
+
+        <div class="arch-layer al-5">
+          <div class="layer-num">▲</div>
+          <div class="layer-content full-width">
+            <h5>SSP — Scheme Coverage &amp; Governance Intelligence Layer &nbsp;<span style="font-size:11px;font-weight:400;opacity:0.85">(Proposed — Track 2)</span></h5>
+            <p>Unified farmer access portal, AI eligibility matching engine, real-time role-based governance dashboards, leakage detection, grievance management — the missing connective intelligence.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Farmer Self-Service</span>
+              <span class="layer-chip">AI Eligibility Engine</span>
+              <span class="layer-chip">Minister Dashboard</span>
+              <span class="layer-chip">Leakage Detection</span>
+              <span class="layer-chip">Grievance Module</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↑ built on</div>
+
+        <div class="arch-layer al-3">
+          <div class="layer-num">3</div>
+          <div class="layer-content full-width">
+            <h5>MahaAgX — Agricultural Data Exchange DPI &nbsp;<span style="font-size:11px;font-weight:400;opacity:0.85">(Live — AIAIC)</span></h5>
+            <p>Consent-based secure exchange of agricultural datasets. SSP accesses farmer land, crop, and financial data through MahaAgX APIs — with farmer consent — to power its eligibility engine.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Consent Management</span>
+              <span class="layer-chip">Dataset Access APIs</span>
+              <span class="layer-chip">Secure Data Exchange</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↑ uses</div>
+
+        <div class="arch-layer al-2">
+          <div class="layer-num">2</div>
+          <div class="layer-content full-width">
+            <h5>AgriStack / MHFR — National Farmer Registry &nbsp;<span style="font-size:11px;font-weight:400;opacity:0.85">(Live — mhfr.agristack.gov.in)</span></h5>
+            <p>Unique Farmer ID generation and Aadhaar-linked digital identity for every farmer. SSP uses MHFR as its identity anchor — no new farmer ID system is created; SSP extends the existing registry.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Farmer ID</span>
+              <span class="layer-chip">Aadhaar Linkage</span>
+              <span class="layer-chip">Land Record Seeding</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↑ uses</div>
+
+        <div class="arch-layer al-1">
+          <div class="layer-num">1</div>
+          <div class="layer-content full-width">
+            <h5>Core Government Data Sources &nbsp;<span style="font-size:11px;font-weight:400;opacity:0.85">(Existing)</span></h5>
+            <p>Mahabhulekh (7/12 land records), MahaDBT (disbursement history), PM-KISAN portal, PFMS, Aadhaar/DigiLocker, e-Crop, Soil Health Cards — all already operational and feeding into AgriStack and MahaAgX.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Mahabhulekh</span>
+              <span class="layer-chip">MahaDBT</span>
+              <span class="layer-chip">PFMS</span>
+              <span class="layer-chip">DigiLocker</span>
+              <span class="layer-chip">PM-KISAN</span>
+              <span class="layer-chip">e-Crop</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     THE PROBLEM
+════════════════════════════════════════════════ -->
+<section id="problem">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-red">The Opportunity</span>
+      <h2 class="section-title">The Gap Between Intent and Outcome</h2>
+      <p class="section-sub">Maharashtra's agricultural welfare ambition is substantial — ₹18,000 Crore annually across 50+ schemes. The opportunity is to use AI to ensure every rupee reaches the right farmer, every eligible farmer is proactively found, and every rupee of recoverable leakage is surfaced for audit.</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <span class="stat-highlight">40%</span>
+        <h4>40% of Eligible Farmers Await Proactive Outreach</h4>
+        <p>An estimated 40% of eligible Maharashtra farmers are yet to enrol in one or more schemes they qualify for — not because they are ineligible, but because each scheme requires separate registration across different portals. A unified, AI-driven proactive outreach layer finds these farmers before they need to find the system.</p>
+      </div>
+      <div class="problem-card">
+        <span class="stat-highlight">₹1,500 Cr</span>
+        <h4>₹1,500 Cr in Recoverable Savings — Detectable by AI</h4>
+        <p>Ghost beneficiaries, deceased farmers still on rolls, duplicate registrations across districts, and ineligible claimants represent an estimated ₹1,200–1,500 Crore in annual leakage — invisible today because departmental databases are siloed. AI-driven cross-validation across AgriStack, Mahabhulekh, and DBT records can surface these patterns systematically.</p>
+      </div>
+      <div class="problem-card green-border">
+        <span class="stat-highlight green">1:1,200</span>
+        <h4>Proactive Notification Multiplies the Extension Workforce</h4>
+        <p>The extension officer-to-farmer ratio is 1:1,200 — every officer would need to individually inform 1,200 farmers of every new scheme. A digital proactive notification engine in Marathi via SMS, WhatsApp, and IVR effectively multiplies this reach to 1:1,200,000 — scheme awareness reaches every eligible farmer the day the scheme opens.</p>
+      </div>
+      <div class="problem-card green-border">
+        <span class="stat-highlight green">50+</span>
+        <h4>50 Schemes — One Unified Intelligence Layer</h4>
+        <p>Maharashtra administers over 50 central and state agri schemes across Agriculture, Revenue, Cooperation, Water Conservation, and Finance departments. Each holds its own beneficiary database. SSP's Scheme Knowledge Graph encodes all 50+ eligibility rule sets machine-readably — giving every stakeholder a single, unified view of farmer entitlements across the entire portfolio.</p>
+      </div>
+    </div>
+
+    <div class="info-box navy-box">
+      <span class="ib-icon">🎯</span>
+      <div>
+        <h5>The Unifying Insight</h5>
+        <p>All four gaps share a single solution: a <strong>unified intelligence layer</strong> that connects Maharashtra's existing identity infrastructure (AgriStack/MHFR), data exchange platform (MahaAgX), and disbursement engine (MahaDBT) with machine-readable scheme eligibility rules — enabling proactive, accurate, auditable scheme delivery at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     THE SOLUTION
+════════════════════════════════════════════════ -->
+<section id="solution" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-green">The Solution</span>
+      <h2 class="section-title">Shetkari Samruddhi Platform (SSP)</h2>
+      <p class="section-sub">A unified Digital Public Infrastructure that simultaneously builds verified farmer identities and digitises scheme eligibility — then uses AI to match, assign, and audit continuously.</p>
+    </div>
+
+    <div class="two-col mb-40">
+      <div class="vision-col left">
+        <h4>Pillar A — Farmer Identity Stack (Demand Side)</h4>
+        <ul class="check-list">
+          <li><span class="icon">🪪</span> Farmer identity anchored on <strong>AgriStack / MHFR</strong> (mhfr.agristack.gov.in) — the National Farmer Registry already operational in Maharashtra; SSP extends, not replaces</li>
+          <li><span class="icon">📋</span> Land profile seeded from Mahabhulekh (7/12, 8A) via MahaAgX consent layer — auto-updated on mutation</li>
+          <li><span class="icon">🌾</span> Crop history from e-Crop, soil health card, PMFBY enrollment</li>
+          <li><span class="icon">🏦</span> Financial profile — KCC, loan history, DBT bank account via Account Aggregator</li>
+          <li><span class="icon">👨‍👩‍👧</span> Household data — family composition, caste certificate, income certificate</li>
+          <li><span class="icon">🔒</span> Consent management via <strong>MahaAgX</strong> — farmer controls which departments access what data, using AIAIC's live DPI consent framework</li>
+          <li><span class="icon">📱</span> Accessible via Shetkari App, CSC kiosk, or assisted enrollment by Krishi Mitra</li>
+        </ul>
+      </div>
+      <div class="vision-col right">
+        <h4>Pillar B — Scheme Knowledge Graph (Supply Side)</h4>
+        <ul class="check-list">
+          <li><span class="icon">📂</span> All 50+ schemes onboarded as machine-readable eligibility rule sets</li>
+          <li><span class="icon">🔄</span> Live API sync with government portals — scheme rules updated automatically</li>
+          <li><span class="icon">📏</span> Eligibility rules encoded: land ceiling, crop type, caste, income, geography</li>
+          <li><span class="icon">🗂️</span> Scheme master data versioned — historical eligibility decisions are auditable</li>
+          <li><span class="icon">💰</span> Benefit quantum and disbursement schedule linked to each scheme</li>
+          <li><span class="icon">📅</span> Enrollment windows, deadlines, and document requirements tracked</li>
+          <li><span class="icon">🔗</span> Cross-scheme dependency rules (e.g., PM-KISAN + Namo Shetkari additionality)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box green-box mb-28">
+      <span class="ib-icon">⚙️</span>
+      <div>
+        <h5>The AI Matching Engine — Where Both Pillars Meet</h5>
+        <p>The SSP AI Engine runs continuously, matching each farmer's verified profile against all scheme eligibility rule sets. It auto-generates entitlement recommendations, triggers enrollment workflows, notifies farmers of new eligibility in Marathi via SMS/WhatsApp/IVR, and simultaneously flags anomalies — deceased beneficiaries, land mismatch, duplicate accounts — for audit queues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ARCHITECTURE
+════════════════════════════════════════════════ -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-navy">Platform Architecture</span>
+      <h2 class="section-title">Five-Layer Digital Infrastructure</h2>
+      <p class="section-sub">SSP is built as layered, interoperable Digital Public Infrastructure — each layer independently valuable, collectively transformative.</p>
+    </div>
+
+    <div class="arch-wrap">
+      <div class="arch-layers">
+
+        <div class="arch-layer al-1">
+          <div class="layer-num">1</div>
+          <div class="layer-content full-width">
+            <h5>Data Ingestion &amp; Farmer Identity Core</h5>
+            <p>Farmer identity anchored on <strong>AgriStack / MHFR</strong> (National Farmer Registry). Supplementary data sourced from Mahabhulekh, Aadhaar (via DigiLocker), PM-KISAN, MahaDBT, e-Crop, and Soil Health Cards. All data exchange via <strong>MahaAgX</strong> consent APIs — no bulk copies; federated access only.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">AgriStack / MHFR</span>
+              <span class="layer-chip">MahaAgX APIs</span>
+              <span class="layer-chip">Mahabhulekh API</span>
+              <span class="layer-chip">DigiLocker</span>
+              <span class="layer-chip">ETL Pipeline</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+
+        <div class="arch-layer al-2">
+          <div class="layer-num">2</div>
+          <div class="layer-content full-width">
+            <h5>Scheme Knowledge Graph &amp; Rule Engine</h5>
+            <p>All scheme eligibility criteria modelled as machine-readable rules. Drools-based rule engine evaluates eligibility deterministically. Versioned rule sets ensure auditability. Live sync with official government scheme portals.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Rule Engine (Drools)</span>
+              <span class="layer-chip">Knowledge Graph (Neo4j)</span>
+              <span class="layer-chip">Govt Portal APIs</span>
+              <span class="layer-chip">Schema Registry</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+
+        <div class="arch-layer al-3">
+          <div class="layer-num">3</div>
+          <div class="layer-content full-width">
+            <h5>AI Eligibility Engine &amp; Leakage Detection</h5>
+            <p>Continuous farmer-to-scheme matching. ML-based anomaly detection for leakage: entity resolution across beneficiary databases, deceased-beneficiary flagging, land holding cross-validation, duplicate account detection. Confidence-scored output routed to approval or audit queues.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Matching Engine</span>
+              <span class="layer-chip">XGBoost Anomaly Detection</span>
+              <span class="layer-chip">Entity Resolution ML</span>
+              <span class="layer-chip">Audit Queue Workflow</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+
+        <div class="arch-layer al-4">
+          <div class="layer-num">4</div>
+          <div class="layer-content full-width">
+            <h5>Workflow, Notification &amp; Disbursement Integration</h5>
+            <p>Auto-enrollment workflow for eligible farmers (with official approval gate). Farmer notification engine in Marathi via SMS, WhatsApp, IVR. Integration with PFMS/DBT for disbursement trigger. Grievance redressal workflow for disputed exclusions.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">PFMS / DBT Integration</span>
+              <span class="layer-chip">WhatsApp Business API</span>
+              <span class="layer-chip">IVR (Marathi)</span>
+              <span class="layer-chip">Grievance Module</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+
+        <div class="arch-layer al-5">
+          <div class="layer-num">5</div>
+          <div class="layer-content full-width">
+            <h5>Dashboards &amp; Decision Intelligence</h5>
+            <p>Role-based dashboards for every stakeholder: Minister (state overview), District Collector (district drill-down), Talathi (village-level operations), Finance/CAG (audit view), Farmer (self-service entitlement tracker). Real-time scheme performance analytics and policy simulation capability.</p>
+            <div class="layer-chips">
+              <span class="layer-chip">Minister Dashboard</span>
+              <span class="layer-chip">District / Taluka Ops</span>
+              <span class="layer-chip">Finance / Audit View</span>
+              <span class="layer-chip">Farmer Self-Service Portal</span>
+              <span class="layer-chip">Policy Simulation</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STAKEHOLDER BENEFITS
+════════════════════════════════════════════════ -->
+<section id="stakeholders" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-saffron">Stakeholder Benefits</span>
+      <h2 class="section-title">What SSP Delivers — For Each Stakeholder</h2>
+      <p class="section-sub">SSP creates distinct, measurable value for every actor in the agricultural governance ecosystem — from the farmer in the field to the minister at the podium.</p>
+    </div>
+
+    <div class="stakeholder-tabs mb-28">
+      <span class="s-tab s-farmer">Farmers</span>
+      <span class="s-tab s-minister">Ministers</span>
+      <span class="s-tab s-official">Govt Officials</span>
+      <span class="s-tab s-policy">Policy Reviewers</span>
+      <span class="s-tab s-finance">Finance / CAG</span>
+      <span class="s-tab s-aiaic">AIAIC</span>
+    </div>
+
+    <div class="stakeholder-grid">
+
+      <!-- Farmers -->
+      <div class="s-card farmer">
+        <div class="s-card-head">
+          <div class="s-icon farmer">👨‍🌾</div>
+          <div>
+            <h4>Farmers — 1.5 Crore Beneficiaries</h4>
+            <p>The primary beneficiary: every small, marginal, and tenant farmer in Maharashtra</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">✅</span><span><strong>Register once, benefit always.</strong> Enroll a single Farmer ID — every scheme you qualify for is proactively found and assigned, without re-registration at separate offices.</span></li>
+          <li><span class="b-icon">📱</span><span><strong>Know what you are owed.</strong> Receive a Marathi SMS/WhatsApp/IVR alert when a new scheme opens for which you qualify. No more missed deadlines due to lack of awareness.</span></li>
+          <li><span class="b-icon">⏱️</span><span><strong>Faster benefit delivery.</strong> Scheme processing time drops from 45–90 days (manual verification) to 7–14 days (AI-assisted). Benefits reach bank account before the sowing season, not after.</span></li>
+          <li><span class="b-icon">🗂️</span><span><strong>Full entitlement transparency.</strong> Farmer-facing portal shows every scheme the farmer is enrolled in, every benefit received, every pending application — in Marathi, accessible via smartphone or CSC kiosk.</span></li>
+          <li><span class="b-icon">🤝</span><span><strong>Dispute resolution.</strong> If wrongly excluded, a grievance can be raised digitally — tracked, time-bound, and escalated automatically to the concerned officer if not resolved within 7 days.</span></li>
+          <li><span class="b-icon">🏦</span><span><strong>Path to formal credit.</strong> A verified Farmer ID with scheme history and land records becomes the foundation for KisanScore (credit scoring), unlocking formal bank credit at lower interest rates.</span></li>
+        </ul>
+      </div>
+
+      <!-- Ministers -->
+      <div class="s-card minister">
+        <div class="s-card-head">
+          <div class="s-icon minister">🏛️</div>
+          <div>
+            <h4>Ministers — Political & Policy Leadership</h4>
+            <p>Agriculture Minister, Revenue Minister, Finance Minister, Chief Minister's Office</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">📣</span><span><strong>Demonstrable, credible outcomes.</strong> For the first time, a minister can say: "X lakh new farmers enrolled in Namo Shetkari this quarter" — with verified data, not estimated figures, for public communication and assembly sessions.</span></li>
+          <li><span class="b-icon">💰</span><span><strong>Visible fiscal responsibility.</strong> Leakage reduction of ₹1,000–1,500 Cr/year is a headline that resonates with fiscal hawks, voters, and the CAG. SSP turns a government cost into a visible saving.</span></li>
+          <li><span class="b-icon">🗳️</span><span><strong>Farmer satisfaction at scale.</strong> Proactive scheme delivery — where a farmer receives a benefit without asking — is a powerful political differentiator. SSP enables Maharashtra to be the first state to move from reactive to proactive welfare delivery.</span></li>
+          <li><span class="b-icon">🚨</span><span><strong>Crisis intervention readiness.</strong> During drought or pest outbreaks, the platform identifies affected farmers instantly (via satellite-linked crop data), enabling targeted relief disbursement within days, not months.</span></li>
+          <li><span class="b-icon">📊</span><span><strong>Real-time scheme performance.</strong> A minister-facing dashboard shows scheme-wise coverage, disbursement status, district-level gaps, and grievance resolution rates — without waiting for department reports.</span></li>
+        </ul>
+      </div>
+
+      <!-- Govt Officials -->
+      <div class="s-card official">
+        <div class="s-card-head">
+          <div class="s-icon official">👔</div>
+          <div>
+            <h4>Government Officials — District to Taluka Level</h4>
+            <p>Agriculture Officers, Talathis, Circle Officers, District Collectors, Block Development Officers</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">📉</span><span><strong>Dramatically reduced workload.</strong> Manual beneficiary verification, list preparation, and cross-department coordination — which currently consumes 40–60% of field staff time — is automated. Officers can focus on field visits and grievance resolution.</span></li>
+          <li><span class="b-icon">📁</span><span><strong>Single source of truth.</strong> One verified farmer database eliminates inter-department disputes about who the "correct" beneficiary list is. No more parallel lists in three different formats.</span></li>
+          <li><span class="b-icon">🛡️</span><span><strong>Reduced personal liability.</strong> When eligibility is decided by a transparent, rule-based AI engine with a documented audit trail, officials are protected from allegations of favoritism or corruption in beneficiary selection.</span></li>
+          <li><span class="b-icon">📲</span><span><strong>Mobile operations dashboard.</strong> District and taluka officers access a mobile-friendly operations view — pending approvals, flagged anomalies, grievance queues, and disbursement status — from anywhere.</span></li>
+          <li><span class="b-icon">⚡</span><span><strong>Faster scheme launches.</strong> When a new scheme is announced, eligibility rules are loaded into SSP and the eligible farmer list is generated in hours — not weeks of manual preparation.</span></li>
+        </ul>
+      </div>
+
+      <!-- Policy Reviewers -->
+      <div class="s-card policy">
+        <div class="s-card-head">
+          <div class="s-icon policy">🔍</div>
+          <div>
+            <h4>Policy Reviewers & Planners</h4>
+            <p>Planning Department, NITI Aayog correspondents, Scheme designers, Academic/Think-tank evaluators</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">📈</span><span><strong>Evidence-based scheme design.</strong> For the first time, Maharashtra will have parcel-level data on who received what benefit, with what outcome — enabling rigorous scheme impact assessment instead of self-reported data.</span></li>
+          <li><span class="b-icon">🗺️</span><span><strong>Geographic targeting intelligence.</strong> SSP reveals district-wise, taluka-wise coverage gaps — which communities are systematically excluded, which crops are underserved — enabling precise policy corrections.</span></li>
+          <li><span class="b-icon">🧮</span><span><strong>Policy simulation capability.</strong> Before launching a new scheme, planners can simulate its eligible population size, budget requirement, and potential overlap with existing schemes — using SSP's live farmer data.</span></li>
+          <li><span class="b-icon">🔬</span><span><strong>Scheme rationalisation.</strong> SSP reveals redundancies — farmers receiving overlapping benefits — and gaps — farmers in critical distress receiving nothing. This is the data needed to rationalise a fragmented scheme portfolio.</span></li>
+          <li><span class="b-icon">📋</span><span><strong>Outcome tracking.</strong> Link scheme receipt to crop yield data (via AIAIC Remote Sensing) to measure whether input subsidies actually improved productivity — shifting Maharashtra from output-based to outcome-based governance.</span></li>
+        </ul>
+      </div>
+
+      <!-- Finance / CAG -->
+      <div class="s-card finance">
+        <div class="s-card-head">
+          <div class="s-icon finance">💼</div>
+          <div>
+            <h4>Finance Department &amp; CAG</h4>
+            <p>Principal Secretary Finance, Audit teams, PAC, CAG Maharashtra</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">💰</span><span><strong>Quantifiable fiscal savings.</strong> Conservative estimate: ₹1,000–1,500 Cr annual leakage recovery across PM-KISAN, Namo Shetkari, fertiliser subsidies and input schemes. SSP pays for itself within Year 1 of full operation.</span></li>
+          <li><span class="b-icon">📑</span><span><strong>Audit-ready by design.</strong> Every eligibility decision is logged with the rule version, data sources, and timestamp used. CAG audits can be run directly against the SSP audit trail — no more reconstructing paper records.</span></li>
+          <li><span class="b-icon">📊</span><span><strong>Accurate budget forecasting.</strong> For the first time, Finance can see the verified eligible population size before a scheme is launched — enabling accurate budget provisioning instead of post-hoc supplementary demands.</span></li>
+          <li><span class="b-icon">🔍</span><span><strong>Proactive fraud surfacing.</strong> SSP's leakage detection ML generates a quarterly anomaly report — flagging suspicious patterns (cluster of farmers in one village all with same bank account, sudden spike in new registrations before a scheme deadline) before money is disbursed.</span></li>
+          <li><span class="b-icon">🧾</span><span><strong>Real-time scheme spend tracking.</strong> Finance gets a live view of scheme-wise disbursement against allocation — integrated with PFMS — eliminating the 3-6 month lag in current spending reports.</span></li>
+        </ul>
+      </div>
+
+      <!-- AIAIC -->
+      <div class="s-card aiaic">
+        <div class="s-card-head">
+          <div class="s-icon aiaic">🏗️</div>
+          <div>
+            <h4>AIAIC — The Contracting Authority</h4>
+            <p>AI &amp; Agri-Innovation Centre as institution and long-term DPI steward</p>
+          </div>
+        </div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">🏆</span><span><strong>Crown jewel of AIAIC's portfolio.</strong> SSP becomes the most visible, high-impact initiative under AIAIC's mandate — demonstrating that the organisation can deliver transformative, farmer-facing impact at state scale.</span></li>
+          <li><span class="b-icon">🔑</span><span><strong>Foundation for all other AIAIC initiatives.</strong> The Farmer Identity Stack in SSP is the data backbone on which KisanScore (credit), parametric insurance, distress prediction, and every other AIAIC idea can be built. SSP is the infrastructure that makes everything else possible.</span></li>
+          <li><span class="b-icon">🌍</span><span><strong>National and international recognition.</strong> A state that eliminates scheme exclusion and leakage simultaneously — with verified data — becomes a model for the rest of India and an internationally recognised example of Digital Public Infrastructure in agriculture.</span></li>
+          <li><span class="b-icon">🤝</span><span><strong>Multi-department leverage.</strong> SSP requires and enables cross-department data sharing — establishing AIAIC as the trusted data coordinator across Agriculture, Revenue, Finance, and Cooperation departments, strengthening institutional positioning.</span></li>
+          <li><span class="b-icon">📡</span><span><strong>MahaAgX synergy.</strong> SSP's farmer data is the richest input to MahaAgX — enriching the agricultural data exchange platform with verified, consented, parcel-level farmer data that external agri-companies, banks, and researchers will pay to access.</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SCHEMES & NUMBERS
+════════════════════════════════════════════════ -->
+<section id="schemes">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-gold">Schemes &amp; Numbers</span>
+      <h2 class="section-title">The Financial Case — Scheme by Scheme</h2>
+      <p class="section-sub">SSP targets Maharashtra's highest-value agricultural schemes first. The numbers below represent the scale of both the opportunity and the problem SSP is built to solve.</p>
+    </div>
+
+    <div class="scheme-wrap mb-28">
+      <table class="scheme-table">
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th>Type</th>
+            <th>Annual Outlay (MH)</th>
+            <th>MH Beneficiaries</th>
+            <th>Est. Leakage / Gap</th>
+            <th>SSP Intervention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="scheme-name">PM-KISAN</span>
+              <span class="gap-note">₹6,000/year income support</span>
+            </td>
+            <td><span class="scheme-type type-central">Central</span></td>
+            <td><span class="scheme-amount">₹6,900 Cr</span></td>
+            <td>1.15 Cr registered</td>
+            <td><span class="leak-amount">~₹400–600 Cr</span><br><span class="gap-note">Ghost beneficiaries, ineligible landowners, deceased farmers still on rolls</span></td>
+            <td>Real-time Aadhaar + land record cross-validation; deceased beneficiary detection</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Namo Shetkari Mahasanman Nidhi</span>
+              <span class="gap-note">₹6,000/year state supplement to PM-KISAN</span>
+            </td>
+            <td><span class="scheme-type type-state">State</span></td>
+            <td><span class="scheme-amount">₹5,100 Cr</span></td>
+            <td>86 Lakh claimed</td>
+            <td><span class="leak-amount">~₹200–350 Cr</span><br><span class="gap-note">Duplicates from PM-KISAN list not filtered; tenant farmers listed as owners</span></td>
+            <td>Cross-validate with PM-KISAN; verify land ownership category; additionality check</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">PMFBY — Crop Insurance</span>
+              <span class="gap-note">Premium subsidy + claim payouts</span>
+            </td>
+            <td><span class="scheme-type type-central">Central</span></td>
+            <td><span class="scheme-amount">₹2,800 Cr</span><br><span class="gap-note">(State premium share)</span></td>
+            <td>1.2 Cr enrolled</td>
+            <td><span class="leak-amount">~30% eligible not enrolled</span><br><span class="gap-note">Awareness gap; complex enrollment process; KCC-linked auto-enrollment missing for non-KCC farmers</span></td>
+            <td>Auto-identify un-enrolled eligible farmers; trigger enrollment before Kharif/Rabi window</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Kisan Credit Card (KCC)</span>
+              <span class="gap-note">Subsidised working capital credit</span>
+            </td>
+            <td><span class="scheme-type type-central">Central</span></td>
+            <td><span class="scheme-amount">Credit access</span></td>
+            <td>~60 Lakh (40% eligible coverage)</td>
+            <td><span class="leak-amount">~90 Lakh eligible missing</span><br><span class="gap-note">No unified farmer data for bank verification; NBFC underwriting gap</span></td>
+            <td>Verified Farmer ID as KCC eligibility proof; integrate with bank systems via Account Aggregator</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Fertiliser Subsidy (DBT)</span>
+              <span class="gap-note">Direct benefit on fertiliser purchase</span>
+            </td>
+            <td><span class="scheme-type type-central">Central</span></td>
+            <td><span class="scheme-amount">₹3,500 Cr</span><br><span class="gap-note">(MH allocation)</span></td>
+            <td>All registered farmers</td>
+            <td><span class="leak-amount">~₹200–300 Cr</span><br><span class="gap-note">Non-farmers claiming via fake land records; multi-district duplicate claims</span></td>
+            <td>Farmer ID linked to POS at retailer; purchase linked to verified land holding size</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Gopinath Munde Shetkari Apghat Vima</span>
+              <span class="gap-note">Accident insurance for farmers</span>
+            </td>
+            <td><span class="scheme-type type-state">State</span></td>
+            <td><span class="scheme-amount">₹400 Cr</span></td>
+            <td>All 1.5 Cr farmers (auto)</td>
+            <td><span class="leak-amount">Low awareness of claims</span><br><span class="gap-note">Family members unaware of entitlement; claim process opaque; lapsed without filing</span></td>
+            <td>Auto-enroll via Farmer ID; notify family on farmer's death; guided claim workflow</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Dr. Panjabrao Deshmukh Krishi Sanjivani</span>
+              <span class="gap-note">Climate adaptation — water, soil, seeds</span>
+            </td>
+            <td><span class="scheme-type type-state">State</span></td>
+            <td><span class="scheme-amount">₹600 Cr</span></td>
+            <td>Targeted districts</td>
+            <td><span class="leak-amount">Geographic mismatch</span><br><span class="gap-note">Benefits not reaching most climate-vulnerable farmers; targeting based on revenue village, not parcel risk</span></td>
+            <td>Parcel-level climate risk scoring (via AIAIC Remote Sensing) determines priority targeting</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="scheme-name">Magel Tyala Shetatale Pani (Micro-Irrigation)</span>
+              <span class="gap-note">Drip/sprinkler subsidy</span>
+            </td>
+            <td><span class="scheme-type type-state">State</span></td>
+            <td><span class="scheme-amount">₹900 Cr</span></td>
+            <td>Demand-based</td>
+            <td><span class="leak-amount">Under-utilised budget</span><br><span class="gap-note">Eligible farmers unaware; scheme mismatch between crop type and eligible farmers</span></td>
+            <td>Auto-match farmers with crop type + water-stressed land to scheme; proactive outreach</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box gold-box">
+      <span class="ib-icon">💡</span>
+      <div>
+        <h5>Conservative Fiscal Case</h5>
+        <p>Addressing leakage in just the top 3 schemes (PM-KISAN, Namo Shetkari, Fertiliser DBT) recovers an estimated <strong>₹800–1,250 Cr per year</strong>. Including under-enrollment correction and efficiency savings, the total annual benefit to the exchequer exceeds <strong>₹1,500 Cr</strong> — against an estimated SSP platform investment of ₹80–120 Cr over 3 years. <strong>ROI: 12–15x over the project period.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ROADMAP
+════════════════════════════════════════════════ -->
+<section id="roadmap" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-green">Implementation Roadmap</span>
+      <h2 class="section-title">Phased Delivery — Impact from Month 6</h2>
+      <p class="section-sub">SSP is designed for phased delivery with measurable milestones at each stage — avoiding a 3-year "big bang" with no visible output until the end.</p>
+    </div>
+
+    <div class="roadmap mb-40">
+      <div class="phase-card">
+        <div class="phase-dot pd1">1</div>
+        <div class="phase-label pl1">Phase 1</div>
+        <div class="phase-duration">Months 0 – 6</div>
+        <h4>Foundation &amp; Pilot</h4>
+        <ul class="phase-items">
+          <li><span class="tick">▶</span> Farmer ID seeding from Mahabhulekh + PMKISAN + Aadhaar in 5 pilot districts</li>
+          <li><span class="tick">▶</span> PM-KISAN + Namo Shetkari + fertiliser subsidy rules onboarded as first schemes</li>
+          <li><span class="tick">▶</span> Leakage detection run against existing beneficiary databases</li>
+          <li><span class="tick">▶</span> Anomaly report delivered to Finance Department</li>
+          <li><span class="tick">▶</span> Minister dashboard live with pilot data</li>
+          <li><span class="tick">▶</span> Data governance policy and consent framework finalised</li>
+        </ul>
+        <div class="phase-milestone m1">Milestone: First leakage report + pilot farmer IDs live by Month 6</div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-dot pd2">2</div>
+        <div class="phase-label pl2">Phase 2</div>
+        <div class="phase-duration">Months 6 – 18</div>
+        <h4>State Rollout &amp; Scheme Expansion</h4>
+        <ul class="phase-items">
+          <li><span class="tick">▶</span> Farmer ID rollout across all 36 districts</li>
+          <li><span class="tick">▶</span> 20+ schemes onboarded including PMFBY, KCC, Gopinath Munde Vima</li>
+          <li><span class="tick">▶</span> AI Eligibility Engine in production — auto-matching running daily</li>
+          <li><span class="tick">▶</span> Farmer notification system live (SMS + WhatsApp + IVR in Marathi)</li>
+          <li><span class="tick">▶</span> Taluka officer operations dashboard deployed</li>
+          <li><span class="tick">▶</span> Grievance module live with SLA tracking</li>
+        </ul>
+        <div class="phase-milestone m2">Milestone: 75 Lakh farmer IDs issued; ₹400+ Cr leakage flagged by Month 18</div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-dot pd3">3</div>
+        <div class="phase-label pl3">Phase 3</div>
+        <div class="phase-duration">Months 18 – 36</div>
+        <h4>Full Coverage &amp; DPI Expansion</h4>
+        <ul class="phase-items">
+          <li><span class="tick">▶</span> All 1.5 Cr farmers enrolled with verified Farmer IDs</li>
+          <li><span class="tick">▶</span> All 50+ schemes onboarded; auto-enrollment operational</li>
+          <li><span class="tick">▶</span> SSP integrated with PFMS for direct disbursement triggering</li>
+          <li><span class="tick">▶</span> Policy simulation module for scheme designers</li>
+          <li><span class="tick">▶</span> Open API layer for AIAIC ecosystem (KisanScore, insurance, advisory)</li>
+          <li><span class="tick">▶</span> Annual CAG-ready audit report auto-generated from SSP</li>
+        </ul>
+        <div class="phase-milestone m3">Milestone: 1.5 Cr IDs, ₹1,000+ Cr leakage recovered, full DPI operational</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CHALLENGES & MITIGATIONS
+════════════════════════════════════════════════ -->
+<section id="challenges">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-red">Challenges &amp; Mitigations</span>
+      <h2 class="section-title">Honest Assessment — Known Risks &amp; How We Address Them</h2>
+      <p class="section-sub">No transformative programme is without challenges. We have identified the most significant ones and built mitigations into the platform design from the outset.</p>
+    </div>
+
+    <div class="challenges-grid">
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🗂️</span> Data Quality in Mahabhulekh <span class="risk risk-h">High Risk</span></h4>
+        <p class="challenge-desc">Land records have errors, mutation backlogs, and digitisation gaps — particularly in Konkan and tribal areas. Seeding farmer IDs from poor-quality source data propagates errors.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Probabilistic data quality scoring at ingestion; human-in-the-loop verification for low-confidence records; self-correction workflow for farmers via CSC kiosks. Prioritise high-quality districts for Phase 1.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🏛️</span> Inter-Department Data Sharing <span class="risk risk-h">High Risk</span></h4>
+        <p class="challenge-desc">Agriculture, Revenue, Finance, and Cooperation departments each guard their data. Without a Government Resolution mandating data sharing, SSP cannot access the source databases it needs.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> AIAIC to seek a Cabinet-level Government Resolution (GR) mandating data sharing. SSP designed on federated model — departments retain ownership; SSP accesses via APIs, not bulk copies. This preserves departmental sovereignty while enabling interoperability.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">⚡</span> Aadhaar Seeding Gaps <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">Not all farmers — especially elderly, tribal, and tenant farmers — have Aadhaar-seeded bank accounts. SSP cannot auto-match or disburse without a verified bank linkage.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Multi-modal identity: Aadhaar preferred but not exclusive. SSP accepts voter ID + land record combination as secondary identity. Enrolment camps run with BCs (Banking Correspondents) at CSCs for Aadhaar-bank seeding in parallel.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🤝</span> Change Management — Talathi Resistance <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">Automation of beneficiary selection removes discretionary power from Talathis and village-level workers. Resistance — including deliberate data entry errors — is a real deployment risk.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Training programme for 15,000+ Talathis with incentive structure tied to data quality scores. Talathi dashboard designed to reduce burden, not just remove control. Phased rollout with feedback loops before state-wide enforcement.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">⚖️</span> Political Sensitivity of Leakage Removal <span class="risk risk-h">High Risk</span></h4>
+        <p class="challenge-desc">Removing ghost beneficiaries who are politically connected, or who belong to organised farmer bodies, can create visible opposition. Mass de-enrollment without notice is a political liability.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> SSP flags anomalies for human review — it does not auto-delete beneficiaries. A structured notice period (30 days) is given for flagged beneficiaries to produce counter-evidence. "Exclude confirmed" only after review completion. This protects both the farmer and the government.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">📶</span> Rural Connectivity Gaps <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">Real-time eligibility verification and notification requires internet connectivity that is unreliable or absent in many of Maharashtra's 40,000+ villages.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Offline-first architecture for all field-facing tools. Changes sync when connectivity is available. CSCs used as connectivity hubs for villages without direct access. IVR fallback for all farmer notifications.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🔒</span> Data Privacy &amp; Consent <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">Aggregating land, financial, and personal data in one platform creates privacy risk and potential for misuse if the consent and security framework is weak.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Consent layer built into Farmer ID — farmers explicitly approve each data-sharing use case. Data encrypted at rest and in transit. Role-based access control so no single official can access the full farmer profile. Periodic privacy audit by independent body.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🔧</span> Legacy System Integration <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">APMC systems, state DBT portals, and district revenue systems run on different tech stacks — many without APIs. Integration requires significant custom connector work.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> API-first integration strategy with pre-built connectors for NIC-standard systems. Where APIs don't exist, scheduled batch sync via SFTP until systems are upgraded. Integration roadmap aligned with NIC Maharashtra's infrastructure modernisation timeline.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🔌</span> MahaAgX, AgriStack &amp; MahaDBT API Maturity <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">SSP's intelligence layer depends on live API access to MahaAgX (data exchange), AgriStack/MHFR (Farmer ID), MahaDBT (disbursement status), and Mahabhulekh (land records). API SLAs, rate limits, and data freshness across these platforms vary and are not yet governed by formal integration agreements with a third-party system like SSP.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> Formalise platform integration MoUs with AIAIC (MahaAgX), NIC Maharashtra (AgriStack, Mahabhulekh), and Finance Dept (MahaDBT) as a pre-condition of Phase 1 — AIAIC's convening role makes this tractable. Implement resilient API wrapper layer with circuit-breaker patterns and scheduled batch fallback where real-time APIs are unavailable. SSP designed to degrade gracefully — partial data enables limited eligibility checks rather than total failure.</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <h4><span class="c-icon">🏛️</span> Central Government Portal Dependencies <span class="risk risk-m">Medium Risk</span></h4>
+        <p class="challenge-desc">Scheme status for PM-KISAN, PMFBY, KCC, and Fertiliser DBT sits on Central Government portals — NIC-hosted systems not under Maharashtra's control. Direct API access requires MoA&amp;FW or Ministry-level approval, which Maharashtra cannot unilaterally compel.</p>
+        <div class="mitigation">
+          <div><strong>Mitigation</strong> PM-KISAN data accessed via farmer-consented DigiLocker pull (already available). PMFBY: Insurance Information Bureau APIs. Fertiliser DBT: iSAGaRD portal APIs. KCC: RBI Account Aggregator framework for bank-held data. Phase 1 scope restricted to state-controlled scheme data; central scheme integration progresses in Phase 2 with AIAIC's central government relationships as leverage.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SUCCESS METRICS / KPIs
+════════════════════════════════════════════════ -->
+<section id="kpis" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-purple">Success Metrics</span>
+      <h2 class="section-title">How We Measure Success</h2>
+      <p class="section-sub">SSP is accountable to concrete, verifiable outcomes — not activity metrics. These KPIs are tracked in real time on the AIAIC monitoring dashboard.</p>
+    </div>
+
+    <div class="kpi-grid mb-40">
+      <div class="kpi-card">
+        <span class="kval kv-green">1.5 Cr</span>
+        <div class="ktitle">Farmer IDs Issued</div>
+        <div class="ksub">Verified, Aadhaar-linked unique farmer identities by Month 36</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-saffron">₹1,000 Cr+</span>
+        <div class="ktitle">Leakage Recovered</div>
+        <div class="ksub">Annual savings from ghost beneficiary removal and deduplication</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-navy">30%→95%</span>
+        <div class="ktitle">Eligible Farmer Coverage</div>
+        <div class="ksub">% of eligible farmers enrolled in every scheme they qualify for</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-purple">7 Days</span>
+        <div class="ktitle">Scheme Processing Time</div>
+        <div class="ksub">Down from 45–90 days for new scheme enrollment and verification</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-green">50+</span>
+        <div class="ktitle">Schemes Onboarded</div>
+        <div class="ksub">Central + State agri schemes with machine-readable eligibility rules</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-saffron">&lt;48 Hrs</span>
+        <div class="ktitle">Grievance Resolution SLA</div>
+        <div class="ksub">Tier-1 farmer grievances auto-resolved; Tier-2 escalated within 48 hours</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-navy">99%</span>
+        <div class="ktitle">Audit Trail Coverage</div>
+        <div class="ksub">Every eligibility decision logged with evidence — CAG-ready by design</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kval kv-purple">12–15x</span>
+        <div class="ktitle">ROI over 3 Years</div>
+        <div class="ksub">₹1,500 Cr/year savings against ₹80–120 Cr total platform investment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     WHY NOW / CTA
+════════════════════════════════════════════════ -->
+<section id="whynow">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag tag-navy">Why Now</span>
+      <h2 class="section-title">The Window to Act Is Now</h2>
+      <p class="section-sub">Four converging forces make 2026 the right moment to build SSP — and make waiting costly.</p>
+    </div>
+
+    <div class="why-now mb-40">
+      <h3>Four Converging Reasons SSP Must Begin Now</h3>
+      <div class="why-grid">
+        <div class="why-item">
+          <h5>1. Active Funded Policy Mandate — Track 2 Window Is Open</h5>
+          <p>The Maharashtra Agri-AI Policy 2025–2029 is an active Call for Proposals. Track 2 (up to ₹2 Crore for pilot &amp; validation) is open to mature solutions with working prototypes. SSP has a working interactive demo. AgriStack / MHFR is live. MahaAgX is live. The policy mandate, implementation infrastructure, and funding track are all in place — this is the moment to submit.</p>
+        </div>
+        <div class="why-item">
+          <h5>2. CAG Pressure is Increasing</h5>
+          <p>The CAG's last performance audit of PM-KISAN and state agri schemes in Maharashtra flagged significant irregularities. The next audit cycle will be more stringent. SSP gives the government a credible, technology-driven response to CAG concerns before they become a political issue.</p>
+        </div>
+        <div class="why-item">
+          <h5>3. National Digital Infrastructure is Ready</h5>
+          <p>DigiLocker, Account Aggregator, MOSIP, and PFMS — the national DPI stack SSP relies on — are now mature and proven. Three years ago, this platform would have required building these foundations from scratch. Today, they are ready APIs.</p>
+        </div>
+        <div class="why-item">
+          <h5>4. Every Month of Delay Has a Price</h5>
+          <p>At ₹1,500 Cr in annual leakage, every 30-day delay costs the Maharashtra exchequer approximately ₹125 Crore. Every month without SSP also means thousands of eligible farmers miss a scheme enrollment window — a cost that cannot be recovered retrospectively.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>The Decision That Changes Everything</h3>
+      <p>SSP is not one more IT project. It is the infrastructure that makes Maharashtra's entire agricultural welfare system work as intended — reaching the right farmers, protecting public money, and generating the data needed to design better policy. The technical capability exists. The policy mandate exists. The financial case is unambiguous. What is needed is the decision to begin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <p>
+    <strong>Shetkari Samruddhi Platform (SSP)</strong> — Maharashtra Agri-AI Policy 2025–2029 Response
+    &nbsp;|&nbsp; <strong>Submitted to AIAIC — Government of Maharashtra</strong>
+    &nbsp;|&nbsp; Track 2 — Pilot &amp; Validation &nbsp;|&nbsp; June 2026
+  </p>
+  <p style="margin-top: 8px; font-size: 12px;">
+    This document is a high-level proposal. Detailed SRS, RFP specifications, data flow diagrams, and security architecture are available as Phase 0 deliverables upon engagement confirmation. All financial estimates are indicative and subject to detailed due-diligence.
+  </p>
+</footer>
+
+<script>
+  (function () {
+    const nav    = document.querySelector('.toc-strip');
+    const links  = Array.from(document.querySelectorAll('.toc-inner a'));
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+
+    function setActive() {
+      const navBottom = nav.getBoundingClientRect().bottom + 8;
+      let current = sections[0];
+      for (const sec of sections) {
+        if (sec.getBoundingClientRect().top <= navBottom) current = sec;
+      }
+      links.forEach(a => {
+        const isActive = a.getAttribute('href') === '#' + current.id;
+        a.classList.toggle('active', isActive);
+        if (isActive) a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      });
+    }
+
+    window.addEventListener('scroll', setActive, { passive: true });
+    setActive();
+  })();
+</script>
+</body>
+</html>
