@@ -302,7 +302,19 @@
   }
 
   /* ---------- FOOTER ---------- */
-  footer{text-align:center; padding:32px 24px; color:var(--text-muted); font-size:13px;}
+  footer{text-align:center; padding:40px 24px 32px; color:var(--text-muted); font-size:13px; background:#fff; border-top:1px solid var(--border);}
+  .footer-logo{display:block; height:40px; width:auto; margin:0 auto 14px; opacity:.7;}
+
+  /* ---------- HERO ATTRIBUTION ---------- */
+  .hero-by{
+    display:inline-flex; align-items:center; gap:10px;
+    /* background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); */
+    background: #fff;
+    padding:8px 18px 8px 14px; border-radius:999px;
+    margin-top:22px; position:relative; z-index:1;
+  }
+  .hero-by span{color: var(--primary);font-size:11.5px; opacity:.90; font-weight:600; letter-spacing:.06em; text-transform:uppercase;}
+  .hero-by img{height:39px; width:auto;}
 
   @media print{
     nav.topnav{display:none;}
@@ -317,12 +329,16 @@
 <header class="hero">
   <img class="hero-logo" src="https://firebasestorage.googleapis.com/v0/b/food-to-home-staging.appspot.com/o/images%2Fanandini.png?alt=media&token=3ce14cb3-ef25-4f0d-8107-4c0ae987ff0a" alt="Anandini Logo" width="84" height="84">
   <span class="hero-tag">Product Requirements Document · Stakeholder Walkthrough</span>
-  <h1>Anandini</h1>
+  <h1>Anandini - Integrated Cancer Command Center (ICCC)</h1>
   <p class="lead">Community Cancer Screening &amp; Reflex Diagnostic Pathway — an end-to-end platform connecting mass screening camps, outsourced pathology labs, AI-assisted referral, and multi-level treatment tracking into one longitudinal patient record.</p>
   <div class="meta">
     <span>Version 0.1 · Draft</span>
     <span>June 2026</span>
     <span>Status: For Review</span>
+  </div>
+  <div class="hero-by">
+    <span>Presented by</span>
+    <img src="/images/logo-dark.png" alt="Patheya Technologies" width="63" height="26">
   </div>
 </header>
 
@@ -380,7 +396,7 @@
       <h2>Why we're building this</h2>
     </div>
     <div class="vision-box">
-      <span>Enable a single organization to run mass cancer screening camps across communities, seamlessly hand off samples to outsourced pathology labs, automatically interpret results against configurable clinical protocols, and guide every patient through the correct care pathway — from a negative result and routine follow-up, to staging, day-care treatment, or hospitalization — while maintaining a complete longitudinal health record for each patient.</span>
+      <span>Enable a single organization to run mass cancer screening camps across communities, seamlessly hand off samples to outsourced pathology labs, automatically interpret results against configurable clinical protocols, and guide every patient through the correct care pathway — from a negative result and routine follow-up, to Suspected, day-care treatment, or hospitalization — while maintaining a complete longitudinal health record for each patient.</span>
     </div>
   </section>
 
@@ -472,7 +488,7 @@
       <div class="step"><span class="num">5</span>Result Validation</div>
       <div class="step"><span class="num">6</span>Protocol &amp; Rules</div>
       <div class="step"><span class="num">7</span>Risk &amp; Referral</div>
-      <div class="step"><span class="num">8</span>Staging / Negative</div>
+      <div class="step"><span class="num">8</span>Suspected / Negative</div>
       <div class="step"><span class="num">9</span>Day-Care Treatment</div>
       <div class="step"><span class="num">10</span>Hospitalization</div>
       <div class="step"><span class="num">11</span>Survivorship</div>
@@ -611,7 +627,7 @@
           <span class="label">Referral Levels:</span>
           <span class="chip negative">Negative</span>
           <span class="chip arrow">→</span>
-          <span class="chip level3">Level 3 · Staging</span>
+          <span class="chip level3">Level 3 · Suspected</span>
           <span class="chip arrow">→</span>
           <span class="chip level2">Level 2 · Day-Care</span>
           <span class="chip arrow">→</span>
@@ -628,10 +644,10 @@
           <div><div class="module-id">MODULE 08</div><h3>Referral &amp; Care Pathway Management</h3></div>
           <span class="priority-pill P1">P1</span>
         </div>
-        <p class="desc">Covers the <span class="chip negative" style="padding:2px 8px;">Negative</span> pathway and <span class="chip level3" style="padding:2px 8px;">Level 3</span> staging.</p>
+        <p class="desc">Covers the <span class="chip negative" style="padding:2px 8px;">Negative</span> pathway and <span class="chip level3" style="padding:2px 8px;">Level 3</span> Suspected.</p>
         <ul>
           <li><strong>Negative:</strong> auto-notification, auto-generated next-screening date, case closed</li>
-          <li><strong>Level 3 (Staging):</strong> urgent notification to patient &amp; clinician, oncology appointment booking, additional diagnostic ordering, TNM staging documentation</li>
+          <li><strong>Level 3 (Suspected):</strong> urgent notification to patient &amp; clinician, oncology appointment booking, additional diagnostic ordering, TNM Suspected documentation</li>
           <li>Decision gate → routes to Level 2 or Level 1</li>
           <li>Referral history timeline — level changes, overrides, justifications</li>
         </ul>
@@ -918,7 +934,7 @@
       <div class="phase">
         <span class="ph-num">Phase 1</span>
         <h4>Foundation</h4>
-        <div class="dur">≈ 3 months</div>
+        <!-- <div class="dur">≈ 3 months</div> -->
         <div class="chips">
           <span>CC1–CC8 (core)</span><span>M01 Patient Registry</span><span>M02 Mass Screening</span><span>M03 Sample Collection</span><span>M06 Protocol Config (basic)</span><span>M12 Case Dashboard (basic)</span>
         </div>
@@ -926,7 +942,7 @@
       <div class="phase">
         <span class="ph-num">Phase 2</span>
         <h4>Lab Loop &amp; Referral</h4>
-        <div class="dur">≈ 2 months</div>
+        <!-- <div class="dur">≈ 2 months</div> -->
         <div class="chips">
           <span>M04 Pathology Integration</span><span>M05 Result Management</span><span>M07 Referral Engine (rules-based)</span>
         </div>
@@ -934,15 +950,15 @@
       <div class="phase">
         <span class="ph-num">Phase 3</span>
         <h4>Full Care Pathway</h4>
-        <div class="dur">≈ 3 months</div>
+        <!-- <div class="dur">≈ 3 months</div> -->
         <div class="chips">
-          <span>M08 Referral/Staging</span><span>M09 Day-Care (L2)</span><span>M10 Hospitalization (L1)</span><span>M11 Survivorship</span><span>CC6 Real-time layer</span>
+          <span>M08 Referral/Suspected</span><span>M09 Day-Care (L2)</span><span>M10 Hospitalization (L1)</span><span>M11 Survivorship</span><span>CC6 Real-time layer</span>
         </div>
       </div>
       <div class="phase">
         <span class="ph-num">Phase 4</span>
         <h4>Insights &amp; Scale</h4>
-        <div class="dur">≈ 1–2 months</div>
+        <!-- <div class="dur">≈ 1–2 months</div> -->
         <div class="chips">
           <span>M13 Analytics (advanced)</span><span>AI/ML into M07</span>
         </div>
@@ -1051,7 +1067,8 @@
 </main>
 
 <footer>
-  Anandini — Community Cancer Screening &amp; Reflex Diagnostic Pathway · PRD v0.1 Draft · June 2026
+  <img class="footer-logo" src="/images/logo-dark.png" alt="Patheya Technologies" width="96" height="40">
+  Anandini — Integrated Cancer Command Center (ICCC) —  Community Cancer Screening &amp; Reflex Diagnostic Pathway · PRD v0.1 Draft · June 2026
 </footer>
 
 <script>
