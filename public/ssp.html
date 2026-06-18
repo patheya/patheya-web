@@ -534,8 +534,8 @@
       <div class="gov-badge"><span class="dot"></span>Government of Maharashtra &nbsp;|&nbsp; AIAIC</div>
       <span class="doc-type">Proposal + Policy Brief</span>
     </div>
-    <h1><span class="accent">Shetkari Samruddhi</span> Platform (SSP)</h1>
-    <h2>Unified Farmer Identity &amp; <span class="accent">AI-Driven Scheme Delivery</span> —<br>Connecting Maharashtra's Farmers to Every Benefit They Deserve</h2>
+    <h1><span class="accent">Shetkari Samruddhi Platform (SSP)</span></h1>
+    <h2>Unified Farmer Identity &amp; <span class="accent">AI-Driven Eligibility Engine</span> —<br>Connecting Maharashtra's Farmers to Every Benefit They Deserve</h2>
     <div class="cover-meta">
       <div><strong>Initiative</strong> Digital Public Infrastructure for Agriculture</div>
       <div><strong>Prepared for</strong> AIAIC — Government of Maharashtra</div>
@@ -561,7 +561,7 @@
         <div class="klbl">Annual benefit optimization potential</div>
       </div> -->
       <div class="kpi-box">
-        <span class="knum">36 Mo</span>
+        <span class="knum">18 Mo</span>
         <div class="klbl">Phased Delivery — Impact from early months</div>
       </div>
     </div>
@@ -911,6 +911,122 @@
         <p>The SSP AI Engine runs continuously, matching each farmer's verified profile against all scheme eligibility rule sets. It auto-generates entitlement recommendations, triggers enrollment workflows, notifies farmers of new eligibility in Marathi via SMS/WhatsApp/IVR, and simultaneously flags anomalies — deceased beneficiaries, land mismatch, duplicate accounts — for audit queues.</p>
       </div>
     </div>
+
+    <!-- ── Information Flow Diagram ── -->
+    <div style="margin-top:36px;">
+      <p style="font-size:12px;font-weight:700;letter-spacing:2px;color:#718096;text-transform:uppercase;text-align:center;margin-bottom:16px;">Information Flow — How SSP Connects Farmers to Every Benefit</p>
+      <svg viewBox="0 0 960 490" xmlns="http://www.w3.org/2000/svg" style="width:100%;font-family:'Raleway',Inter,sans-serif;display:block;">
+        <defs>
+          <marker id="ag" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#1B6B3A"/></marker>
+          <marker id="an" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#0D2B5E"/></marker>
+          <marker id="ap" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#6B21A8"/></marker>
+          <marker id="as2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#FF6B00"/></marker>
+        </defs>
+
+        <!-- Background -->
+        <rect width="960" height="490" fill="#F7F8FA" rx="12"/>
+
+        <!-- Column labels -->
+        <text x="115" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#718096" letter-spacing="2">INPUTS</text>
+        <text x="485" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#718096" letter-spacing="2">SSP INTELLIGENCE PLATFORM</text>
+        <text x="839" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#718096" letter-spacing="2">OUTCOMES</text>
+
+        <!-- ═══ LEFT: FARMER ACCESS ═══ -->
+        <rect x="10" y="60" width="212" height="96" rx="8" fill="#E8F5EE" stroke="#1B6B3A" stroke-width="1.5"/>
+        <text x="26" y="78" font-size="10" font-weight="800" fill="#1B6B3A" letter-spacing="1">👨‍🌾  FARMER ACCESS</text>
+        <text x="26" y="95"  font-size="11" fill="#2D3748">▸ Shetkari App (Android / iOS)</text>
+        <text x="26" y="111" font-size="11" fill="#2D3748">▸ CSC Kiosk / Aaple Sarkar portal</text>
+        <text x="26" y="127" font-size="11" fill="#2D3748">▸ Krishi Mitra (assisted enrolment)</text>
+        <text x="26" y="143" font-size="11" fill="#2D3748">▸ Single Farmer ID — register once</text>
+
+        <!-- ═══ LEFT: GOVT DPI STACK ═══ -->
+        <rect x="10" y="173" width="212" height="126" rx="8" fill="#EEF3FB" stroke="#0D2B5E" stroke-width="1.5"/>
+        <text x="26" y="191" font-size="10" font-weight="800" fill="#0D2B5E" letter-spacing="1">🏛️  GOVT DPI STACK</text>
+        <text x="26" y="208" font-size="11" fill="#2D3748">▸ AgriStack / MHFR — Farmer ID</text>
+        <text x="26" y="224" font-size="11" fill="#2D3748">▸ MahaAgX — consent data exchange</text>
+        <text x="26" y="240" font-size="11" fill="#2D3748">▸ Mahabhulekh — 7/12, 8A records</text>
+        <text x="26" y="256" font-size="11" fill="#2D3748">▸ e-Crop / PMFBY / KCC / Aadhaar</text>
+        <text x="26" y="272" font-size="11" fill="#2D3748">▸ MahaDBT — disbursement engine</text>
+        <text x="26" y="288" font-size="11" fill="#2D3748">▸ AIAIC — AI policy &amp; testbed</text>
+
+        <!-- ═══ LEFT: SCHEME REGISTRY ═══ -->
+        <rect x="10" y="316" width="212" height="96" rx="8" fill="#F5F3FF" stroke="#6B21A8" stroke-width="1.5"/>
+        <text x="26" y="334" font-size="10" font-weight="800" fill="#6B21A8" letter-spacing="1">📂  SCHEME REGISTRY</text>
+        <text x="26" y="351" font-size="11" fill="#2D3748">▸ 50+ schemes — machine-readable</text>
+        <text x="26" y="367" font-size="11" fill="#2D3748">▸ Eligibility rule sets per scheme</text>
+        <text x="26" y="383" font-size="11" fill="#2D3748">▸ PM-KISAN, Namo Shetkari &amp; more</text>
+        <text x="26" y="399" font-size="11" fill="#2D3748">▸ Benefit quantum &amp; deadlines</text>
+
+        <!-- Arrows left → center -->
+        <line x1="222" y1="108" x2="245" y2="108" stroke="#1B6B3A" stroke-width="2" marker-end="url(#ag)"/>
+        <line x1="222" y1="236" x2="245" y2="236" stroke="#0D2B5E" stroke-width="2" marker-end="url(#an)"/>
+        <line x1="222" y1="364" x2="245" y2="364" stroke="#6B21A8" stroke-width="2" marker-end="url(#ap)"/>
+
+        <!-- ═══ CENTER PLATFORM OUTER BOX ═══ -->
+        <rect x="245" y="60" width="480" height="378" rx="10" fill="white" stroke="#FF6B00" stroke-width="2.5"/>
+
+        <!-- Profile Builder sub-box -->
+        <rect x="258" y="72" width="454" height="96" rx="6" fill="#FFF1E6" stroke="#FF8C3A" stroke-width="1"/>
+        <text x="274" y="90"  font-size="11" font-weight="800" fill="#FF6B00" letter-spacing="0.5">FARMER PROFILE BUILDER</text>
+        <text x="274" y="107" font-size="11" fill="#4A5568">▸ Unified profile: Farmer ID + land + crop + financial + household data</text>
+        <text x="274" y="123" font-size="11" fill="#4A5568">▸ Aadhaar-linked; data pulled via MahaAgX consent layer (farmer-controlled)</text>
+        <text x="274" y="139" font-size="11" fill="#4A5568">▸ One-time enrolment — documents reused across all scheme applications</text>
+        <text x="274" y="155" font-size="11" fill="#4A5568">▸ Auto-refreshed on 7/12 mutation, crop season change, or PMFBY update</text>
+
+        <!-- Down arrow inside platform -->
+        <line x1="485" y1="168" x2="485" y2="190" stroke="#FF6B00" stroke-width="2" marker-end="url(#as2)"/>
+
+        <!-- AI Matching Engine sub-box -->
+        <rect x="258" y="190" width="454" height="112" rx="6" fill="#FF6B00"/>
+        <text x="485" y="212" text-anchor="middle" font-size="13" font-weight="800" fill="white" letter-spacing="0.5">⚙️  AI SCHEME MATCHING ENGINE</text>
+        <text x="274" y="230" font-size="11" fill="rgba(255,255,255,0.93)">▸ Matches each farmer's profile against all 50+ scheme eligibility rule sets — continuously</text>
+        <text x="274" y="246" font-size="11" fill="rgba(255,255,255,0.93)">▸ Confidence-scores and ranks schemes; auto-generates ranked entitlement list per farmer</text>
+        <text x="274" y="262" font-size="11" fill="rgba(255,255,255,0.93)">▸ Triggers enrolment workflow; notifies farmer in Marathi via SMS / WhatsApp / IVR</text>
+        <text x="274" y="278" font-size="11" fill="rgba(255,255,255,0.93)">▸ Flags anomalies: duplicates, deceased beneficiaries, land mismatch → audit queue</text>
+
+        <!-- Down arrow inside platform -->
+        <line x1="485" y1="302" x2="485" y2="324" stroke="#FF6B00" stroke-width="2" marker-end="url(#as2)"/>
+
+        <!-- Audit / Delivery sub-box -->
+        <rect x="258" y="324" width="454" height="102" rx="6" fill="#EEF3FB" stroke="#1A4499" stroke-width="1"/>
+        <text x="274" y="342" font-size="11" font-weight="800" fill="#0D2B5E" letter-spacing="0.5">AUDIT, DELIVERY &amp; GRIEVANCE</text>
+        <text x="274" y="359" font-size="11" fill="#4A5568">▸ Eligibility decision routed to district / taluka officer mobile dashboard for approval</text>
+        <text x="274" y="375" font-size="11" fill="#4A5568">▸ Auto-application filed to MahaDBT on approval — direct beneficiary bank transfer</text>
+        <text x="274" y="391" font-size="11" fill="#4A5568">▸ Grievances tracked end-to-end with 7-day SLA and auto-escalation</text>
+        <text x="274" y="407" font-size="11" fill="#4A5568">▸ Full audit log: every eligibility decision, evidence, and timestamp — CAG-ready</text>
+
+        <!-- Arrows center → right -->
+        <line x1="725" y1="246" x2="738" y2="246" stroke="#FF6B00" stroke-width="2" marker-end="url(#as2)"/>
+        <line x1="725" y1="375" x2="738" y2="375" stroke="#0D2B5E" stroke-width="2" marker-end="url(#an)"/>
+
+        <!-- ═══ RIGHT: SCHEME ALERTS ═══ -->
+        <rect x="738" y="190" width="202" height="110" rx="8" fill="#E8F5EE" stroke="#1B6B3A" stroke-width="1.5"/>
+        <text x="839" y="210" text-anchor="middle" font-size="11" font-weight="800" fill="#1B6B3A">📱 SCHEME ALERTS</text>
+        <text x="754" y="227" font-size="11" fill="#2D3748">▸ Marathi SMS notification</text>
+        <text x="754" y="243" font-size="11" fill="#2D3748">▸ WhatsApp / IVR call</text>
+        <text x="754" y="259" font-size="11" fill="#2D3748">▸ Personalised scheme list</text>
+        <text x="754" y="275" font-size="11" fill="#2D3748">▸ Application link / kiosk code</text>
+
+        <!-- Down arrow right column -->
+        <line x1="839" y1="300" x2="839" y2="322" stroke="#1B6B3A" stroke-width="2" marker-end="url(#ag)"/>
+
+        <!-- ═══ RIGHT: MAHADBT DISBURSEMENT ═══ -->
+        <rect x="738" y="322" width="202" height="102" rx="8" fill="#EEF3FB" stroke="#0D2B5E" stroke-width="1.5"/>
+        <text x="839" y="342" text-anchor="middle" font-size="11" font-weight="800" fill="#0D2B5E">💸 MAHADBT PAYMENT</text>
+        <text x="754" y="359" font-size="11" fill="#2D3748">▸ Auto-application filed</text>
+        <text x="754" y="375" font-size="11" fill="#2D3748">▸ Direct bank transfer</text>
+        <text x="754" y="391" font-size="11" fill="#2D3748">▸ 7–14 day processing</text>
+        <text x="754" y="407" font-size="11" fill="#2D3748">▸ Disbursement confirmed</text>
+
+        <!-- Down arrow right column -->
+        <line x1="839" y1="424" x2="839" y2="442" stroke="#1B6B3A" stroke-width="2" marker-end="url(#ag)"/>
+
+        <!-- ═══ RIGHT: FARMER RECEIVES BENEFIT ═══ -->
+        <rect x="738" y="442" width="202" height="36" rx="8" fill="#1B6B3A"/>
+        <text x="839" y="465" text-anchor="middle" font-size="12" font-weight="800" fill="white">✅  Farmer Receives Benefit</text>
+      </svg>
+    </div>
+
   </div>
 </section>
 
@@ -1044,6 +1160,8 @@
           <li><span class="b-icon">🗂️</span><span><strong>Full entitlement transparency.</strong> Farmer-facing portal shows every scheme the farmer is enrolled in, every benefit received, every pending application — in Marathi, accessible via smartphone or CSC kiosk.</span></li>
           <li><span class="b-icon">🤝</span><span><strong>Dispute resolution.</strong> If wrongly excluded, a grievance can be raised digitally — tracked, time-bound, and escalated automatically to the concerned officer if not resolved within 7 days.</span></li>
           <li><span class="b-icon">🏦</span><span><strong>Path to formal credit.</strong> A verified Farmer ID with scheme history and land records becomes the foundation for KisanScore (credit scoring), unlocking formal bank credit at lower interest rates.</span></li>
+          <li><span class="b-icon">📄</span><span><strong>One-time document upload, reused everywhere.</strong> Upload Aadhaar, land records, and bank details once to your Farmer ID profile — the same documents are reused automatically across every scheme application, no repeated submissions.</span></li>
+          <li><span class="b-icon">🏃</span><span><strong>Reduced time, travel, and costs.</strong> Apply online via smartphone or CSC kiosk — no repeated trips to government offices, no queues, no lost workdays during critical sowing or harvest periods.</span></li>
         </ul>
       </div>
 
@@ -1062,6 +1180,8 @@
           <li><span class="b-icon">🛡️</span><span><strong>Reduced personal liability.</strong> When eligibility is decided by a transparent, rule-based AI engine with a documented audit trail, officials are protected from allegations of favoritism or corruption in beneficiary selection.</span></li>
           <li><span class="b-icon">📲</span><span><strong>Mobile operations dashboard.</strong> District and taluka officers access a mobile-friendly operations view — pending approvals, flagged anomalies, grievance queues, and disbursement status — from anywhere.</span></li>
           <li><span class="b-icon">⚡</span><span><strong>Faster scheme launches.</strong> When a new scheme is announced, eligibility rules are loaded into SSP and the eligible farmer list is generated in hours — not weeks of manual preparation.</span></li>
+          <li><span class="b-icon">🤝</span><span><strong>Unified grievance management.</strong> All farmer complaints across schemes are routed through a single support system with time-bound escalation — no more tracking grievances across multiple departmental channels or losing cases between systems.</span></li>
+          <li><span class="b-icon">📊</span><span><strong>Enhanced reporting and analytics.</strong> Built-in dashboards provide real-time analytics on application volumes, processing times, and service delivery performance — enabling data-driven operational decisions without manual report compilation.</span></li>
         </ul>
       </div>
 
@@ -1080,6 +1200,10 @@
           <li><span class="b-icon">🧮</span><span><strong>Policy simulation before launch.</strong> Simulate eligible population size, budget requirement, and overlap with existing schemes before announcing a new scheme — enabling accurate budget provisioning.</span></li>
           <li><span class="b-icon">🚨</span><span><strong>Crisis intervention readiness.</strong> During drought or pest outbreaks, identify affected farmers instantly and target relief disbursement within days, not months.</span></li>
           <li><span class="b-icon">📑</span><span><strong>Audit-ready governance by design.</strong> Every eligibility decision is logged with evidence — enabling accurate CAG audit trails and shifting Maharashtra from output-based to outcome-based governance.</span></li>
+          <li><span class="b-icon">💸</span><span><strong>Reduced administrative and operational costs.</strong> Process digitization and standardization eliminate manual data handling, paper-based workflows, and inter-department reconciliation — directly reducing the cost of scheme administration.</span></li>
+          <li><span class="b-icon">⚡</span><span><strong>Faster scheme implementation and service delivery.</strong> SSP generates the eligible beneficiary list the moment a scheme is announced — benefits reach farmers weeks faster than manual processes allow, improving measurable scheme outcomes.</span></li>
+          <li><span class="b-icon">🏆</span><span><strong>Strengthened digital governance.</strong> Every rupee tracked, every decision auditable — transparent and efficient utilization of public resources positions Maharashtra as a national model for digital agricultural governance.</span></li>
+          <li><span class="b-icon">🤝</span><span><strong>Transparency.</strong> Improved transparency, accountability, and citizen satisfaction.</span></li>
         </ul>
       </div>
 
@@ -1102,7 +1226,7 @@
       <div class="phase-card">
         <div class="phase-dot pd1">1</div>
         <div class="phase-label pl1">Phase 1</div>
-        <div class="phase-duration">Months 0 – 6 Approx.</div>
+        <!-- <div class="phase-duration">Months 0 – 6 Approx.</div> -->
         <h4>Foundation &amp; Pilot</h4>
         <ul class="phase-items">
           <li><span class="tick">▶</span> Farmer ID seeding from Mahabhulekh + PMKISAN + Aadhaar in 5 pilot districts</li>
@@ -1118,7 +1242,7 @@
       <div class="phase-card">
         <div class="phase-dot pd2">2</div>
         <div class="phase-label pl2">Phase 2</div>
-        <div class="phase-duration">Months 6 – 18 Approx.</div>
+        <!-- <div class="phase-duration">Months 6 – 18 Approx.</div> -->
         <h4>State Rollout &amp; Scheme Expansion</h4>
         <ul class="phase-items">
           <li><span class="tick">▶</span> Farmer ID rollout across all 36 districts</li>
@@ -1134,7 +1258,7 @@
       <div class="phase-card">
         <div class="phase-dot pd3">3</div>
         <div class="phase-label pl3">Phase 3</div>
-        <div class="phase-duration">Months 18 – 36 Approx</div>
+        <!-- <div class="phase-duration">Months 18 – 36 Approx</div> -->
         <h4>Full Coverage &amp; DPI Expansion</h4>
         <ul class="phase-items">
           <li><span class="tick">▶</span> All 1.5 Cr farmers enrolled with verified Farmer IDs</li>
@@ -1173,14 +1297,14 @@
         <div class="ksub">Annual savings from accurate beneficiary targeting and deduplication</div>
       </div>
       <div class="kpi-card">
-        <span class="kval kv-navy">30%→95%</span>
-        <div class="ktitle">Eligible Farmer Coverage</div>
+        <span class="kval kv-navy">→ 95%</span>
+        <div class="ktitle">Increased Eligible Farmer Coverage</div>
         <div class="ksub">% of eligible farmers enrolled in every scheme they qualify for</div>
       </div>
       <div class="kpi-card">
         <span class="kval kv-purple">7 Days</span>
         <div class="ktitle">Scheme Processing Time</div>
-        <div class="ksub">Down from 45–90 days for new scheme enrollment and verification</div>
+        <div class="ksub">Quick enrollment and verification for new schemes</div>
       </div>
       <div class="kpi-card">
         <span class="kval kv-green">50+</span>
@@ -1192,16 +1316,16 @@
         <div class="ktitle">Grievance Resolution SLA</div>
         <div class="ksub">Tier-1 farmer grievances auto-resolved; Tier-2 escalated within 48 hours</div>
       </div>
-      <div class="kpi-card">
+      <!-- <div class="kpi-card">
         <span class="kval kv-navy">99%</span>
         <div class="ktitle">Audit Trail Coverage</div>
         <div class="ksub">Every eligibility decision logged with evidence — CAG-ready by design</div>
-      </div>
-      <div class="kpi-card">
+      </div> -->
+      <!-- <div class="kpi-card">
         <span class="kval kv-purple">12–15x</span>
         <div class="ktitle">ROI over 3 Years</div>
         <div class="ksub">₹1,500 Cr/year savings against ₹80–120 Cr total platform investment</div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -1217,7 +1341,7 @@
       <p class="section-sub">Four converging forces make 2026 the right moment to build SSP — and make waiting costly.</p>
     </div>
 
-    <div class="why-now mb-40">
+    <!-- <div class="why-now mb-40">
       <h3>Four Converging Reasons SSP Must Begin Now</h3>
       <div class="why-grid">
         <div class="why-item">
@@ -1237,7 +1361,7 @@
           <p>At ₹1,500 Cr in annual benefit optimization potential, every 30-day delay costs the Maharashtra exchequer approximately ₹125 Crore. Every month without SSP also means thousands of eligible farmers miss a scheme enrollment window — a cost that cannot be recovered retrospectively.</p>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="cta-box">
       <h3>The Decision That Changes Everything</h3>
@@ -1251,12 +1375,12 @@
 ════════════════════════════════════════════════ -->
 <footer>
   <p>
-    <strong>Shetkari Samruddhi Platform (SSP)</strong> — Maharashtra Agri-AI Policy 2025–2029 Response
-    &nbsp;|&nbsp; <strong>Submitted to AIAIC — Government of Maharashtra</strong>
-    &nbsp;|&nbsp; Track 2 — Pilot &amp; Validation &nbsp;|&nbsp; June 2026
+    <strong>Shetkari Samruddhi Platform (SSP)</strong> — Maharashtra Agri-AI Policy 2025–2029
+    &nbsp;|&nbsp; <strong>AIAIC — Government of Maharashtra</strong>
+    &nbsp;|&nbsp; Pilot &amp; Validation &nbsp;|&nbsp; June 2026
   </p>
   <p style="margin-top: 8px; font-size: 12px;">
-    This document is a high-level proposal. Detailed SRS, RFP specifications, data flow diagrams, and security architecture are available as Phase 0 deliverables upon engagement confirmation. All financial estimates are indicative and subject to detailed due-diligence.
+    This document is a high-level. Detailed SRS, RFP specifications, data flow diagrams, and security architecture are available as Phase 0 deliverables upon engagement confirmation. All figures are indicative and subject to detailed due-diligence.
   </p>
 </footer>
 
