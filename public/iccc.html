@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Proposal — Anandini ICCC | Patheya Technologies Ind. Pvt. Ltd → Sanvi Aurolife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  
+<style>
+  :root{
+    --primary:#0d9488;
+    --primary-dark:#0f766e;
+    --primary-light:#ccfbf1;
+    --navy:#1e3a5f;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#1e293b;
+    --text-muted:#64748b;
+    --border:#e2e8f0;
+
+    --p0:#059669; --p0-bg:#d1fae5;
+    --p1:#d97706; --p1-bg:#fef3c7;
+    --p2:#6366f1; --p2-bg:#e0e7ff;
+
+    --neg:#16a34a; --neg-bg:#dcfce7;
+    --lvl3:#ca8a04; --lvl3-bg:#fef9c3;
+    --lvl2:#ea580c; --lvl2-bg:#ffedd5;
+    --lvl1:#dc2626; --lvl1-bg:#fee2e2;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family: 'Nunito', 'Raleway', 'Amaranth', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
+    color:#fff;
+    padding:56px 24px 64px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08), transparent 50%),
+               radial-gradient(circle at 10% 90%, rgba(255,255,255,0.06), transparent 40%);
+  }
+  .hero-logo{
+    display:block; width:84px; height:84px; margin:0 auto 18px;
+    border-radius:18px; background:#fff; padding:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.18);
+    position:relative; z-index:1; object-fit:contain;
+  }
+  .hero-tag{
+    display:inline-block; font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    background:rgba(255,255,255,0.12); padding:6px 16px; border-radius:20px; margin-bottom:18px;
+    position:relative; z-index:1;
+  }
+  .hero h1{font-size:2.4rem; font-weight:800; margin-bottom:10px; position:relative; z-index:1;}
+  .hero p.lead{font-size:1.15rem; max-width:760px; margin:0 auto 22px; opacity:.92; position:relative; z-index:1;}
+  .hero .meta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;}
+  .meta span{
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.25);
+    padding:6px 14px; border-radius:8px; font-size:13px; font-weight:600;
+  }
+  .meta span.mvp-tag{background:rgba(5,150,105,0.45); border-color:rgba(52,211,153,0.6);}
+
+  /* ---------- NAV ---------- */
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:#ffffffee; backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+    display:flex; gap:4px; overflow-x:auto; padding:10px 16px;
+    -webkit-overflow-scrolling:touch;
+  }
+  nav.topnav a{
+    white-space:nowrap; font-size:13.5px; font-weight:600; color:var(--text-muted);
+    text-decoration:none; padding:8px 14px; border-radius:8px; transition:.15s;
+  }
+  nav.topnav a:hover{background:var(--primary-light); color:var(--primary-dark);}
+  nav.topnav a.active{background:var(--primary); color:#fff;}
+
+  /* ---------- LAYOUT ---------- */
+  main{max-width:1180px; margin:0 auto; padding:0 24px 80px;}
+  section{padding:56px 0; border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:32px;}
+  .section-head .eyebrow{
+    font-size:12.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--primary-dark);
+  }
+  .section-head h2{font-size:1.9rem; font-weight:800; margin-top:6px; color:var(--navy);}
+  .section-head p{color:var(--text-muted); max-width:760px; margin-top:8px; font-size:15px;}
+
+  /* ---------- CARDS GENERAL ---------- */
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:22px; box-shadow:0 1px 3px rgba(0,0,0,0.03);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{box-shadow:0 8px 24px rgba(15,23,42,0.08); transform:translateY(-2px);}
+
+  /* ---------- CHANGE BANNER ---------- */
+  .change-banner{
+    background:linear-gradient(135deg,#fffbeb,#fef3c7);
+    border:1px solid #fde68a; border-radius:12px; padding:20px 24px; margin-bottom:30px;
+  }
+  .change-banner h4{font-size:13px; font-weight:800; color:#92400e; margin-bottom:10px; text-transform:uppercase; letter-spacing:.08em;}
+  .change-banner ul{font-size:13px; color:#78350f; padding-left:18px; display:flex; flex-direction:column; gap:5px;}
+
+  /* ---------- SCOPE GRID ---------- */
+  .scope-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;}
+  @media(max-width:640px){.scope-grid{grid-template-columns:1fr;}}
+  .scope-box{border-radius:12px; padding:18px 20px;}
+  .scope-in{background:#d1fae5; border:1px solid #6ee7b7;}
+  .scope-out{background:#fee2e2; border:1px solid #fca5a5;}
+  .scope-box h4{font-size:13px; font-weight:800; margin-bottom:10px; text-transform:uppercase; letter-spacing:.08em;}
+  .scope-in h4{color:#065f46;}
+  .scope-out h4{color:#7f1d1d;}
+  .scope-box ul{font-size:13px; padding-left:16px; display:flex; flex-direction:column; gap:5px;}
+  .scope-in ul{color:#064e3b;}
+  .scope-out ul{color:#7f1d1d;}
+
+  /* ---------- KEY DECISIONS ---------- */
+  .decisions-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;}
+  .decision-card{border-left:5px solid var(--primary);}
+  .decision-card .icon{font-size:28px; margin-bottom:10px; display:block;}
+  .decision-card h3{font-size:15px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+  .decision-card p{font-size:14px; color:var(--text-muted);}
+
+  /* ---------- VISION ---------- */
+  .vision-box{
+    background:linear-gradient(135deg, var(--primary-light), #ffffff);
+    border:1px solid var(--primary-light); border-radius:18px;
+    padding:36px 40px; font-size:1.2rem; font-weight:600; color:var(--navy);
+    line-height:1.65; position:relative;
+  }
+  .vision-box::before{content:"\201C"; font-size:4rem; color:var(--primary); position:absolute; top:0; left:18px; line-height:1; font-family:Georgia,serif;}
+  .vision-box span{display:block; padding-left:8px;}
+
+  /* ---------- ROLES TABLE ---------- */
+  .table-wrap{overflow-x:auto; border-radius:14px; border:1px solid var(--border);}
+  table{width:100%; border-collapse:collapse; background:#fff; font-size:14px;}
+  table th{
+    background:var(--navy); color:#fff; text-align:left; padding:12px 16px; font-weight:600; font-size:13px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  table td{padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:top;}
+  table tr:last-child td{border-bottom:none;}
+  table tr:nth-child(even) td{background:#f8fafc;}
+  .badge{
+    display:inline-block; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:700;
+    white-space:nowrap;
+  }
+  .badge-mobile{background:#e0e7ff; color:#4338ca;}
+  .badge-web{background:#dbeafe; color:#1d4ed8;}
+  .badge-api{background:#f3e8ff; color:#7e22ce;}
+  .badge-none{background:#f1f5f9; color:#64748b;}
+  .badge-future{background:#fef3c7; color:#b45309;}
+
+  /* ---------- ARCHITECTURE ---------- */
+  .arch{display:flex; flex-direction:column; align-items:center; gap:0;}
+  .arch-platform{
+    width:100%; max-width:780px; background:var(--navy); color:#fff; border-radius:14px;
+    padding:22px 28px; text-align:center; box-shadow:0 8px 24px rgba(30,58,95,0.25);
+  }
+  .arch-platform h3{font-size:1.1rem; margin-bottom:6px;}
+  .arch-platform p{font-size:13px; opacity:.85;}
+  .arch-line{width:2px; height:28px; background:var(--border);}
+  .arch-row{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:18px; width:100%; max-width:1080px;
+  }
+  .arch-node{
+    background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px;
+    text-align:center; position:relative;
+  }
+  .arch-node::before{
+    content:""; position:absolute; top:-28px; left:50%; transform:translateX(-50%);
+    width:2px; height:28px; background:var(--border);
+  }
+  .arch-node .icon{font-size:26px; display:block; margin-bottom:8px;}
+  .arch-node h4{font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px;}
+  .arch-node p{font-size:12.5px; color:var(--text-muted);}
+  .arch-hw{margin-top:36px; text-align:center;}
+  .arch-hw .arch-node{display:inline-block; max-width:260px;}
+
+  /* ---------- JOURNEY STEPPER ---------- */
+  .stepper{
+    display:flex; gap:6px; overflow-x:auto; padding:6px 0 18px; margin-bottom:18px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .step{
+    flex:1 0 130px; text-align:center; padding:12px 8px; border-radius:10px;
+    background:#fff; border:1px solid var(--border); font-size:12.5px; font-weight:700; color:var(--navy);
+    cursor:pointer; transition:.15s; position:relative;
+  }
+  .step .num{
+    display:block; width:26px; height:26px; line-height:26px; border-radius:50%; background:var(--primary-light);
+    color:var(--primary-dark); font-weight:800; margin:0 auto 6px; font-size:13px;
+  }
+  .step.future-step{opacity:.5; border-style:dashed;}
+  .step.future-step .num{background:var(--p1-bg); color:var(--p1);}
+  .step:hover{border-color:var(--primary); transform:translateY(-2px);}
+
+  /* ---------- FILTERS ---------- */
+  .filters{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;}
+  .filter-btn{
+    border:1px solid var(--border); background:#fff; padding:8px 16px; border-radius:999px;
+    font-size:13px; font-weight:700; cursor:pointer; color:var(--text-muted); transition:.15s;
+  }
+  .filter-btn.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .filter-btn[data-filter="P0"].active{background:var(--p0); border-color:var(--p0);}
+  .filter-btn[data-filter="P1"].active{background:var(--p1); border-color:var(--p1);}
+  .filter-btn[data-filter="P2"].active{background:var(--p2); border-color:var(--p2);}
+
+  /* ---------- MODULE GROUPS / CARDS ---------- */
+  .group-title{
+    font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+    color:var(--primary-dark); margin:36px 0 14px; display:flex; align-items:center; gap:10px;
+  }
+  .group-title::after{content:""; flex:1; height:1px; background:var(--border);}
+  .group-title.future{color:var(--p1);}
+  .module-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:18px;}
+  .module-card{display:flex; flex-direction:column; gap:10px;}
+  .module-card.deferred{opacity:.72; border-style:dashed !important;}
+  .module-card .top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .module-card h3{font-size:16px; font-weight:800; color:var(--navy); line-height:1.3;}
+  .module-card .module-id{font-size:11.5px; color:var(--text-muted); font-weight:700; letter-spacing:.05em;}
+  .priority-pill{
+    font-size:11px; font-weight:800; padding:4px 10px; border-radius:6px; white-space:nowrap; flex-shrink:0;
+  }
+  .priority-pill.P0{background:var(--p0-bg); color:var(--p0);}
+  .priority-pill.P1{background:var(--p1-bg); color:var(--p1);}
+  .priority-pill.P2{background:var(--p2-bg); color:var(--p2);}
+  .module-card .desc{font-size:13px; color:var(--text-muted); font-style:italic;}
+  .module-card ul{padding-left:18px; font-size:13.5px; display:flex; flex-direction:column; gap:5px;}
+  .module-card ul li::marker{color:var(--primary);}
+  .module-card ul li strong{color:var(--navy);}
+  .tag-new{
+    display:inline-block; font-size:10px; font-weight:800; padding:2px 7px; border-radius:4px;
+    background:#dbeafe; color:#1d4ed8; margin-left:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:.04em;
+  }
+  .tag-updated{
+    display:inline-block; font-size:10px; font-weight:800; padding:2px 7px; border-radius:4px;
+    background:#f3e8ff; color:#7e22ce; margin-left:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:.04em;
+  }
+
+  /* ---------- TRIAGE / INFO LEGEND ---------- */
+  .triage-legend{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; padding:14px 18px;
+    background:#fff; border:1px dashed var(--border); border-radius:12px; align-items:center;
+  }
+  .triage-legend .label{font-size:12.5px; font-weight:700; color:var(--text-muted); margin-right:4px;}
+  .chip{font-size:12.5px; font-weight:800; padding:5px 13px; border-radius:999px;}
+  .chip.negative{background:var(--neg-bg); color:var(--neg);}
+  .chip.suspect{background:#fef9c3; color:#854d0e;}
+  .chip.level3{background:var(--lvl3-bg); color:var(--lvl3);}
+  .chip.level2{background:var(--lvl2-bg); color:var(--lvl2);}
+  .chip.level1{background:var(--lvl1-bg); color:var(--lvl1);}
+  .chip.arrow{background:none; color:var(--text-muted); padding:5px 2px;}
+  .chip.info{background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;}
+
+  /* ---------- AI FLOW ---------- */
+  .flow-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:14px 0 0; font-size:13px;}
+  .flow-box{padding:8px 14px; border-radius:8px; font-weight:700; font-size:12.5px; white-space:nowrap;}
+  .flow-box.ai{background:#e0e7ff; color:#3730a3; border:1px solid #c7d2fe;}
+  .flow-box.doctor{background:#fef3c7; color:#92400e; border:1px solid #fde68a;}
+  .flow-box.system{background:var(--primary-light); color:var(--primary-dark); border:1px solid #99f6e4;}
+  .flow-arrow{color:var(--text-muted); font-size:18px;}
+
+  /* ---------- CROSS-CUTTING ---------- */
+  .cc-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px;}
+  .cc-card{border-top:4px solid var(--primary);}
+  .cc-card .icon{font-size:24px; margin-bottom:8px; display:block;}
+  .cc-card h3{font-size:14.5px; font-weight:800; color:var(--navy); margin-bottom:8px;}
+  .cc-card ul{font-size:13px; padding-left:16px; color:var(--text-muted); display:flex; flex-direction:column; gap:4px;}
+
+  /* ---------- DATA MODEL TREE ---------- */
+  .tree{font-size:13.5px;}
+  .tree ul{list-style:none; padding-left:26px; margin-top:6px; border-left:2px dashed var(--border);}
+  .tree > ul{border-left:none; padding-left:0;}
+  .tree li{position:relative; padding:6px 0 0 18px;}
+  .tree li::before{content:""; position:absolute; left:0; top:14px; width:14px; height:2px; background:var(--border);}
+  .tree .entity{
+    display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:12.5px;
+    padding:4px 10px; border-radius:6px;
+  }
+  .tree .sub{
+    display:inline-block; background:#fff; border:1px solid var(--border); color:var(--text);
+    font-size:12px; padding:3px 9px; border-radius:6px;
+  }
+  .tree .sub.new{border-color:#bfdbfe; background:#eff6ff; color:#1d4ed8;}
+  .tree .note{color:var(--text-muted); font-size:12px; margin-left:6px;}
+
+  /* ---------- NFR TABLE ---------- */
+  .nfr-icon{font-size:18px;}
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:0;}
+  .phase{
+    background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px;
+    margin:10px 8px;
+  }
+  .phase .ph-num{
+    display:inline-block; background:var(--primary); color:#fff; font-weight:800; font-size:12px;
+    padding:4px 10px; border-radius:999px; margin-bottom:10px;
+  }
+  .phase.mvp-phase{border:2px solid var(--p0); box-shadow:0 0 0 3px var(--p0-bg);}
+  .phase.mvp-phase .ph-num{background:var(--p0);}
+  .phase.future-phase{opacity:.8; border-style:dashed;}
+  .phase.future-phase .ph-num{background:var(--p1);}
+  .phase h4{font-size:14.5px; font-weight:800; color:var(--navy); margin-bottom:4px;}
+  .phase .dur{font-size:12px; color:var(--text-muted); margin-bottom:10px; font-weight:600;}
+  .phase .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .phase .chips span{
+    font-size:11px; background:var(--primary-light); color:var(--primary-dark); padding:3px 8px; border-radius:6px; font-weight:700;
+  }
+  .phase.future-phase .chips span{background:var(--p1-bg); color:var(--p1);}
+
+  /* ---------- METRICS ---------- */
+  .metrics-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px;}
+  .metric-card{border-top:4px solid var(--primary);}
+  .metric-card h3{font-size:14px; font-weight:800; color:var(--navy); margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .metric-card ul{font-size:13px; color:var(--text-muted); padding-left:18px; display:flex; flex-direction:column; gap:5px;}
+  .metric-card ul li strong{color:var(--primary-dark);}
+
+  /* ---------- OPEN QUESTIONS ---------- */
+  details{
+    background:#fff; border:1px solid var(--border); border-radius:10px; margin-bottom:10px; overflow:hidden;
+  }
+  details summary{
+    padding:14px 18px; font-weight:700; font-size:14px; cursor:pointer; color:var(--navy);
+    display:flex; align-items:center; gap:10px; list-style:none;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::before{content:"+"; font-size:16px; color:var(--primary); font-weight:900; width:20px; text-align:center;}
+  details[open] summary::before{content:"–";}
+  details .body{padding:0 18px 16px 48px; font-size:13.5px; color:var(--text-muted);}
+  .q-num{
+    background:var(--primary-light); color:var(--primary-dark); font-size:12px; font-weight:800;
+    border-radius:6px; padding:2px 8px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center; padding:32px 24px; color:var(--text-muted); font-size:13px;}
+
+  /* ---------- PROPOSAL BAR ---------- */
+  .proposal-bar{
+    background:#0d1b2e;
+    color:rgba(255,255,255,0.55);
+    font-size:12px; font-weight:500;
+    padding:9px 24px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .proposal-bar strong{color:rgba(255,255,255,0.88);}
+  .proposal-bar .conf-badge{
+    background:rgba(220,38,38,0.15); border:1px solid rgba(220,38,38,0.35);
+    color:#fca5a5; font-size:11px; font-weight:700; padding:2px 10px; border-radius:20px;
+    letter-spacing:.05em; margin-left:10px;
+  }
+
+  /* ---------- HERO LOGOS ---------- */
+  .hero-logos{
+    display:flex; align-items:center; justify-content:center;
+    gap:18px; margin-bottom:20px; position:relative; z-index:1;
+  }
+  .hero-logos .hero-logo{margin:0; display:inline-block;}
+  .hero-logo-sep{color:rgba(255,255,255,0.30); font-size:36px; font-weight:200; line-height:1; user-select:none;}
+  .hero-byline{
+    display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+    position:relative; z-index:1; margin-top:8px; margin-bottom:4px;
+  }
+  .hero-byline-block{
+    text-align:center; font-size:11px; letter-spacing:.04em;
+    color:rgba(255,255,255,0.45); text-transform:uppercase; font-weight:600; line-height:1.5;
+  }
+  .hero-byline-block strong{display:block; font-size:13px; color:rgba(255,255,255,0.85); text-transform:none; letter-spacing:0; margin-top:1px;}
+  .hero-byline-divider{color:rgba(255,255,255,0.20); font-size:28px; font-weight:200; align-self:center;}
+
+  /* ---------- GOVT VISION ---------- */
+  .govt-vision-box{
+    background:linear-gradient(135deg, var(--navy) 0%, #0f766e 100%);
+    border-radius:16px; padding:36px 44px; margin-bottom:28px;
+    position:relative; overflow:hidden;
+  }
+  .govt-vision-box::before{
+    content:"\201C"; position:absolute; top:-20px; left:24px;
+    font-size:130px; color:rgba(255,255,255,0.07);
+    font-family:Georgia,serif; line-height:1; pointer-events:none;
+  }
+  .govt-vision-quote{
+    font-size:1.1rem; font-weight:600; color:#fff;
+    line-height:1.72; position:relative; z-index:1; max-width:820px;
+  }
+  .govt-vision-source{
+    font-size:12px; color:rgba(255,255,255,0.44);
+    margin-top:16px; font-style:italic; position:relative; z-index:1;
+  }
+  .govt-stat-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px;
+  }
+  .govt-stat-card{
+    background:#fff; border:1px solid var(--border); border-radius:12px;
+    padding:20px 22px; border-top:4px solid var(--primary);
+  }
+  .govt-stat-num{font-size:2.1rem; font-weight:800; color:var(--navy); line-height:1.1; margin-bottom:6px;}
+  .govt-stat-label{font-size:13px; color:var(--text); line-height:1.5; margin-bottom:8px;}
+  .govt-stat-src{font-size:11px; color:var(--text-muted); font-style:italic;}
+  .policy-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .policy-card{
+    background:var(--primary-light); border:1px solid #99f6e4;
+    border-radius:12px; padding:18px 20px;
+  }
+  .policy-card h4{font-size:13.5px; font-weight:800; color:var(--navy); margin-bottom:6px;}
+  .policy-card p{font-size:13px; color:var(--text-muted); line-height:1.55;}
+  @media(max-width:640px){.govt-stat-grid,.policy-grid{grid-template-columns:1fr;}}
+
+  /* ── Estimation Section ─────────────────── */
+  .est-metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px;}
+  .est-metric-card{background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px 22px;}
+  .est-metric-card.primary{background:#1a365d;border-color:#1a365d;}
+  .est-metric-card.accent{background:#2b6cb0;border-color:#2b6cb0;}
+  .est-metric-card.green{background:#276749;border-color:#276749;}
+  .est-metric-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#718096;margin-bottom:8px;}
+  .est-metric-card.primary .est-metric-label,
+  .est-metric-card.accent .est-metric-label,
+  .est-metric-card.green .est-metric-label{color:rgba(255,255,255,0.60);}
+  .est-metric-value{font-size:26px;font-weight:700;color:#1a365d;line-height:1.15;}
+  .est-metric-card.primary .est-metric-value,
+  .est-metric-card.accent .est-metric-value,
+  .est-metric-card.green .est-metric-value{color:#fff;}
+  .est-metric-sub{font-size:11.5px;color:#a0aec0;margin-top:5px;}
+  .est-metric-card.primary .est-metric-sub,
+  .est-metric-card.accent .est-metric-sub,
+  .est-metric-card.green .est-metric-sub{color:rgba(255,255,255,0.55);}
+  tr.est-subtotal-row td{background:#f7fafc!important;font-weight:600;border-top:1px solid #bee3f8;font-variant-numeric:tabular-nums;}
+  tr.est-grand-total td{background:#1a365d!important;color:#fff;font-size:14px;font-weight:700;}
+  tr.est-grand-total:hover td{background:#1a365d!important;}
+  tfoot.est-foot tr{background:#ebf8ff;}
+  tfoot.est-foot td{padding:12px 16px;font-weight:700;font-size:13.5px;border-top:2px solid #3182ce;font-variant-numeric:tabular-nums;}
+  .est-note{background:#fffaf0;border-left:4px solid #ed8936;border-radius:0 6px 6px 0;padding:14px 18px;font-size:13px;color:#744210;line-height:1.6;margin-top:20px;}
+  .est-note strong{color:#c05621;}
+  .est-runrate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;}
+  .est-runrate-card{border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;}
+  .est-runrate-label{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+  .est-runrate-value{font-size:20px;font-weight:700;color:#1a365d;}
+  .est-runrate-sub{font-size:12px;color:#a0aec0;margin-top:4px;}
+  @media(max-width:680px){.est-metric-grid,.est-runrate-grid{grid-template-columns:1fr;}}
+
+  @media print{
+    nav.topnav{display:none;}
+    section{break-inside:avoid; padding:24px 0;}
+    .card:hover{transform:none; box-shadow:none;}
+    details{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="proposal-bar">
+  <div><strong>Patheya Technologies Ind. Pvt. Ltd</strong> &nbsp;·&nbsp; Technical Proposal &nbsp;·&nbsp; v1.0</div>
+  <div>In Response to RFP by <strong>Sanvi Aurolife</strong><span class="conf-badge">Confidential</span></div>
+</div>
+
+<header class="hero">
+  <div class="hero-logos">
+    <!-- <img class="hero-logo" src="https://firebasestorage.googleapis.com/v0/b/food-to-home-staging.appspot.com/o/images%2Flogo-dark.png?alt=media&token=4682da25-a127-47b9-adf4-280b25c45aa6" alt="Patheya Technologies Logo" width="84" height="84">
+    <span class="hero-logo-sep">→</span> -->
+    <img class="hero-logo" src="https://firebasestorage.googleapis.com/v0/b/food-to-home-staging.appspot.com/o/images%2Fanandini.png?alt=media&token=3ce14cb3-ef25-4f0d-8107-4c0ae987ff0a" alt="Anandini — ICCC Logo" width="84" height="84">
+  </div>
+  <!-- <div class="hero-byline">
+    <div class="hero-byline-block">Prepared by<strong>Patheya Technologies Ind. Pvt. Ltd</strong></div>
+    <span class="hero-byline-divider">·</span>
+    <div class="hero-byline-block">In Response to RFP by<strong>Sanvi Aurolife</strong></div>
+  </div> -->
+  <span class="hero-tag">Technical Proposal · Response to RFP · v1.0</span>
+  <h1>Anandini — Integrated Cancer Command Center (ICCC)</h1>
+  <p class="lead">Patheya Technologies proposes to design and deliver the Anandini ICCC — a community cancer screening &amp; reflex diagnostic platform — covering end-to-end flow from camp registration and ABHA-linked patient identity, through manual lab result entry, overnight AI risk stratification, and Doctor-authenticated clinical decisions.</p>
+  <div class="meta">
+    <span class="mvp-tag">MVP Scope · Phase 0–2</span>
+    <span>Version 1.0</span>
+    <span>Date: June 2026</span>
+    <span>Status: For Review</span>
+  </div>
+</header>
+
+<nav class="topnav" id="topnav">
+  <a href="#overview">Overview</a>
+  <a href="#vision">Vision</a>
+  <a href="#what-we-build">What We Build</a>
+  <a href="#roles">Users &amp; Roles</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#journey">Patient Journey &amp; Modules</a>
+  <a href="#cross-cutting">Cross-Cutting</a>
+  <a href="#data-model">Data Model</a>
+  <a href="#nfr">Quality Attributes</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#metrics">Success Metrics</a>
+  <a href="#open-questions">Open Questions</a>
+  <a href="#estimations">Estimations</a>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-head">
+      <div class="eyebrow">01 · Scope &amp; Key Decisions</div>
+      <h2>MVP Scope &amp; What Changed from v0.1</h2>
+      <p>Patheya Technologies Ind. Pvt. Ltd presents this Technical Proposal in response to the RFP issued by <strong>Sanvi Aurolife</strong>. This document defines the focused <strong>MVP scope</strong> — covering ABHA integration, geo-tagged field screening, WhatsApp communications, Lab Coordinator result entry, overnight AI risk stratification, and Doctor-authenticated clinical reports.</p>
+    </div>
+
+    <!-- <div class="change-banner">
+      <h4>Changes from v0.1 to v1.0</h4>
+      <ul>
+        <li><strong>Module 04 (Pathology Lab API):</strong> External lab API replaced by an internal Lab Coordinator Manual Result Entry Interface (M04) — barcode-validated, protocol-driven web form.</li>
+        <li><strong>Module 07:</strong> AI risk stratification is retained for MVP, but auto-referral is removed — every case (including Negative) requires Doctor review and sign-off.</li>
+        <li><strong>Module 08:</strong> Redesigned from auto-referral pathway to Doctor Review &amp; Clinical Report Authentication with digital signature.</li>
+        <li><strong>Modules 12 &amp; 13:</strong> Both in for MVP (Case Dashboard + basic Analytics).</li>
+        <li><strong>New in v1.0:</strong> ABHA API integration (M01), Patient home geo-tagging + Ward/Area selection (M02), WhatsApp channel + FAQ Chatbot (CC2), Doctor digital signature &amp; prescription documentation (M08).</li>
+      </ul>
+    </div> -->
+
+    <div class="scope-grid" style="grid-template-columns:1fr;">
+      <div class="scope-box scope-in">
+        <h4>MVP Scope</h4>
+        <ul>
+          <li>Patient Registry + ABHA lookup &amp; registration (M01)</li>
+          <li>Mass Screening + home geo-tagging + ward/area (M02)</li>
+          <li>Sample Collection &amp; Chain of Custody (M03)</li>
+          <li>Lab Coordinator Manual Result Entry Interface (M04)</li>
+          <li>Result Management &amp; Validation (M05)</li>
+          <li>Screening Protocol &amp; Rules Configuration (M06)</li>
+          <li>AI Risk Stratification Engine — overnight batch (M07)</li>
+          <li>Doctor Review &amp; Clinical Report Authentication (M08)</li>
+          <li>Case Management Dashboard (M12)</li>
+          <li>Analytics &amp; Reporting (M13)</li>
+          <li>All cross-cutting modules CC1–CC6, CC8</li>
+          <li>SMS + Email + WhatsApp notifications with FAQ chatbot · Marathi, Hindi, English</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="decisions-grid" style="margin-top:28px;">
+      <div class="card decision-card">
+        <span class="icon">🧪</span>
+        <h3>Lab Integration — Manual for MVP</h3>
+        <p>Lab Coordinators enter results directly via a barcode-validated, protocol-driven web form — ensuring accurate, accountable result submission for every sample received.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🤖</span>
+        <h3>AI Stratifies — Doctor Decides</h3>
+        <p>An overnight AI engine classifies every case (Negative / Suspect). All cases — including Negatives — must be reviewed and digitally signed by a Doctor. No auto-referral in MVP.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🆔</span>
+        <h3>ABHA Integration in MVP</h3>
+        <p>Lookup existing patients by ABHA ID to auto-populate demographics; register new patients with Ayushman Bharat Health Account via NHA API. Internal Patient ID used as fallback when ABHA is unavailable.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">💬</span>
+        <h3>WhatsApp + SMS + Email</h3>
+        <p>Patient notifications via all three channels for MVP. WhatsApp FAQ chatbot (predefined Q&amp;A, admin-managed) for patient self-service. Full Patient Portal (M14) deferred to a later phase.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🧬</span>
+        <h3>Configurable Protocol Engine</h3>
+        <p>No cancer type, marker, threshold, or referral rule is hardcoded. Admins configure everything through the Screening Protocol module — generic and extensible from day one.</p>
+      </div>
+      <div class="card decision-card">
+        <span class="icon">🏢</span>
+        <h3>Single Organization for MVP</h3>
+        <p>Single-tenant deployment with org/facility kept first-class in the data model for future multi-tenancy extensibility — no schema redesign needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION — GOVERNMENT IMPERATIVE -->
+  <section id="vision">
+    <div class="section-head">
+      <div class="eyebrow">02 · Vision</div>
+      <!-- <h2>A National Call to Action</h2> -->
+      <!-- <p>India's cancer burden demands a systemic response. The Government of India has set an unambiguous direction — bring early detection to communities before symptoms emerge, link every citizen to a digital health identity, and build the infrastructure to prevent, detect, and control cancer at scale.</p> -->
+    </div>
+
+    <div class="govt-vision-box">
+      <div class="govt-vision-quote">
+        Early detection and prompt treatment of cancer can save hundreds of thousands of lives each year. India's mission is to extend community-based cancer screening to every town, village, and district — identifying risk before disease advances, equipping health workers with clinical intelligence, and ensuring no patient is lost to follow-up. Achieving this requires connecting field screening camps, diagnostic laboratories, clinical decision-makers, and patient health records into a single, accountable digital pathway.
+      </div>
+      <div class="govt-vision-source">Aligned with: National Programme for Prevention &amp; Control of Cancer, Diabetes, CVD &amp; Stroke (NPCDCS) · National Health Mission · Ministry of Health &amp; Family Welfare, Government of India</div>
+    </div>
+
+    <div class="govt-stat-grid">
+      <div class="govt-stat-card">
+        <div class="govt-stat-num">14 Lakh+</div>
+        <div class="govt-stat-label">New cancer cases registered annually in India — a number growing by 12% each decade as population ages</div>
+        <div class="govt-stat-src">ICMR — National Cancer Registry Programme</div>
+      </div>
+      <div class="govt-stat-card">
+        <div class="govt-stat-num">~70%</div>
+        <div class="govt-stat-label">of cancer deaths in India occur at advanced stages — stages that community-level early screening could have intercepted</div>
+        <div class="govt-stat-src">WHO Cancer Country Profile · India</div>
+      </div>
+      <div class="govt-stat-card">
+        <div class="govt-stat-num">30–40%</div>
+        <div class="govt-stat-label">of all cancer deaths are preventable through early detection, timely screening, and lifestyle intervention</div>
+        <div class="govt-stat-src">Ministry of Health — NPCDCS Framework</div>
+      </div>
+    </div>
+
+    <div class="policy-grid">
+      <div class="policy-card">
+        <h4>NPCDCS — National Cancer Programme</h4>
+        <p>Mandates community-level screening camps for cervical, breast, and oral cancers at PHC and sub-centre level — standardising protocols, training health workers, and extending reach to underserved populations across India's districts.</p>
+      </div>
+      <div class="policy-card">
+        <h4>Ayushman Bharat — Health &amp; Wellness Centres</h4>
+        <p>Over 1.6 lakh Health &amp; Wellness Centres tasked with delivering comprehensive primary healthcare — including preventive cancer screening — to populations in India's towns, villages, and remote communities.</p>
+      </div>
+      <div class="policy-card">
+        <h4>ABHA / Ayushman Bharat Digital Mission</h4>
+        <p>Every citizen's Ayushman Bharat Health Account provides a unique, portable digital health identity — the backbone for longitudinal health records that follow a patient from first screening through diagnosis and long-term follow-up, regardless of where care is received.</p>
+      </div>
+      <div class="policy-card">
+        <h4>National Cancer Grid (NCG)</h4>
+        <p>A network of 300+ cancer centres standardising evidence-based cancer care protocols across India. NCG early-detection guidelines directly inform the configurable screening protocols at the heart of this platform — ensuring clinical rigour at community scale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE'RE BUILDING -->
+  <section id="what-we-build">
+    <div class="section-head">
+      <div class="eyebrow">03 · What We're Building</div>
+      <h2>What we're building</h2>
+    </div>
+    <div class="vision-box">
+      <span>Enable a single organization to run mass cancer screening camps across communities — linking every patient to their Ayushman Bharat health identity — have Lab Coordinators enter test results directly into the system, let an AI engine surface clinical intelligence overnight, and ensure every record is reviewed and authenticated by a Doctor before any next action is taken; all while maintaining a complete, longitudinal health record for each patient from first screening through to long-term follow-up.</span>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-head">
+      <div class="eyebrow">04 · Who Uses This</div>
+      <h2>Users &amp; Roles</h2>
+      <p>All accounts are provisioned by administrators — <strong>no self-signup</strong> for any role. Patients interact passively via notifications (SMS, Email, WhatsApp) and the FAQ chatbot for MVP.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Role</th><th>Primary Interface</th><th>Responsibilities</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Screening Technician</strong> (Field)</td>
+            <td><span class="badge badge-mobile">Mobile</span></td>
+            <td>Registers patients at camps — performs ABHA lookup or new registration; captures demographics, medical history, questionnaire, and consent. Records sample collection. Tags patient home address via GPS when screening at home; selects predefined ward/area. Prints and scans barcodes.</td>
+          </tr>
+          <tr>
+            <td><strong>Lab Coordinator</strong> (Internal)</td>
+            <td><span class="badge badge-web">Web</span></td>
+            <td>Manages sample handover from field to lab; reconciles sample counts and monitors TAT compliance. Scans sample barcode to identify patient and verify eligibility for result entry. Enters test results via a protocol-driven form; uploads lab report document; submits results for validation. Reviews submissions for quality issues. Coordinates re-collection when samples are rejected or insufficient.</td>
+          </tr>
+          <tr>
+            <td><strong>Doctor / Oncologist</strong> (Clinical Reviewer) <span class="tag-updated">Updated</span></td>
+            <td><span class="badge badge-web">Web</span></td>
+            <td>Reviews AI-stratified results for every assigned case (Negative and Suspect alike). Views AI intelligence summary, full lab results, and patient history. Enters clinical observations and notes. Documents next line of action and any prescription. Authenticates the final report via digital signature.</td>
+          </tr>
+          <tr>
+            <td><strong>Program / Portal Admin</strong></td>
+            <td><span class="badge badge-web">Web</span></td>
+            <td>Full configuration access — screening protocols, cancer types, test panels, questionnaires, ward/area master, user and facility management, WhatsApp chatbot content (Q&amp;A), system thresholds, reports.</td>
+          </tr>
+          <tr>
+            <td><strong>Management Team</strong></td>
+            <td><span class="badge badge-web">Web (read-only)</span></td>
+            <td>Views dashboards and analytics; receives periodic summary reports via email.</td>
+          </tr>
+          <tr>
+            <td><strong>Patient</strong></td>
+            <td><span class="badge badge-none">Passive</span></td>
+            <td>Receives SMS, Email, and WhatsApp notifications. Can interact with the WhatsApp FAQ chatbot for status queries and general information.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture">
+    <div class="section-head">
+      <div class="eyebrow">05 · System Architecture</div>
+      <h2>How the pieces connect</h2>
+      <p>The Anandini — Integrated Cancer Command Center (ICCC) is the hub for patient identity, clinical configuration, AI stratification, Doctor review workflows, and analytics. For MVP, lab results are entered manually by internal Lab Coordinators — no external lab API is required. ABHA and WhatsApp are the two key external integrations.</p>
+    </div>
+    <div class="arch">
+      <div class="arch-platform">
+        <h3>⚙️ Anandini — Integrated Cancer Command Center (ICCC) — Web + APIs</h3>
+        <p>Patient Registry · ABHA Integration · Protocol Config · AI Risk Engine · Doctor Review &amp; Sign-off · Case Management · Analytics</p>
+      </div>
+      <div class="arch-line"></div>
+      <div class="arch-row">
+        <div class="arch-node">
+          <span class="icon">📱</span>
+          <h4>Mobile Screening App</h4>
+          <p>Flutter. GPS geo-tagging, ward/area selection, ABHA lookup, barcode printing &amp; scanning. Requires connectivity.</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">🆔</span>
+          <h4>ABHA / NHA API</h4>
+          <p>Ayushman Bharat Health Account — patient lookup &amp; new registration. Graceful fallback to internal ID if unavailable.</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">🧪</span>
+          <h4>Lab Coordinator Web Interface</h4>
+          <p>Lab Coordinators enter results via barcode-validated, protocol-driven form. Requires connectivity.</p>
+        </div>
+        <div class="arch-node">
+          <span class="icon">💬</span>
+          <h4>Patient Communication</h4>
+          <p>SMS, Email &amp; WhatsApp (notifications + FAQ chatbot) via registered gateway. DLT-compliant.</p>
+        </div>
+      </div>
+      <div class="arch-hw">
+        <div class="arch-node">
+          <span class="icon">🖨️</span>
+          <h4>Field Hardware</h4>
+          <p>QR/barcode &amp; card printers, scanners — used by Screening Technicians (mobile) and Lab Coordinators (web)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY & MODULES -->
+  <section id="journey">
+    <div class="section-head">
+      <div class="eyebrow">06 · Functional Modules</div>
+      <h2>The Patient Journey, Module by Module</h2>
+      <p>The MVP covers the full screening-to-Doctor-decision flow — end-to-end from camp registration through AI stratification to Doctor-authenticated report and patient notification.</p>
+    </div>
+
+    <div class="stepper">
+      <div class="step"><span class="num">1</span>Registration &amp; ABHA</div>
+      <div class="step"><span class="num">2</span>Screening Camp</div>
+      <div class="step"><span class="num">3</span>Sample Collection</div>
+      <div class="step"><span class="num">4</span>Lab Result Entry</div>
+      <div class="step"><span class="num">5</span>Result Validation</div>
+      <div class="step"><span class="num">6</span>Protocol &amp; Rules</div>
+      <div class="step"><span class="num">7</span>AI Stratification</div>
+      <div class="step"><span class="num">8</span>Doctor Review</div>
+      <div class="step"><span class="num">9</span>Case Oversight</div>
+      <div class="step"><span class="num">10</span>Analytics</div>
+    </div>
+
+    <!-- GROUP A -->
+    <div class="group-title">Identity &amp; Field Operations</div>
+    <div class="module-grid">
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 01</div><h3>Patient Registry &amp; Master Health Record <span class="tag-updated">Updated</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Single source of truth for patient identity — now with ABHA interoperability for national health ID linkage.</p>
+        <ul>
+          <li><strong>ABHA Lookup:</strong> Search existing ABHA records by health ID, mobile, or Aadhaar — auto-populate demographics on a confirmed match</li>
+          <li><strong>ABHA Registration:</strong> Register new patients with Ayushman Bharat Health Account via NHA API; receive and store ABHA ID as the primary interoperable identifier</li>
+          <li>Internal Patient ID (UUID + QR) generated for every patient; used as primary key and fallback when ABHA API is unavailable</li>
+          <li>Demographics, household/family linkage, complete medical history</li>
+          <li><strong>Longitudinal record:</strong> every screening session, sample, result, AI stratification, Doctor review, and future treatment episode linked over time</li>
+          <li>Duplicate detection at registration — fuzzy match on name, date of birth, mobile number, and ABHA ID</li>
+          <li>Digital Patient Card with QR code — printable as PVC card, barcode sticker, or paper slip</li>
+          <li>Versioned digital consent capture with withdrawal handling</li>
+          <li>Admin-only audited patient search, merge, and deactivation tool</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 02</div><h3>Mass Screening &amp; Camp Operations <span class="tag-updated">Updated</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Mobile-first module for field technicians — now with patient home geo-tagging and predefined ward/area selection.</p>
+        <ul>
+          <li>Camp/session creation: location, date/time, capacity, assigned technicians, session type (Community Camp / Home Visit)</li>
+          <li><strong>Predefined Ward/Area Selection:</strong> Technician selects the ward/area from an admin-configured master at session start (or per patient for home visits); used for geographic coverage reporting</li>
+          <li><strong>Patient Home Address Geo-Tag:</strong> When screening at a patient's home, the app captures GPS coordinates and stores them against the patient's home address record — enables map-based coverage analysis in analytics</li>
+          <li>Batch registration — manual entry, CSV import, ABHA lookup, or card re-scan for returning patients</li>
+          <li>Configurable questionnaire rendered from the active <strong>Screening Protocol</strong> (Module 06)</li>
+          <li>On-device risk score calculation based on questionnaire responses</li>
+          <li>Session summary dashboard: patients screened vs. declined, data quality indicators, technician activity log</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 03</div><h3>Sample Collection &amp; Chain of Custody</h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Tracks every sample from collection through to lab result, with full chain-of-custody accountability.</p>
+        <ul>
+          <li>Sample registration — type driven by the active protocol's test panel — linked to patient and screening record</li>
+          <li>Barcode/QR label generation, printable on vial and container stickers</li>
+          <li>Collection metadata: technician, timestamp, optional geo-tag</li>
+          <li>Handover workflow: digital confirmation, scan-based count reconciliation between field and lab</li>
+          <li>Status pipeline: <em>Collected → Handed Over → Received by Lab → In Analysis → Result Entered / Rejected</em></li>
+          <li>Rejection handling: reason capture (contaminated, insufficient volume, wrong container, etc.), automatic re-collection task creation, notification to Lab Coordinator</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP B -->
+    <div class="group-title">Lab Result Entry &amp; Validation</div>
+    <div class="module-grid">
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 04</div><h3>Lab Coordinator Result Entry Interface <span class="tag-new">New in v1.0</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Internal web interface for Lab Coordinators to submit test results directly into the system.</p>
+        <ul>
+          <li><strong>Barcode / QR Scan to Identify Sample:</strong> Scanning the sample barcode retrieves the patient record and verifies eligibility — the system confirms the sample status is "Received by Lab" and the required sample type has been collected before allowing result entry</li>
+          <li><strong>Protocol-Driven Dynamic Form:</strong> The result entry form is auto-generated from the active Screening Protocol's test panel — correct markers, units, and reference range hints are shown automatically based on the cancer type being screened</li>
+          <li>Per-marker result fields with inline validation: range checks, mandatory field enforcement, unit confirmation</li>
+          <li>Attach scanned or photographed lab report document (PDF / image) for archival</li>
+          <li>Submit for review — submitted results enter the Module 05 validation queue</li>
+          <li>Rejection entry workflow: record rejection reason, trigger re-collection task</li>
+          <li>Lab Coordinator session log maintained for accountability and audit trail</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 05</div><h3>Result Management &amp; Validation</h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Ensures every submitted result is accurate, verified, and traceable before reaching the AI engine and Doctor.</p>
+        <ul>
+          <li>Ingestion and normalization of results against protocol-defined markers and units (from M04 Lab Entry)</li>
+          <li>Automated range validation — out-of-range values flagged for Lab Coordinator attention</li>
+          <li><strong>Critical/urgent result flagging:</strong> values exceeding critical thresholds bypass the normal queue and trigger immediate alerts to Lab Coordinator and assigned Doctor — no overnight wait</li>
+          <li>Lab Coordinator verification step before results are released to the AI stratification queue</li>
+          <li>Result correction and versioning — no silent overwrites; full audit trail with before/after values</li>
+          <li>Verified results archived to the patient's master longitudinal record</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP C -->
+    <div class="group-title">Clinical Intelligence — Protocol &amp; AI Engine</div>
+    <div class="module-grid">
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 06</div><h3>Screening Protocol &amp; Rules Configuration <span class="tag-updated">Updated</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">The admin-facing configuration engine — defines what is screened for, how results are captured, and how the AI engine classifies risk. No code changes required.</p>
+        <ul>
+          <li><strong>Cancer Type Definitions:</strong> name, description, applicable demographics</li>
+          <li><strong>Test Panel Definitions:</strong> markers/tests (e.g. PSA, CEA, CA-125, HPV-DNA, cytology), units, reference ranges — these directly drive the Lab Coordinator entry form in M04</li>
+          <li><strong>Questionnaire Builder:</strong> configurable risk-factor questions with scoring weights</li>
+          <li><strong>AI Classification Rules:</strong> threshold and multi-marker condition rules that produce Negative / Suspect classifications for the overnight AI engine (M07)</li>
+          <li><strong>Protocol Versioning:</strong> protocols are immutable once activated; historical interpretation is preserved for audit purposes</li>
+          <li><strong>Follow-up Schedule Templates:</strong> re-screening intervals per cancer type and outcome</li>
+          <li><strong>Ward / Area Master:</strong> configurable list of wards, talukas, and areas available for Technician selection in M02</li>
+          <li>Admin simulation tool: preview AI classification outcomes against sample data before activating a new protocol version</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 07</div><h3>AI Risk Stratification Engine <span class="tag-updated">Updated</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Overnight batch AI that analyses all verified lab results, classifies risk, and prepares an explainable intelligence summary for Doctor review. No auto-referral — advisory output only.</p>
+        <ul>
+          <li><strong>Overnight batch processing:</strong> runs on a configurable nightly window (e.g. 11 PM – 5 AM) over all results verified since the previous run</li>
+          <li>Applies the active Screening Protocol's classification rules to results, demographics, and questionnaire risk score</li>
+          <li><strong>Classification output:</strong> Negative or Suspect, with a confidence score and the key contributing factors (markers triggered, thresholds crossed) — shown in plain language for clinical review</li>
+          <li><strong>AI Intelligence Summary per case:</strong> a structured explanation of WHY the classification was reached, to aid Doctor decision-making — not a diagnosis</li>
+          <li><strong>Critical/high-risk fast path:</strong> cases with critical marker values are flagged immediately (outside the batch window) for same-day Doctor alert</li>
+          <li><strong>No auto-referral:</strong> AI output is advisory and informational only — all decisions require Doctor review and sign-off in Module 08</li>
+        </ul>
+        <div class="triage-legend">
+          <span class="label">AI Classification Output:</span>
+          <span class="chip negative">Negative</span>
+          <span class="chip arrow">or</span>
+          <span class="chip suspect">Suspect</span>
+          <span class="chip arrow">&#8594;</span>
+          <span class="chip" style="background:#e0e7ff; color:#3730a3; border:1px solid #c7d2fe;">Every case goes to Doctor Review (M08)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP D -->
+    <div class="group-title">Clinical Review &amp; Decision</div>
+    <div class="module-grid">
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 08</div><h3>Doctor Review &amp; Clinical Report Authentication <span class="tag-updated">Updated</span></h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Every case — Negative or Suspect — is reviewed and authenticated by a Doctor. Replaces the auto-referral pathway from v0.1. The Doctor's decision is the authoritative clinical record.</p>
+        <ul>
+          <li><strong>Doctor Auto-Assignment:</strong> Cases assigned to Doctors automatically based on configurable rules (workload-balanced, specialty, or facility). Manual re-assignment available to Admin.</li>
+          <li><strong>Doctor Review Queue:</strong> Prioritized list of pending cases showing AI classification, critical flag (if any), patient summary, and time-in-queue</li>
+          <li><strong>Case Review View:</strong> Side-by-side display of full lab results with reference ranges, AI Intelligence Summary (from M07), patient's complete screening history, and prior Doctor reviews</li>
+          <li><strong>Clinical Observations &amp; Notes:</strong> Free-text clinical notes and observations entered by the Doctor, stored as structured clinical narrative</li>
+          <li><strong>Next Line of Action:</strong> Doctor selects from — <em>Clear (Negative confirmed), Request additional investigation, Refer for Staging (Level 3), Refer for Day-Care Treatment (Level 2), Refer for Hospitalization (Level 1)</em></li>
+          <li><strong>Prescription / Instructions:</strong> Doctor documents any immediate prescription, dietary advice, or patient instructions</li>
+          <li><strong>Digital Signature Authentication:</strong> Doctor digitally signs and authenticates the completed report. The signed report becomes immutable and is stored as the authoritative medico-legal record.</li>
+          <li>Authenticated report triggers patient notification via SMS, Email, and/or WhatsApp with next steps in plain language</li>
+          <li>AI agreement/override logged: whenever the Doctor's final decision differs from the AI classification, the reason is captured for model feedback and audit</li>
+        </ul>
+        <div class="flow-row">
+          <div class="flow-box ai">AI Classification<br><small style="font-weight:500;">Overnight batch</small></div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-box doctor">Doctor Reviews<br><small style="font-weight:500;">Notes + next action</small></div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-box doctor">Digital Signature<br><small style="font-weight:500;">Report authenticated</small></div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-box system">Patient Notified<br><small style="font-weight:500;">SMS / Email / WhatsApp</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP E -->
+    <div class="group-title">Oversight &amp; Insights</div>
+    <div class="module-grid">
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 12</div><h3>Case Management Dashboard</h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Unified real-time view of all active cases and pending actions across the platform.</p>
+        <ul>
+          <li>Active case list — filterable by AI classification, Doctor review status, ward/area, facility, overdue flag, critical alert</li>
+          <li>Case detail view: patient summary, full result history, AI Intelligence Summary, Doctor review notes, authenticated report, referral/action history</li>
+          <li>Pending-action queue: awaiting lab results, awaiting Doctor review, awaiting patient response or investigation</li>
+          <li>Critical-flag alerts surfaced prominently for same-day action — bypasses normal queue ordering</li>
+          <li>Live sample status board (via CC6 real-time layer)</li>
+          <li>Lab Coordinator result entry status tracking per sample batch</li>
+        </ul>
+      </div>
+
+      <div class="card module-card" data-priority="P0">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 13</div><h3>Analytics &amp; Reporting</h3></div>
+          <span class="priority-pill P0">P0 · MVP</span>
+        </div>
+        <p class="desc">Campaign and clinical analytics — geographic coverage, AI stratification distribution, Doctor review metrics, and Lab Coordinator performance.</p>
+        <ul>
+          <li>Screening campaign analytics: totals, result distribution, demographics, time-to-result</li>
+          <li><strong>Geographic analytics:</strong> coverage map by ward/area; geo-heat map of patient home locations (from M02 geo-tags)</li>
+          <li>AI classification distribution: Negative vs. Suspect rates, confidence score spread</li>
+          <li>Doctor review metrics: average TAT, AI agreement/override rate, authenticated cases per Doctor</li>
+          <li>Lab Coordinator performance: result entry TAT, rejection rate, error rate</li>
+          <li>Compliance: consent completeness, follow-up adherence, audit exceptions</li>
+          <li>Standard exports: Excel and PDF; scheduled email delivery to stakeholders</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GROUP F removed — post-MVP modules not shown -->
+    <div class="module-grid" style="display:none;">
+      <div class="card module-card deferred" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 09</div><h3>Level 2: Day-Care Treatment Management</h3></div>
+          <span class="priority-pill P1">P1 · Post-MVP</span>
+        </div>
+        <p class="desc">Early-stage outpatient treatment management — Phase 3.</p>
+        <ul>
+          <li>Treatment plan creation and upload (type, goals, duration)</li>
+          <li>Cycle scheduling — chemo rounds, radiation sessions, drugs/doses, attendance tracking</li>
+          <li>Side-effect monitoring with severity classification and coordinator alerts for severe cases</li>
+          <li>Recovery classification (Complete / Partial / No Response) → continue, pivot, or escalate to Level 1</li>
+          <li>Discharge planning into survivorship follow-up</li>
+        </ul>
+      </div>
+
+      <div class="card module-card deferred" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 10</div><h3>Level 1: Hospitalization Management</h3></div>
+          <span class="priority-pill P1">P1 · Post-MVP</span>
+        </div>
+        <p class="desc">Advanced inpatient care — Phase 3.</p>
+        <ul>
+          <li>Hospital/treatment center integration — API where available, manual entry fallback</li>
+          <li>Admission records: reason, clinical summary, ward/bed assignment</li>
+          <li>Inpatient tracking: transfers, surgery and complications, medications, transfusions, daily vitals</li>
+          <li>Discharge: recovery assessment, summary, recommendations, routing to Level 2 or survivorship</li>
+        </ul>
+      </div>
+
+      <div class="card module-card deferred" data-priority="P1">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 11</div><h3>Post-Treatment &amp; Survivorship Follow-up</h3></div>
+          <span class="priority-pill P1">P1 · Post-MVP</span>
+        </div>
+        <p class="desc">Long-term monitoring for recovered patients — Phase 3.</p>
+        <ul>
+          <li>Monitoring schedules: weekly → monthly → quarterly, per protocol templates</li>
+          <li>Post-treatment imaging and tumor-marker monitoring cadence</li>
+          <li>Case closure workflow (declared recovered or stable)</li>
+          <li>Re-entry into the screening cycle for periodic survivorship screening</li>
+          <li>Overdue follow-up detection and escalation alerts</li>
+        </ul>
+      </div>
+
+      <div class="card module-card deferred" data-priority="P2">
+        <div class="top-row">
+          <div><div class="module-id">MODULE 14</div><h3>Patient Portal</h3></div>
+          <span class="priority-pill P2">P2 · Future</span>
+        </div>
+        <p class="desc">Self-service patient access to records and appointments — Phase 4/5.</p>
+        <ul>
+          <li>OTP-based secure login tied to registered mobile; accounts provisioned at registration</li>
+          <li>Dashboard: screening status, results in plain language, upcoming appointments, treatment overview</li>
+          <li>Document download — reports, Doctor authenticated summaries, discharge notes</li>
+          <li>Appointment view, confirm, and reschedule with reminders</li>
+          <li>Side-effect self-reporting feeding Module 09 monitoring</li>
+          <li>Educational content and FAQ links</li>
+        </ul>
+      </div>
+
+      <div class="card module-card deferred" data-priority="P2">
+        <div class="top-row">
+          <div><div class="module-id">LAB-API</div><h3>Pathology Lab API Integration</h3></div>
+          <span class="priority-pill P2">P2 · Future</span>
+        </div>
+        <p class="desc">Automated two-way integration with external lab partners — replaces manual entry once partner APIs are available.</p>
+        <ul>
+          <li>Outbound: register sample + encrypted patient data, send handover notification, query result status</li>
+          <li>Inbound: receive results, sample-received confirmations, and rejection notices via webhook or polling</li>
+          <li>REST/JSON primary, CSV/file-drop fallback</li>
+          <li>Adapter framework for multiple lab API formats; lab partner master data management</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-CUTTING -->
+  <section id="cross-cutting">
+    <div class="section-head">
+      <div class="eyebrow">07 · Shared Services</div>
+      <h2>Cross-Cutting Modules</h2>
+      <p>CC1–CC6 and CC8 are in scope for MVP. CC2 is updated to include WhatsApp alongside SMS and Email, plus a FAQ chatbot and multi-language support (Marathi, Hindi, English). CC7 (Offline Sync) is not in MVP — the mobile app and web portals require connectivity.</p>
+    </div>
+    <div class="cc-grid">
+      <div class="card cc-card">
+        <span class="icon">🔐</span>
+        <h3>CC1 — Identity, Access &amp; User Management <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>OAuth2/OIDC (e.g. AWS Cognito), no self-signup</li>
+          <li>Role-Based Access Control across all roles</li>
+          <li>MFA for PHI-accessing roles (Doctor, Lab, Admin)</li>
+          <li>Facility/org-scoped permissions — multi-tenancy ready</li>
+          <li>Full account lifecycle management</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">✉️</span>
+        <h3>CC2 — Notifications, Communications &amp; Localization <span class="tag-updated">Updated</span> <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li><strong>Three channels:</strong> SMS, Email, and <strong>WhatsApp</strong></li>
+          <li>Event-driven: registration, sample received, result ready, Doctor report authenticated, appointment reminder, follow-up due</li>
+          <li><strong>WhatsApp FAQ Chatbot:</strong> predefined question-and-answer pairs configured by Admin; patients can query screening status, next steps, general health information, and appointment details</li>
+          <li><strong>Multi-language support — Marathi, Hindi, English:</strong> all patient-facing notification templates (SMS, Email, WhatsApp) and system UI (web &amp; mobile) available in all three languages; language preference set per patient or system default</li>
+          <li>All template content and chatbot Q&amp;A admin-managed with preview before activation; translations provided by organization</li>
+          <li>Delivery tracking, retry logic, DLT-compliant SMS gateway, WhatsApp Business API (Meta-approved)</li>
+          <li>SMS fallback if WhatsApp delivery fails; email fallback for non-WhatsApp users</li>
+          <li>Scheduled Management Team summary digests via email</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🧾</span>
+        <h3>CC3 — Audit Trail &amp; Compliance Logging <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>Immutable audit log: PHI access, edits, result submissions, Doctor sign-offs, configuration changes</li>
+          <li>Consent versioning and history</li>
+          <li>Retention/purge schedule aligned to India's DPDP Act, 2023</li>
+          <li>Exportable compliance reports for internal and regulatory review</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🗂️</span>
+        <h3>CC4 — Master Data &amp; Configuration <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>Org/facility hierarchy — sites, camps, labs, hospitals</li>
+          <li><strong>Ward/Area master</strong> — configurable geographic units used in M02 and M13</li>
+          <li>User/role master, location master</li>
+          <li>Links to Module 06 clinical configuration</li>
+          <li>System-wide alert thresholds and default schedules</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">📁</span>
+        <h3>CC5 — Document &amp; Media Storage <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>S3-compatible storage, India region</li>
+          <li>Stores: consent forms, lab report uploads (from M04), Doctor authenticated reports, discharge summaries</li>
+          <li>AES-256 encryption at rest; signed-URL access controlled via RBAC</li>
+          <li>Versioning and retention tagging per DPDP requirements</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">📡</span>
+        <h3>CC6 — Real-Time Communication Layer <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>WebSocket/SSE for live dashboard updates</li>
+          <li>Sample status board, critical result alerts, Doctor queue updates, Lab Coordinator submission confirmations</li>
+          <li>Feeds Module 03 (sample tracking) and Module 12 (case dashboard)</li>
+        </ul>
+      </div>
+      <div class="card cc-card">
+        <span class="icon">🖱️</span>
+        <h3>CC8 — Hardware / Peripheral Integration <span class="priority-pill P0" style="font-size:10px; padding:2px 7px; vertical-align:middle;">MVP</span></h3>
+        <ul>
+          <li>QR/barcode generation for Patient IDs and Sample IDs</li>
+          <li>Barcode sticker printing via Bluetooth/USB printers (field &amp; lab)</li>
+          <li>PVC/hard-bound Patient Card printing workflow</li>
+          <li>Camera or hardware scanner for barcode scanning in field (M02, M03) and lab (M04)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA MODEL -->
+  <section id="data-model">
+    <div class="section-head">
+      <div class="eyebrow">08 · Data Model</div>
+      <h2>High-Level Data Entities</h2>
+      <p>Updated for v1.0 — new entities highlighted in blue: ABHA ID, home geo-tag, ward/area, AI stratification result, Doctor clinical report, and WhatsApp chatbot configuration.</p>
+    </div>
+    <div class="card tree">
+      <ul>
+        <li><span class="entity">ORGANIZATION / FACILITY</span> <span class="note">sites, camps, labs — multi-tenancy ready</span></li>
+        <li><span class="entity">WARD_AREA</span> <span class="sub new">New</span> <span class="note">admin-configured geographic unit; linked to sessions and analytics</span></li>
+        <li><span class="entity">USER</span> <span class="note">role, facility scope, specialization (for Doctor auto-assignment)</span></li>
+        <li><span class="entity">PATIENT</span> <span class="note">demographics, household linkage, medical history</span>
+          <ul>
+            <li><span class="sub new">ABHA_ID</span> <span class="note">NHA-issued health identifier; nullable (populated on ABHA registration/lookup)</span></li>
+            <li><span class="sub new">HOME_GEO_TAG</span> <span class="note">GPS lat/lng captured during home-visit screening; stored against patient address</span></li>
+            <li><span class="sub">CONSENT</span> <span class="note">versioned; withdrawal flag and timestamp</span></li>
+          </ul>
+        </li>
+        <li><span class="entity">SCREENING_PROTOCOL</span> <span class="note">versioned — immutable once activated</span>
+          <ul>
+            <li><span class="sub">CANCER_TYPE</span></li>
+            <li><span class="sub">TEST_PANEL / MARKER_DEFINITION</span> <span class="note">drives Lab Coordinator entry form in M04</span></li>
+            <li><span class="sub">QUESTIONNAIRE_DEFINITION</span></li>
+            <li><span class="sub new">AI_CLASSIFICATION_RULE</span> <span class="note">threshold/multi-marker rules consumed by M07 overnight engine</span></li>
+            <li><span class="sub">FOLLOWUP_TEMPLATE</span></li>
+          </ul>
+        </li>
+        <li><span class="entity">SCREENING_SESSION</span> <span class="note">camp or home-visit session</span>
+          <ul>
+            <li><span class="sub new">WARD_AREA_REF</span> <span class="note">selected by Technician at session start</span></li>
+            <li><span class="sub">SCREENING_RECORD</span> <span class="note">patient × session, protocol version, questionnaire risk score</span>
+              <ul>
+                <li><span class="sub">SAMPLE</span> <span class="note">barcode, type, chain-of-custody status</span>
+                  <ul>
+                    <li><span class="sub">LAB_RESULT</span> <span class="note">markers, values, entered by Lab Coordinator, verification status, uploaded report doc</span>
+                      <ul>
+                        <li><span class="sub new">AI_STRATIFICATION_RESULT</span> <span class="note">classification (Negative/Suspect), confidence score, contributing factors, AI intelligence summary text, batch run timestamp</span>
+                          <ul>
+                            <li><span class="sub new">CLINICAL_REPORT</span> <span class="note">Doctor ID, observations, next action, prescription, AI agreement flag, digital signature hash, authenticated timestamp — immutable once signed</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><span class="entity">FOLLOWUP_SCHEDULE</span> <span class="note">patient × cancer type, derived from FOLLOWUP_TEMPLATE post Doctor review</span></li>
+        <li><span class="entity">AUDIT_LOG</span> <span class="note">entity, action, actor, timestamp, before/after snapshot</span></li>
+        <li><span class="entity">NOTIFICATION_LOG</span> <span class="note">channel (SMS / Email / WhatsApp), event type, delivery status, retry count</span></li>
+        <li><span class="entity">WHATSAPP_CHATBOT_CONFIG</span> <span class="sub new">New</span> <span class="note">FAQ Q&amp;A pairs, admin-managed; matched against patient inbound messages</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NFR -->
+  <section id="nfr">
+    <div class="section-head">
+      <div class="eyebrow">09 · Quality Attributes</div>
+      <h2>Non-Functional Requirements</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:220px">Area</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td><span class="nfr-icon">🌍</span> Deployment</td><td>AWS/GCP Mumbai region (primary); DR/backup database in a secondary India region (Hyderabad or Delhi NCR) for data residency compliance</td></tr>
+          <tr><td><span class="nfr-icon">🔒</span> Security &amp; Privacy</td><td>AES-256 at rest, TLS in transit, RBAC, full audit logging, DPDP Act 2023 compliance, consent-first data handling. Digital signature integrity for Doctor-authenticated reports — tamper-evident, cryptographically verifiable.</td></tr>
+          <tr><td><span class="nfr-icon">⚡</span> Performance</td><td>API p95 &lt; 500 ms; dashboard load &lt; 2 s; real-time updates &lt; 5 s latency; AI overnight batch completes within configured nightly window (e.g. 11 PM – 5 AM)</td></tr>
+          <tr><td><span class="nfr-icon">📈</span> Scalability</td><td>Serverless API layer (Node.js/Python) scales elastically with camp volume; async job queue for AI batch runs and notifications</td></tr>
+          <tr><td><span class="nfr-icon">✅</span> Availability</td><td>Target 99.5% uptime for core APIs; AI batch job retryable on failure with alerting to Admin; notification delivery retried with channel fallback (WhatsApp → SMS → Email)</td></tr>
+          <tr><td><span class="nfr-icon">🆔</span> ABHA Integration</td><td>NHA-sandbox tested before production; graceful degradation — system creates internal Patient ID and queues ABHA registration for retry if NHA API is unavailable at time of registration</td></tr>
+          <tr><td><span class="nfr-icon">💬</span> WhatsApp</td><td>WhatsApp Business API via a Meta-approved BSP; India DLT template registration for transactional messages; chatbot responses limited to pre-approved FAQ content configured by Admin</td></tr>
+          <tr><td><span class="nfr-icon">🗣️</span> Localization</td><td>Multi-language support for system UI (web &amp; mobile) and all patient-facing communications. <strong>Supported languages: Marathi, Hindi, English.</strong> Notification templates (SMS/Email/WhatsApp) and chatbot responses admin-managed in all three languages with preview before activation. System interface supports per-user language preference. Translations provided by the organization.</td></tr>
+          <tr><td><span class="nfr-icon">🧰</span> Tech Stack</td><td>React + Vite + Tailwind + ShadCN (Web) · Flutter (Mobile) · Node.js/Python serverless (APIs) · PostgreSQL · AWS Cognito / OAuth2 · S3-compatible storage (India region) · WhatsApp Business API</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="section-head">
+      <div class="eyebrow">10 · Delivery Plan</div>
+      <h2>Phased Roadmap</h2>
+      <p><strong>Phases 1 and 2 together constitute the MVP.</strong> Phase 1 builds the patient identity, field operations, and platform foundation; Phase 2 delivers the lab entry, AI stratification, and Doctor review loop.</p>
+    </div>
+    <div class="roadmap">
+      <div class="phase mvp-phase">
+        <span class="ph-num">Phase 1 · MVP</span>
+        <h4>Foundation</h4>
+        <div class="dur">&#8776; 3 months</div>
+        <div class="chips">
+          <span>CC1–CC8 (core)</span>
+          <span>M01 Registry + ABHA</span>
+          <span>M02 Screening + Geo/Ward</span>
+          <span>M03 Sample Collection</span>
+          <span>M06 Protocol Config</span>
+          <span>M12 Case Dashboard</span>
+        </div>
+      </div>
+      <div class="phase mvp-phase">
+        <span class="ph-num">Phase 2 · MVP</span>
+        <h4>Lab, AI &amp; Doctor Review</h4>
+        <div class="dur">&#8776; 2 months</div>
+        <div class="chips">
+          <span>M04 Lab Result Entry</span>
+          <span>M05 Result Validation</span>
+          <span>M07 AI Stratification</span>
+          <span>M08 Doctor Review + Sign</span>
+          <span>CC2 WhatsApp + Chatbot</span>
+          <span>M13 Analytics (basic)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section id="metrics">
+    <div class="section-head">
+      <div class="eyebrow">11 · Definition of Success</div>
+      <h2>Success Metrics — MVP</h2>
+    </div>
+    <div class="metrics-grid">
+      <div class="card metric-card">
+        <h3>🩹 Screening</h3>
+        <ul>
+          <li>Time-to-result <strong>&lt; 7 days</strong> (collection to AI stratification)</li>
+          <li>Data entry accuracy <strong>&gt; 98%</strong></li>
+          <li>ABHA registration success rate <strong>&gt; 90%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>🧪 Lab Entry</h3>
+        <ul>
+          <li>Result entry TAT <strong>&lt; 24 hrs</strong> of sample receipt</li>
+          <li>Barcode scan success rate <strong>&gt; 98%</strong></li>
+          <li>Sample rejection rate <strong>&lt; 5%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>🤖 AI Engine</h3>
+        <ul>
+          <li>Overnight batch completion <strong>100%</strong> (zero missed nights)</li>
+          <li>AI classification alignment with Doctor final decision <strong>&gt; 85%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>👨‍⚕️ Doctor Review</h3>
+        <ul>
+          <li>Review TAT <strong>&lt; 48 hrs</strong> of AI stratification</li>
+          <li>Digital signature completion <strong>100%</strong> of all reviewed cases</li>
+          <li>Cases per Doctor per day — tracked for workload balancing</li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>🖥️ System</h3>
+        <ul>
+          <li>API uptime <strong>&gt; 99.5%</strong></li>
+          <li>Dashboard load <strong>&lt; 2 s</strong></li>
+          <li>Audit log completeness <strong>100%</strong></li>
+          <li>WhatsApp delivery rate <strong>&gt; 90%</strong></li>
+        </ul>
+      </div>
+      <div class="card metric-card">
+        <h3>📊 Program</h3>
+        <ul>
+          <li>Camps run and patients screened (total &amp; by ward/area)</li>
+          <li>Geographic coverage — wards/areas reached</li>
+          <li>Suspect detection rate (% of screened patients)</li>
+          <li>Re-screening adherence rate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN QUESTIONS -->
+  <section id="open-questions">
+    <div class="section-head">
+      <div class="eyebrow">12 · For Discussion</div>
+      <h2>Open Questions — MVP</h2>
+      <p>These don't block the module structure, but resolving them early will sharpen detailed specifications and prevent rework.</p>
+    </div>
+
+    <details open>
+      <summary><span class="q-num">Q1</span> ABHA API access &amp; certification timeline</summary>
+      <div class="body">Has the organization applied for NHA ABHA API sandbox and production access? What is the expected certification timeline? What graceful degradation behavior is expected when ABHA API is unavailable during camps — should the system queue registration for retry when API connectivity is restored?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q2</span> AI engine approach — rules vs. ML for MVP</summary>
+      <div class="body">For the overnight AI stratification (M07), should MVP use a pure rules-based engine driven by the Protocol configuration (thresholds and multi-marker rules), or is there an existing ML model/dataset to integrate from day one? Rules-based is recommended for MVP speed and allows the classification logic to be fully admin-configurable without a data science dependency.</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q3</span> Doctor digital signature mechanism</summary>
+      <div class="body">What digital signature standard applies? Options: PKI-based DSC (Digital Signature Certificate), OTP-based e-sign under India's IT Act Section 3A, or a platform-issued cryptographic hash with audit trail. This affects compliance with NMC guidelines for authenticated electronic medical records and may require legal counsel input.</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q4</span> WhatsApp BSP selection &amp; template approval</summary>
+      <div class="body">Which WhatsApp Business Solution Provider (BSP) should be used — e.g. Gupshup, Kaleyra, Twilio, or ValueFirst? Are there existing contracts or preferences? Which message templates need to be pre-approved with Meta (registration confirmation, result notification, appointment reminder)? How many chatbot FAQ pairs are anticipated at launch?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q5</span> Doctor auto-assignment rules</summary>
+      <div class="body">What logic should govern auto-assignment of cases to Doctors in M08? Options: round-robin within specialty, workload-balanced by pending case count, cancer-type specialist routing, or facility-based assignment. Who manages the assignment configuration — Admin only, or Department Heads as well?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q6</span> Ward/Area master — source &amp; granularity</summary>
+      <div class="body">Should Ward/Area definitions be manually entered by Admin, or imported from a government dataset (Census ward boundaries, Panchayat/ULB data, LGDMS)? How granular — District → Taluka → Ward → Village? This also determines the geographic analytics resolution in M13.</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q7</span> Consent capture method</summary>
+      <div class="body">On-screen signature pad on the mobile app, OTP-based digital consent, or printed-and-scanned consent forms? The choice must be legally defensible under the DPDP Act 2023 and align with clinical standards applicable to the screening program.</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q8</span> Regional language requirements</summary>
+      <div class="body">Which languages must SMS/Email/WhatsApp templates and chatbot responses support? Please prioritize by deployment geography (e.g. Marathi, Hindi, Gujarati, Kannada). Are translations provided by the organization or does the team need to arrange them?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q9</span> Hardware for Lab barcode scanning</summary>
+      <div class="body">For Lab Coordinator barcode scanning in M04, is a dedicated USB/Bluetooth hardware scanner expected at each workstation, or will a webcam-based browser scanner suffice? For field printing, are there preferred or mandated printer models for the screening app (e.g. Zebra, Honeywell, Brother)?</div>
+    </details>
+    <details>
+      <summary><span class="q-num">Q10</span> Disaster recovery targets</summary>
+      <div class="body">What RPO (Recovery Point Objective) and RTO (Recovery Time Objective) are required for the secondary-region backup database? Should it be active-passive (failover) or active-active (read replica)? This determines infrastructure cost and the DR region.</div>
+    </details>
+  </section>
+
+  <!-- ESTIMATIONS -->
+  <section id="estimations">
+    <div class="section-head">
+      <div class="eyebrow">13 · Budget Estimate</div>
+      <h2>MVP Estimation — Executive Summary</h2>
+      <p>Indicative budget for Phase 0–2 (6-month MVP build). All figures in INR, excl. GST. Based on 2026 Indian product-engineering market rates and ₹85 = US$1 for cloud conversion. See the full Estimation document for phase-wise breakdown and assumptions.</p>
+    </div>
+
+    <div class="est-metric-grid">
+      <div class="est-metric-card primary">
+        <div class="est-metric-label">Grand Total — MVP Build</div>
+        <div class="est-metric-value">≈ ₹5.26 Cr</div>
+        <div class="est-metric-sub">inclusive of 12% contingency</div>
+      </div>
+      <!-- <div class="est-metric-card accent">
+        <div class="est-metric-label">Post-MVP Run-Rate</div>
+        <div class="est-metric-value">≈ ₹2.68 Cr</div>
+        <div class="est-metric-sub">per year, sustain team + cloud + services</div>
+      </div> -->
+      <div class="est-metric-card green">
+        <div class="est-metric-label">Cloud (Build Period)</div>
+        <div class="est-metric-value">≈ ₹5.1 L</div>
+        <div class="est-metric-sub">6 months, AWS Mumbai; no DR in MVP</div>
+      </div>
+      <div class="est-metric-card">
+        <div class="est-metric-label">MVP Build Duration</div>
+        <div class="est-metric-value">~6 months</div>
+        <div class="est-metric-sub">Phase 0 + Phase 1 + Phase 2</div>
+      </div>
+      <div class="est-metric-card accent">
+        <div class="est-metric-label">Peak Team Size</div>
+        <div class="est-metric-value">~15 FTE</div>
+        <div class="est-metric-sub">during Phase 1 (Foundation)</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Budget Category</th>
+            <th style="text-align:right;width:200px;">Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Development Team Cost — Phase 0–2 (incl. Project Manager; <em>no Data/ML Engineer in MVP</em>)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">4,52,00,000</td>
+          </tr>
+          <tr>
+            <td>Pathology &amp; Medical Consultant SME (4 months × ₹1,00,000/month, part-time)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">4,00,000</td>
+          </tr>
+          <tr>
+            <td>Cloud Infrastructure (build period, Phase 0–2, 6 months)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">5,08,000</td>
+          </tr>
+          <tr>
+            <td>Third-Party Services (SMS, WhatsApp BSP, email, auth, ABHA sandbox, domain — build period)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">75,000</td>
+          </tr>
+          <tr>
+            <td>Security Audit &amp; VAPT (one-time, pre-launch)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">3,00,000</td>
+          </tr>
+          <tr>
+            <td>Hardware — Pilot Kit (one-time: 8 field kits · tablets, barcode scanners, label printers, accessories)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">5,00,000</td>
+          </tr>
+          <tr class="est-subtotal-row">
+            <td><strong>Subtotal</strong></td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;"><strong>4,69,83,000</strong></td>
+          </tr>
+          <tr>
+            <td>Contingency (12%)</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums;">56,38,000</td>
+          </tr>
+        </tbody>
+        <tfoot class="est-foot">
+          <tr class="est-grand-total">
+            <td><strong>Grand Total — MVP Build (Phase 0–2, ~6 months)</strong></td>
+            <td style="text-align:right;"><strong>≈ 5,26,21,000 (~₹5.26 Crore)</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="est-note">
+      All figures are <strong>indicative</strong>, in <strong>INR</strong>, based on typical Indian product-engineering market rates (2026). Validate against actual vendor quotes and hiring/contracting rate cards before treating as a committed budget. <strong>All figures exclude GST.</strong>
+    </div>
+
+    <!-- <div class="est-runrate-grid">
+      <div class="est-runrate-card">
+        <div class="est-runrate-label">Sustain Team (post-MVP)</div>
+        <div class="est-runrate-value">≈ ₹2,52,90,000</div>
+        <div class="est-runrate-sub">~4.1 FTE · sustain &amp; enhancement/yr</div>
+      </div>
+      <div class="est-runrate-card">
+        <div class="est-runrate-label">Cloud (MVP pilot scale)</div>
+        <div class="est-runrate-value">≈ ₹13,56,000</div>
+        <div class="est-runrate-sub">~₹1.13 L/month · production + dev + QA</div>
+      </div>
+      <div class="est-runrate-card">
+        <div class="est-runrate-label">Annual Post-MVP Run-Rate</div>
+        <div class="est-runrate-value">≈ ₹2.68 Cr/yr</div>
+        <div class="est-runrate-sub">team + cloud + WhatsApp/SMS/services</div>
+      </div>
+    </div> -->
+  </section>
+
+</main>
+
+<footer>
+  <strong style="color:var(--text);">Patheya Technologies Ind. Pvt. Ltd</strong> &nbsp;·&nbsp; Technical Proposal in Response to RFP by <strong style="color:var(--text);">Sanvi Aurolife</strong>
+  &nbsp;·&nbsp; Anandini — Integrated Cancer Command Center (ICCC) &nbsp;·&nbsp; v1.0 &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Confidential
+</footer>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('nav.topnav a');
+  const setActive = () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      if (sec.getBoundingClientRect().top <= 120) current = sec.id;
+    });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  };
+  document.addEventListener('scroll', setActive);
+  setActive();
+
+  // Priority filter for module cards
+  const filterBtns = document.querySelectorAll('#filters .filter-btn');
+  const moduleCards = document.querySelectorAll('.module-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      moduleCards.forEach(card => {
+        const p = card.dataset.priority;
+        card.style.display = (filter === 'ALL' || p === filter) ? '' : 'none';
+      });
+
+      document.querySelectorAll('#journey .module-grid').forEach(grid => {
+        const visible = Array.from(grid.querySelectorAll('.module-card')).some(c => c.style.display !== 'none');
+        grid.style.display = visible ? '' : 'none';
+        const titleBefore = grid.previousElementSibling;
+        if (titleBefore && titleBefore.classList.contains('group-title')) {
+          titleBefore.style.display = visible ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Journey stepper -> scroll to corresponding module card
+  const stepEls = document.querySelectorAll('.stepper .step');
+  const allCards = document.querySelectorAll('.module-card');
+  stepEls.forEach((step, idx) => {
+    step.addEventListener('click', () => {
+      if (allCards[idx]) {
+        allCards[idx].scrollIntoView({behavior:'smooth', block:'center'});
+        allCards[idx].style.outline = '3px solid var(--primary)';
+        setTimeout(() => allCards[idx].style.outline = '', 1400);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
