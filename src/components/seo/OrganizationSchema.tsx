@@ -1,3 +1,5 @@
+import { companyInfo } from '@/lib/data/company'
+
 export function OrganizationSchema() {
   const schema = {
     '@context': 'https://schema.org',
@@ -8,6 +10,19 @@ export function OrganizationSchema() {
     logo: 'https://patheya.tech/images/logo-dark.png',
     description: 'Leading software development and IT consultancy company specializing in web development, mobile applications, cloud services, AI/ML solutions, and DevOps. Based in Pune, India.',
     foundingDate: '2019',
+    taxID: companyInfo.gstNumber,
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        name: 'CIN',
+        value: companyInfo.cin,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'GeM Seller ID',
+        value: companyInfo.gemRegistrationId,
+      },
+    ],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Pune',

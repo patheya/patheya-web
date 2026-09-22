@@ -36,6 +36,19 @@ const config: Config = {
           900: '#701a75',
           950: '#4a044e',
         },
+        'conifer': {
+          '50': '#f5fbea',
+          '100': '#e8f6d1',
+          '200': '#d1eda9',
+          '300': '#acdd6b',
+          '400': '#95cf4c',
+          '500': '#76b42e',
+          '600': '#5b9020',
+          '700': '#466e1d',
+          '800': '#3a581c',
+          '900': '#324b1c',
+          '950': '#18290a',
+        },
         // OLED-compatible dark mode colors
         slate: {
           50: '#f8fafc',
@@ -60,6 +73,7 @@ const config: Config = {
         'slide-up': 'slideUp 0.6s ease-out',
         'slide-down': 'slideDown 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
+        marquee: 'marquee 38s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -77,6 +91,10 @@ const config: Config = {
         scaleIn: {
           '0%': { transform: 'scale(0.9)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
         },
       },
     },

@@ -69,6 +69,7 @@ export interface Testimonial {
   content: string
   rating: number
   image?: string
+  projectType?: string
 }
 
 // Client types
@@ -76,5 +77,6 @@ export interface Client {
   id: string
   name: string
   logo: string
+  logoDark?: string
   alt?: string
 }

@@ -6,6 +6,9 @@ export const companyInfo = {
   email: 'connect@patheya.tech',
   linkedin: 'https://www.linkedin.com/company/patheya-technologies',
   website: 'https://patheya.tech',
+  gstNumber: '27AAMCP7776R1Z3',
+  cin: 'U72900PN2022PTC209856',
+  gemRegistrationId: 'KETE260014805649',
 }
 
 export const companyStats = {

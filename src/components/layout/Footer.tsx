@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Linkedin, Mail, MapPin } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { companyInfo } from '@/lib/data/company'
 
 const navigation = {
   company: [
@@ -140,6 +141,11 @@ export function Footer() {
             <p className="mt-4 text-sm text-slate-400 dark:text-slate-500 md:mt-0">
               &copy; {new Date().getFullYear()} Patheya Technologies. All rights reserved.
             </p>
+          </div>
+          <div className="mt-4 flex flex-col gap-1 text-xs text-slate-500 dark:text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-4">
+            <span>GSTIN: {companyInfo.gstNumber}</span>
+            <span>CIN: {companyInfo.cin}</span>
+            <span>GeM Seller ID: {companyInfo.gemRegistrationId}</span>
           </div>
         </div>
       </div>

@@ -1,30 +1,96 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion, type PanInfo } from 'framer-motion'
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
-import { Card, CardContent } from '@/components/ui/Card'
+import { Card } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
+import { Avatar } from '@/components/ui/Avatar'
+import { cn } from '@/lib/utils'
 import { testimonials } from '@/lib/data/testimonials'
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+const AUTOPLAY_INTERVAL = 6000
+const SWIPE_THRESHOLD = 80
+const SWIPE_VELOCITY_THRESHOLD = 500
+
+const slideVariants = {
+  enter: (direction: number) => ({ opacity: 0, x: direction > 0 ? 40 : -40 }),
+  center: { opacity: 1, x: 0 },
+  exit: (direction: number) => ({ opacity: 0, x: direction > 0 ? -40 : 40 }),
 }
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
+const reducedSlideVariants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 }
 
 export function TestimonialsSection() {
+  const [[activeIndex, direction], setActive] = useState<[number, number]>([0, 0])
+  const [isPaused, setIsPaused] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  const total = testimonials.length
+  const testimonial = testimonials[activeIndex]
+
+  const goTo = useCallback(
+    (index: number) => {
+      setActive(([current]) => {
+        const nextDirection = index > current ? 1 : -1
+        return [((index % total) + total) % total, nextDirection]
+      })
+    },
+    [total]
+  )
+
+  const next = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo])
+  const previous = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo])
+
+  const handleDragEnd = useCallback(
+    (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      if (info.offset.x < -SWIPE_THRESHOLD || info.velocity.x < -SWIPE_VELOCITY_THRESHOLD) {
+        next()
+      } else if (info.offset.x > SWIPE_THRESHOLD || info.velocity.x > SWIPE_VELOCITY_THRESHOLD) {
+        previous()
+      }
+    },
+    [next, previous]
+  )
+
+  useEffect(() => {
+    if (isPaused || shouldReduceMotion === true || total <= 1) return
+    timeoutRef.current = setTimeout(() => {
+      goTo(activeIndex + 1)
+    }, AUTOPLAY_INTERVAL)
+    return () => clearTimeout(timeoutRef.current)
+  }, [activeIndex, isPaused, shouldReduceMotion, total, goTo])
+
+  if (total === 0 || !testimonial) return null
+
+  const variants = shouldReduceMotion ? reducedSlideVariants : slideVariants
+
   return (
-    <section className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900 transition-colors">
-      <Container>
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-slate-50 dark:bg-slate-900 transition-colors">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <motion.div
+          className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-primary-500/5 dark:bg-primary-500/10 blur-3xl"
+          animate={
+            shouldReduceMotion ? undefined : { y: [0, 20, 0], x: [0, 15, 0], scale: [1, 1.1, 1] }
+          }
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-secondary-500/5 dark:bg-secondary-500/10 blur-3xl"
+          animate={
+            shouldReduceMotion ? undefined : { y: [0, -20, 0], x: [0, -15, 0], scale: [1, 1.15, 1] }
+          }
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        />
+      </div>
+
+      <Container className="relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,49 +107,146 @@ export function TestimonialsSection() {
         </motion.div>
 
         <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Client testimonials"
+          className="relative mx-auto max-w-3xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
         >
-          {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.id} variants={item}>
-              <Card className="h-full hover:shadow-xl transition-all duration-300 relative">
-                <CardContent className="pt-6">
-                  {/* Quote Icon */}
-                  <div className="mb-4">
-                    <Quote className="h-8 w-8 text-primary-200 dark:text-primary-700" />
-                  </div>
+          <div className="flex items-center gap-3 sm:gap-6">
+            {total > 1 && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden h-10 w-10 shrink-0 rounded-full p-0 sm:flex"
+                onClick={previous}
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+              </Button>
+            )}
 
-                  {/* Rating */}
-                  <div className="flex gap-1 mb-4">
+            <motion.div
+              layout
+              drag={total > 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              className="min-w-0 flex-1 touch-pan-y"
+            >
+              <Card className="relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white/80 shadow-xl backdrop-blur-md hover:shadow-xl dark:border-slate-700/40 dark:bg-slate-900/60">
+                <div className="p-6 sm:p-10">
+                  <Quote
+                    className="mb-4 h-10 w-10 text-primary-200 dark:text-primary-800"
+                    aria-hidden="true"
+                  />
+
+                  <div className="mb-4 flex gap-1" aria-hidden="true">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                      />
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
+                  <span className="sr-only">Rated {testimonial.rating} out of 5 stars</span>
 
-                  {/* Content */}
-                  <p className="text-slate-600 dark:text-slate-400 mb-6 italic">
-                    &ldquo;{testimonial.content}&rdquo;
-                  </p>
+                  <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                      key={testimonial.id}
+                      custom={direction}
+                      variants={variants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.5, ease: 'easeInOut' }}
+                    >
+                      <p className="min-h-[9rem] text-lg italic text-slate-600 dark:text-slate-400 sm:min-h-[7rem] sm:text-xl">
+                        &ldquo;{testimonial.content}&rdquo;
+                      </p>
 
-                  {/* Author */}
-                  <div className="border-t border-slate-200 dark:border-slate-700 pt-4">
-                    <p className="font-semibold text-slate-900 dark:text-slate-50">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {testimonial.role} at {testimonial.company}
-                    </p>
-                  </div>
-                </CardContent>
+                      <div className="mt-8 flex items-center gap-4 border-t border-slate-200 pt-6 dark:border-slate-700">
+                        <Avatar name={testimonial.name} image={testimonial.image} size="lg" ring />
+                        <div>
+                          <p className="font-semibold text-slate-900 dark:text-slate-50">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            {testimonial.role} at {testimonial.company}
+                            {testimonial.projectType ? ` · ${testimonial.projectType}` : ''}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
               </Card>
             </motion.div>
-          ))}
+
+            {total > 1 && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden h-10 w-10 shrink-0 rounded-full p-0 sm:flex"
+                onClick={next}
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
+              </Button>
+            )}
+          </div>
+
+          {total > 1 && (
+            <div className="mt-6 flex items-center justify-center gap-3 sm:hidden">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-10 w-10 rounded-full p-0"
+                onClick={previous}
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-10 w-10 rounded-full p-0"
+                onClick={next}
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
+              </Button>
+            </div>
+          )}
+
+          {total > 1 && (
+            <div className="mt-6 flex justify-center gap-2">
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  aria-current={i === activeIndex ? 'true' : undefined}
+                  className={cn(
+                    'h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+                    i === activeIndex
+                      ? 'w-6 bg-primary-500'
+                      : 'w-2 bg-slate-300 hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600'
+                  )}
+                />
+              ))}
+            </div>
+          )}
+
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            Showing testimonial {activeIndex + 1} of {total}: {testimonial.name},{' '}
+            {testimonial.role} at {testimonial.company}
+          </div>
         </motion.div>
       </Container>
     </section>

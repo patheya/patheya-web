@@ -1,47 +1,59 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
 import { Container } from '@/components/ui/Container'
 import { clients } from '@/data/clients'
+import type { Client } from '@/types'
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-}
+function ClientLogoTile({ client }: { client: Client }) {
+  const [mounted, setMounted] = useState(false)
+  const { resolvedTheme } = useTheme()
 
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.8, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  },
-}
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-const floatingAnimation = {
-  y: [0, -10, 0],
-  transition: {
-    duration: 3,
-    repeat: Infinity,
-    ease: 'easeInOut',
-  },
+  const hasThemeVariant = Boolean(client.logoDark)
+  const src = hasThemeVariant && mounted && resolvedTheme === 'dark' ? client.logoDark! : client.logo
+
+  return (
+    <div className="group flex w-40 shrink-0 flex-col items-center gap-3 px-6 sm:w-48">
+      {hasThemeVariant && !mounted ? (
+        <div className="h-12 w-full" aria-hidden="true" />
+      ) : (
+        <div className="relative h-12 w-full">
+          <Image
+            src={src}
+            alt={client.alt || `${client.name} logo`}
+            fill
+            className="object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+            sizes="160px"
+          />
+        </div>
+      )}
+      <span
+        aria-hidden="true"
+        title={client.name}
+        className="w-full truncate text-center text-xs text-slate-500 dark:text-slate-400"
+      >
+        {client.name}
+      </span>
+    </div>
+  )
 }
 
 export function ClientLogosSection() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
-    <section id="clients" className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-20">
-      <Container className='py-16'>
+    <section
+      id="clients"
+      className="relative overflow-hidden bg-slate-50 dark:bg-slate-900 py-16 sm:py-20"
+    >
+      <Container className='bg-primary-50 max-w-full px-0 sm:px-0 lg:px-0 py-10'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,49 +69,36 @@ export function ClientLogosSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5"
-        >
-          {clients.map((client, index) => (
-            <motion.div
-              key={client.id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
-              animate={floatingAnimation}
-              style={{ animationDelay: `${index * 0.2}s` }}
-              className="group relative flex items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-            >
-              <div className="relative w-full h-20">
-                <Image
-                  src={client.logo}
-                  alt={client.alt || `${client.name} logo`}
-                  fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 20vw"
-                />
-              </div>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-slate-50 to-transparent dark:from-slate-900 sm:w-32" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-slate-50 to-transparent dark:from-slate-900 sm:w-32" />
 
-              {/* Tooltip on hover - positioned above to avoid overlap */}
-              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
-                <div className="bg-slate-900 dark:bg-slate-700 text-white text-xs px-3 py-1 rounded-md whitespace-nowrap shadow-lg">
-                  {client.name}
-                </div>
-                {/* Small arrow pointing down */}
-                <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-slate-900 dark:bg-slate-700 rotate-45"></div>
+          {shouldReduceMotion ? (
+            <div className="flex flex-wrap items-start justify-center gap-y-8">
+              {clients.map((client) => (
+                <ClientLogoTile key={client.id} client={client} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex w-max items-start animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none">
+              <div className="flex items-start">
+                {clients.map((client) => (
+                  <ClientLogoTile key={client.id} client={client} />
+                ))}
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Optional: Decorative gradient background */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 dark:bg-primary-500/10 rounded-full blur-3xl" />
+              <div className="flex items-start" aria-hidden="true">
+                {clients.map((client) => (
+                  <ClientLogoTile key={`${client.id}-dup`} client={client} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </Container>
+
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 dark:bg-primary-500/10 rounded-full blur-3xl" />
+      </div>
     </section>
   )
 }

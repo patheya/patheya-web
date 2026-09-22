@@ -70,50 +70,47 @@ export const clients: Client[] = [
   },
   {
     id: 'client-9',
-    name: 'NoGuiltTrip',
-    logo: '/images/clients/noguitltrip_dark.svg',
-    alt: 'NoGuiltTrip logo',
-  },
-  {
-    id: 'client-10',
     name: 'EASIE',
     logo: '/images/clients/easie.png',
     alt: 'EASIE logo',
   },
   {
-    id: 'client-11',
+    id: 'client-10',
     name: 'Food to Home',
     logo: '/images/clients/f2h-new-logo2.png',
     alt: 'Food to Home',
   },
   {
-    id: 'client-12',
+    id: 'client-11',
     name: 'Mr. Perfect',
     logo: '/images/clients/mr_perfect_logo.png',
     alt: 'Mr. Perfect logo',
   },
   {
-    id: 'client-13',
+    id: 'client-12',
     name: 'CARe',
     logo: '/images/clients/care-logo-dark.png',
     alt: 'CARe logo',
   },
   {
-    id: 'client-14',
+    id: 'client-13',
     name: 'Spark',
     logo: '/images/clients/sparc_logo.png',
     alt: 'Spark logo',
   },
   {
-    id: 'client-15',
+    id: 'client-14',
     name: 'The GreenZilla',
     logo: '/images/clients/gz-logo.png',
     alt: 'The GreenZilla logo',
   },
-  // {
-  //   id: 'client-7',
-  //   name: 'NowWagon',
-  //   logo: '/images/clients/now_wagon.png',
-  //   alt: 'NowWagon logo',
-  // },
+  {
+    id: 'client-15',
+    name: 'Moovvfit',
+    // Filenames name the ink color, not the theme: dark-ink logo shows in light
+    // theme (light background); light-ink logo shows in dark theme.
+    logo: '/images/clients/moovvfit_logo_dark.svg',
+    logoDark: '/images/clients/moovvfit_logo_light.svg',
+    alt: 'Moovvfit logo',
+  },
 ]
