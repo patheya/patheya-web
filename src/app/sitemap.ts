@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { services } from '@/lib/data/services'
+import { products } from '@/lib/data/products'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://patheya.tech'
@@ -20,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/services`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/products`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
@@ -46,5 +53,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...servicePages]
+  // Product pages
+  const productPages = products.map((product) => ({
+    url: `${baseUrl}/products/${product.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...servicePages, ...productPages]
 }

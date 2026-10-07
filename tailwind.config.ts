@@ -49,6 +49,13 @@ const config: Config = {
           '900': '#324b1c',
           '950': '#18290a',
         },
+        // Per-product theme, set via CSS variables by productThemeStyle()
+        product: {
+          DEFAULT: 'rgb(var(--product-brand) / <alpha-value>)',
+          strong: 'rgb(var(--product-strong) / <alpha-value>)',
+          accent: 'rgb(var(--product-accent) / <alpha-value>)',
+          tint: 'rgb(var(--product-tint) / <alpha-value>)',
+        },
         // OLED-compatible dark mode colors
         slate: {
           50: '#f8fafc',

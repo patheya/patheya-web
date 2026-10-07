@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { ServiceSchema } from '@/components/seo/ServiceSchema'
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
+import { ServiceProducts } from '@/components/products/ServiceProducts'
 import type { Service } from '@/types'
 
 const container = {
@@ -507,6 +508,8 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
           </motion.div>
         </Container>
       </section>
+
+      <ServiceProducts serviceSlug={service.slug} serviceTitle={service.title} />
 
       {/* CTA Section */}
       <section className="bg-primary-600 py-16 sm:py-20">

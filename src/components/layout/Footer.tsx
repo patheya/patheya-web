@@ -6,11 +6,13 @@ import Image from 'next/image'
 import { Linkedin, Mail, MapPin } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { companyInfo } from '@/lib/data/company'
+import { products } from '@/lib/data/products'
 
 const navigation = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
+    { name: 'Products', href: '/products' },
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Contact', href: '/contact' },
   ],
@@ -94,7 +96,7 @@ export function Footer() {
           </div>
 
           {/* Links sections */}
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3 xl:col-span-2 xl:mt-0">
             {/* Company links */}
             <div>
               <h3 className="text-sm font-semibold leading-6 text-white dark:text-slate-100">Company</h3>
@@ -124,6 +126,28 @@ export function Footer() {
                     >
                       {item.name}
                     </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Products links */}
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white dark:text-slate-100">Products</h3>
+              <ul role="list" className="mt-4 space-y-3">
+                {products.map((product) => (
+                  <li key={product.slug}>
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="text-sm leading-6 text-slate-400 hover:text-white dark:text-slate-500 dark:hover:text-slate-200 transition-colors"
+                    >
+                      {product.name}
+                    </Link>
+                    {product.status === 'coming-soon' && (
+                      <span className="ml-2 rounded-full bg-amber-400/10 px-2 py-0.5 text-xs font-medium text-amber-300 ring-1 ring-inset ring-amber-400/20">
+                        Coming soon
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>

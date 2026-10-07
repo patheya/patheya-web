@@ -9,6 +9,12 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
     --border: 214.3 31.8% 91.4%;
+
+    /* Product theme defaults (Patheya primary); overridden per product via productThemeStyle() */
+    --product-brand: 2 132 199;
+    --product-strong: 3 105 161;
+    --product-accent: 192 38 211;
+    --product-tint: 240 249 255;
   }
 
   .dark {
