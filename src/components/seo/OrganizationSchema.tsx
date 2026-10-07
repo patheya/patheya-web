@@ -1,4 +1,5 @@
 import { companyInfo } from '@/lib/data/company'
+import { products } from '@/lib/data/products'
 
 export function OrganizationSchema() {
   const schema = {
@@ -47,6 +48,13 @@ export function OrganizationSchema() {
       '@type': 'QuantitativeValue',
       value: 15,
     },
+    brand: products.map((product) => ({
+      '@type': 'Brand',
+      name: product.name,
+      description: product.oneLiner,
+      logo: `https://patheya.tech${product.logo.src}`,
+      url: `https://patheya.tech/products/${product.slug}`,
+    })),
     slogan: 'Build at the speed of innovation',
     areaServed: {
       '@type': 'Country',

@@ -27,3 +27,12 @@ export function formatNumber(num: number): string {
 export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+/**
+ * Lowercase the first letter for mid-sentence use, leaving acronyms intact
+ * ("Colleges, …" → "colleges, …" but "CA firms" stays "CA firms")
+ */
+export function lowerFirst(text: string): string {
+  if (text.length > 1 && text[1] === text[1].toUpperCase() && /[A-Z]/.test(text[1])) return text
+  return text.charAt(0).toLowerCase() + text.slice(1)
+}

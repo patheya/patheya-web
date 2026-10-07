@@ -12,6 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patheya.tech'),
   title: 'Pātheya (पाथेय) Technologies - Software Development & Consultancy',
   description: 'Leading software development company specializing in web, mobile, cloud, and DevOps solutions. Building at the speed of innovation.',
   keywords: ['software development', 'mobile app development', 'cloud services', 'DevOps', 'ReactJS', 'Next.js', 'Pune'],

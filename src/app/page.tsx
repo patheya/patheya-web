@@ -3,13 +3,14 @@ import { HeroSection } from '@/components/sections/HeroSection'
 import { StatsSection } from '@/components/sections/StatsSection'
 import { ClientLogosSection } from '@/components/sections/ClientLogosSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
+import { ProductsSection } from '@/components/sections/ProductsSection'
 import { TechnologyStackSection } from '@/components/sections/TechnologyStackSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CTASection } from '@/components/sections/CTASection'
 
 export const metadata: Metadata = {
   title: 'Patheya (पाथेय) Technologies - Software Development Company in Pune, India',
-  description: 'Leading software development company in Pune specializing in web development, mobile apps, cloud services, AI/ML solutions, and DevOps. 15+ happy clients, 25+ projects delivered. Build at the speed of innovation.',
+  description: 'Leading software development company in Pune specializing in web development, mobile apps, cloud services, AI/ML solutions, and DevOps — and maker of TasKram, EASIE and KitchenConnect. 15+ happy clients, 25+ projects delivered. Build at the speed of innovation.',
   keywords: [
     'software development company Pune',
     'mobile app development India',
@@ -54,8 +55,9 @@ export default function Home() {
     <>
       <HeroSection />
       <StatsSection />
-      <ClientLogosSection />
       <ServicesSection />
+      <ProductsSection />
+      <ClientLogosSection />
       <TechnologyStackSection />
       <TestimonialsSection />
       <CTASection />
