@@ -11,6 +11,8 @@ import { cn } from '@/lib/utils'
 import { testimonials } from '@/lib/data/testimonials'
 
 const AUTOPLAY_INTERVAL = 6000
+// Longer quotes stay on screen longer (about 4 words a second)
+const MS_PER_WORD = 250
 const SWIPE_THRESHOLD = 80
 const SWIPE_VELOCITY_THRESHOLD = 500
 
@@ -61,14 +63,16 @@ export function TestimonialsSection() {
 
   useEffect(() => {
     if (isPaused || shouldReduceMotion === true || total <= 1) return
+    const wordCount = testimonials[activeIndex]?.content.split(/\s+/).length ?? 0
     timeoutRef.current = setTimeout(() => {
       goTo(activeIndex + 1)
-    }, AUTOPLAY_INTERVAL)
+    }, Math.max(AUTOPLAY_INTERVAL, wordCount * MS_PER_WORD))
     return () => clearTimeout(timeoutRef.current)
   }, [activeIndex, isPaused, shouldReduceMotion, total, goTo])
 
   if (total === 0 || !testimonial) return null
 
+  const paragraphs = testimonial.content.split(/\n\s*\n/)
   const variants = shouldReduceMotion ? reducedSlideVariants : slideVariants
 
   return (
@@ -148,13 +152,6 @@ export function TestimonialsSection() {
                     aria-hidden="true"
                   />
 
-                  <div className="mb-4 flex gap-1" aria-hidden="true">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <span className="sr-only">Rated {testimonial.rating} out of 5 stars</span>
-
                   <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={testimonial.id}
@@ -165,9 +162,26 @@ export function TestimonialsSection() {
                       exit="exit"
                       transition={{ duration: 0.5, ease: 'easeInOut' }}
                     >
-                      <p className="min-h-[9rem] text-lg italic text-slate-600 dark:text-slate-400 sm:min-h-[7rem] sm:text-xl">
-                        &ldquo;{testimonial.content}&rdquo;
-                      </p>
+                      {testimonial.rating ? (
+                        <>
+                          <div className="mb-4 flex gap-1" aria-hidden="true">
+                            {[...Array(testimonial.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                            ))}
+                          </div>
+                          <span className="sr-only">Rated {testimonial.rating} out of 5 stars</span>
+                        </>
+                      ) : null}
+
+                      <blockquote className="min-h-[9rem] space-y-4 text-lg italic text-slate-600 dark:text-slate-400 sm:min-h-[7rem] sm:text-xl">
+                        {paragraphs.map((paragraph, i) => (
+                          <p key={i}>
+                            {i === 0 && '\u201C'}
+                            {paragraph}
+                            {i === paragraphs.length - 1 && '\u201D'}
+                          </p>
+                        ))}
+                      </blockquote>
 
                       <div className="mt-8 flex items-center gap-4 border-t border-slate-200 pt-6 dark:border-slate-700">
                         <Avatar name={testimonial.name} image={testimonial.image} size="lg" ring />
@@ -179,6 +193,11 @@ export function TestimonialsSection() {
                             {testimonial.role} at {testimonial.company}
                             {testimonial.projectType ? ` · ${testimonial.projectType}` : ''}
                           </p>
+                          {testimonial.secondaryRole && (
+                            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                              {testimonial.secondaryRole}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </motion.div>
