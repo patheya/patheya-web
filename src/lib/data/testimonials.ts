@@ -17,6 +17,26 @@ export const testimonials: Testimonial[] = [
     content: 'Working with Patheya was a game-changer for our mobile app development. They brought fresh ideas, implemented best practices, and created an app that our users love. Highly recommend their services!',
     rating: 5,
   },
+  {
+    id: '3',
+    name: 'Shri. Suni Sartape',
+    role: 'Founder & Director',
+    company: 'GIO Vison India Pvt. Ltd',
+    content: `Our experience with the Patheya Technologies has been exceptional. Their team understood our vision and business objectives and successfully developed both our mobile application and website with modern technology, thoughtful design, and a strong focus on user experience.
+
+We truly appreciate their professionalism, attention to detail, excellent communication, and commitment to quality. It was a pleasure working with them, and we highly recommend them as a reliable and capable technology partner.
+
+Thank you for your continued help, support, and understanding.`,
+  },
+  {
+    id: '4',
+    name: 'Prof. Vilas Padhye',
+    role: 'Head, Department of Psychology',
+    company: 'Elphinstone College, Mumbai',
+    secondaryRole: 'Registrar, Dr. Homi Bhabha State University, Mumbai',
+    content:
+      'I have worked with Team Patheya as an SME on a web-cum-mobile application. I found them to be a very young and dynamic team dedicated to their craft. Three things that stood out to me are: in-depth technical know-how, quick grasping of the problem, and a client-friendly approach. I was amazed by their appetite for learning and their versatile use of tools and platforms. I am sure they have a long way to go, and wish them the very best in their future endeavours.',
+  },
   // {
   //   id: '3',
   //   name: 'Amit Patel',

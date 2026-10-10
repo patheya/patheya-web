@@ -30,8 +30,11 @@ const colorClasses = [
   'bg-conifer-600',
 ]
 
+// Honorifics such as "Prof." or "Shri." are skipped so initials come from the person's name
+const HONORIFIC = /^(shri|smt|prof|dr|mr|mrs|ms)\.?$/i
+
 function getInitials(name: string): string {
-  const words = name.trim().split(/\s+/)
+  const words = name.trim().split(/\s+/).filter((word) => !HONORIFIC.test(word))
   const first = words[0]?.[0] ?? ''
   const last = words.length > 1 ? words[words.length - 1]?.[0] ?? '' : ''
   return (first + last).toUpperCase()

@@ -66,10 +66,14 @@ export interface Testimonial {
   name: string
   role: string
   company: string
+  /** Paragraphs are separated by a blank line */
   content: string
-  rating: number
+  /** Shown as stars only when the client actually gave a rating */
+  rating?: number
   image?: string
   projectType?: string
+  /** Another position held, shown on its own line */
+  secondaryRole?: string
 }
 
 // Client types
