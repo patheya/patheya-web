@@ -37,6 +37,14 @@ Thank you for your continued help, support, and understanding.`,
     content:
       'I have worked with Team Patheya as an SME on a web-cum-mobile application. I found them to be a very young and dynamic team dedicated to their craft. Three things that stood out to me are: in-depth technical know-how, quick grasping of the problem, and a client-friendly approach. I was amazed by their appetite for learning and their versatile use of tools and platforms. I am sure they have a long way to go, and wish them the very best in their future endeavours.',
   },
+  {
+    id: '5',
+    name: 'Kedar Gadgil',
+    role: 'Director',
+    company: 'FTB Colab',
+    content:
+      'We have been engaged with Patheya for more than 3 years now. Their technical depth, industry experience, communication skills and commitment has really helped us in serving our Japanese and US customers. Proactively designing intuitive UI-UX in ReactJS, expertise on Java, Python, NodeJS, AWS and now use of Claude makes them reliable and long-term partner.',
+  },
   // {
   //   id: '3',
   //   name: 'Amit Patel',
