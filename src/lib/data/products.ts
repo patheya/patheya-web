@@ -355,7 +355,7 @@ export const products: Product[] = [
     platforms: ['Web app for IQAC and administration', 'Mobile app for faculty data capture'],
     technologies: [],
     relatedServices: ['software-development', 'mobile-app-development', 'ai-ml-solutions'],
-    video: { youtubeId: 'QwPtuRaILKM', title: 'EASIE app intro' },
+    video: { youtubeId: 'c4_HmGU4clY', title: 'EASIE app intro' },
     screenshots: [],
     seo: {
       title: 'EASIE – NAAC & CAS Data Management Software for Colleges',
