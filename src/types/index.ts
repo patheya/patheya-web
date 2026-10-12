@@ -73,7 +73,8 @@ export interface Testimonial {
   image?: string
   projectType?: string
   /** Another position held, shown on its own line */
-  secondaryRole?: string
+  secondaryRole?: string  /** Company logo shown on the card instead of initials */
+  logo?: { src: string; width: number; height: number }
 }
 
 // Client types
@@ -82,6 +83,11 @@ export interface Client {
   name: string
   logo: string
   logoDark?: string
+  /** Intrinsic size of the logo artwork, used to balance visual weight in the grid */
+  width: number
+  height: number
+  /** Optical size adjustment for artwork with built-in margins or heavy blocks (default 1) */
+  scale?: number
   alt?: string
 }
 

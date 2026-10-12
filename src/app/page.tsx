@@ -58,8 +58,8 @@ export default function Home() {
       <ServicesSection />
       <ProductsSection />
       <ClientLogosSection />
-      <TechnologyStackSection />
       <TestimonialsSection />
+      <TechnologyStackSection />
       <CTASection />
     </>
   )

@@ -28,7 +28,7 @@ export function TechnologyStackSection() {
   const currentTechnologies = getTechnologiesByCategory(activeCategory)
 
   return (
-    <section id="technologies" className="py-16 sm:py-24 bg-white dark:bg-slate-900">
+    <section id="technologies" className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900">
       <Container className='py-16'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

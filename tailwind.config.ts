@@ -81,6 +81,7 @@ const config: Config = {
         'slide-down': 'slideDown 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
         marquee: 'marquee 38s linear infinite',
+        'marquee-reverse': 'marquee-reverse 38s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -102,6 +103,10 @@ const config: Config = {
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
+        },
+        'marquee-reverse': {
+          from: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(0)' },
         },
       },
     },
