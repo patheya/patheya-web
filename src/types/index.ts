@@ -83,6 +83,8 @@ export interface Client {
   name: string
   logo: string
   logoDark?: string
+  /** Client's website, opened in a new tab from the logo tile */
+  url?: string
   /** Intrinsic size of the logo artwork, used to balance visual weight in the grid */
   width: number
   height: number
