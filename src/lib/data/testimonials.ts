@@ -24,6 +24,7 @@ export const testimonials: Testimonial[] = [
     name: 'Shri. Suni Sartape',
     role: 'Founder & Director',
     company: 'GIO Vison India Pvt. Ltd',
+    logo: { src: '/images/clients/mr_perfect_logo.png', width: 1920, height: 668 },
     content: `Our experience with the Patheya Technologies has been exceptional. Their team understood our vision and business objectives and successfully developed both our mobile application and website with modern technology, thoughtful design, and a strong focus on user experience.
 
 We truly appreciate their professionalism, attention to detail, excellent communication, and commitment to quality. It was a pleasure working with them, and we highly recommend them as a reliable and capable technology partner.

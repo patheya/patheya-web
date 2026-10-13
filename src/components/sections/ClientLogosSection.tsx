@@ -1,7 +1,9 @@
 import Image from 'next/image'
+import { ExternalLink } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
+import { cn } from '@/lib/utils'
 import { clients } from '@/data/clients'
 import type { Client } from '@/types'
 
@@ -34,7 +36,13 @@ function ClientLogoTile({ client }: { client: Client }) {
 
   return (
     // Logos sit on white in both themes: most have dark ink and no dark-mode variant
-    <figure className="flex h-full flex-col items-center justify-between gap-3 rounded-2xl bg-white px-3 pb-3 pt-5 shadow-sm ring-1 ring-slate-200 transition duration-300 hover:shadow-md motion-safe:hover:-translate-y-0.5 dark:ring-slate-700 sm:px-4 sm:pt-6">
+    <figure
+      className={cn(
+        'relative flex h-full flex-col items-center justify-between gap-3 rounded-2xl bg-white px-3 pb-3 pt-5 shadow-sm ring-1 ring-slate-200 transition duration-300 dark:ring-slate-700 sm:px-4 sm:pt-6',
+        client.url &&
+          'hover:shadow-md has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary-600 motion-safe:hover:-translate-y-0.5 dark:has-[:focus-visible]:ring-primary-400'
+      )}
+    >
       <div className="flex h-12 w-full items-center justify-center sm:h-16">
         <Image
           src={client.logo}
@@ -47,7 +55,21 @@ function ClientLogoTile({ client }: { client: Client }) {
         />
       </div>
       <figcaption className="flex min-h-[2.5em] items-center text-center text-xs font-medium leading-tight text-slate-700 sm:text-sm">
-        {client.name}
+        {client.url ? (
+          // Stretched link: the whole tile opens the client's site
+          <a
+            href={client.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 after:absolute after:inset-0 after:rounded-2xl hover:text-primary-700 focus-visible:outline-none"
+          >
+            {client.name}
+            <ExternalLink className="h-3 w-3 shrink-0 text-slate-400" aria-hidden="true" />
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        ) : (
+          client.name
+        )}
       </figcaption>
     </figure>
   )

@@ -23,6 +23,7 @@ export const clients: Client[] = [
   {
     id: 'client-1',
     name: 'FTB Colab',
+    url: 'https://ftbcolab.com/',
     logo: '/images/clients/ftb_colab.png',
     width: 389,
     height: 194,
@@ -31,6 +32,7 @@ export const clients: Client[] = [
   {
     id: 'client-2',
     name: 'DG Future Tech',
+    url: 'https://dgfuturetech.com/en',
     logo: '/images/clients/dgft.png',
     width: 500,
     height: 300,
@@ -40,6 +42,7 @@ export const clients: Client[] = [
   {
     id: 'client-3',
     name: 'Matsya Capital',
+    url: 'https://www.matsyacapital.com/',
     logo: '/images/clients/matsya_capital.png',
     width: 1806,
     height: 634,
@@ -48,6 +51,7 @@ export const clients: Client[] = [
   {
     id: 'client-4',
     name: 'NoGuiltTrip',
+    url: 'https://noguilttrip.com/',
     logo: '/images/clients/noguitltrip_full.svg',
     width: 127,
     height: 27,
@@ -56,6 +60,7 @@ export const clients: Client[] = [
   {
     id: 'client-5',
     name: 'Skoda',
+    url: 'https://skoda-vw.co.in/',
     logo: '/images/clients/skoda_vw_india.jpg',
     width: 759,
     height: 377,
@@ -65,6 +70,7 @@ export const clients: Client[] = [
   {
     id: 'client-6',
     name: 'Ignite Life Science Foundation',
+    url: 'https://ignitelsf.in/',
     logo: '/images/clients/ignite_image.png',
     width: 770,
     height: 206,
@@ -74,6 +80,7 @@ export const clients: Client[] = [
   {
     id: 'client-7',
     name: 'Light House',
+    url: 'https://light-house.co.nz/',
     logo: '/images/clients/light_house_logo_dark.png',
     width: 496,
     height: 112,
@@ -82,6 +89,7 @@ export const clients: Client[] = [
   {
     id: 'client-8',
     name: 'Hexagon',
+    url: 'https://hexagon.com/company/divisions/manufacturing-intelligence/what-we-do/metrology',
     logo: '/images/clients/hexagon.png',
     width: 554,
     height: 203,
@@ -91,6 +99,7 @@ export const clients: Client[] = [
   {
     id: 'client-10',
     name: 'Food to Home',
+    url: 'https://foodtohome.in/',
     logo: '/images/clients/f2h-new-logo2.png',
     width: 661,
     height: 228,
@@ -99,6 +108,7 @@ export const clients: Client[] = [
   {
     id: 'client-11',
     name: 'Mr. Perfect',
+    url: 'https://mrperfectworld.com/',
     logo: '/images/clients/mr_perfect_logo.png',
     width: 1920,
     height: 668,
@@ -108,6 +118,7 @@ export const clients: Client[] = [
   {
     id: 'client-12',
     name: 'CARe',
+    // Link held back until the site is reachable: https://www.covidseva.in/ (domain not resolving, checked 12 Oct 2026)
     logo: '/images/clients/care-logo-dark.png',
     width: 1054,
     height: 259,
@@ -116,6 +127,7 @@ export const clients: Client[] = [
   {
     id: 'client-13',
     name: 'Sparc',
+    url: 'https://sparcfoundation.org/',
     logo: '/images/clients/sparc_logo.png',
     width: 936,
     height: 744,
@@ -124,6 +136,7 @@ export const clients: Client[] = [
   {
     id: 'client-14',
     name: 'The GreenZilla',
+    // Link held back until the site is reachable: http://greenzilla.com/ (shows a hosting error page, checked 12 Oct 2026)
     logo: '/images/clients/gz-logo.png',
     width: 829,
     height: 196,
@@ -132,6 +145,7 @@ export const clients: Client[] = [
   {
     id: 'client-15',
     name: 'Moovvfit',
+    url: 'https://moovv.fit/',
     // Filenames name the ink color, not the theme: dark-ink logo shows in light
     // theme (light background); light-ink logo shows in dark theme.
     logo: '/images/clients/moovvfit_logo_dark.svg',
