@@ -175,3 +175,22 @@ export interface Product {
     operatingSystem: string
   }
 }
+
+// Industry types
+export interface IndustryUseCase {
+  title: string
+  description: string
+}
+
+export interface Industry {
+  slug: string
+  name: string
+  icon: 'Landmark' | 'HeartPulse'
+  tagline: string
+  summary: string
+  heroPoints: string[]
+  useCases: IndustryUseCase[]
+  approach: { title: string; description: string }[]
+  trust: { title: string; description: string }[]
+  keywords: string[]
+}

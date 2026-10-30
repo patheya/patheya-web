@@ -43,6 +43,12 @@ const getServiceColors = (iconName: string) => {
       border: 'hover:border-emerald-300 dark:hover:border-emerald-700',
       checkmark: 'text-emerald-600 dark:text-emerald-400',
     },
+    BarChart3: {
+      bg: 'bg-indigo-100 dark:bg-indigo-950',
+      text: 'text-indigo-600 dark:text-indigo-400',
+      border: 'hover:border-indigo-300 dark:hover:border-indigo-700',
+      checkmark: 'text-indigo-600 dark:text-indigo-400',
+    },
   }
   return colorSchemes[iconName as keyof typeof colorSchemes] || colorSchemes.Code2
 }
