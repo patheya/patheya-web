@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Linkedin, Mail, MapPin } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { companyInfo } from '@/lib/data/company'
+import { industries } from '@/lib/data/industries'
 import { products } from '@/lib/data/products'
 
 const navigation = {
@@ -22,6 +23,7 @@ const navigation = {
     { name: 'Cloud & DevOps', href: '/services/cloud-devops' },
     { name: 'Business Consultancy', href: '/services/business-consultancy' },
     { name: 'AI & Machine Learning', href: '/services/ai-ml-solutions' },
+    { name: 'Data Analytics & Insights', href: '/services/data-analytics' },
   ],
   contact: [
     {
@@ -56,7 +58,7 @@ export function Footer() {
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div className="xl:grid xl:grid-cols-5 xl:gap-8">
           {/* Brand section */}
           <div className="space-y-4">
             <Link href="/" className="block">
@@ -96,7 +98,7 @@ export function Footer() {
           </div>
 
           {/* Links sections */}
-          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3 xl:col-span-2 xl:mt-0">
+          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:col-span-4 xl:mt-0">
             {/* Company links */}
             <div>
               <h3 className="text-sm font-semibold leading-6 text-white dark:text-slate-100">Company</h3>
@@ -131,12 +133,29 @@ export function Footer() {
               </ul>
             </div>
 
+            {/* Industries links */}
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white dark:text-slate-100">Industries</h3>
+              <ul role="list" className="mt-4 space-y-3">
+                {industries.map((industry) => (
+                  <li key={industry.slug}>
+                    <Link
+                      href={`/industries/${industry.slug}`}
+                      className="text-sm leading-6 text-slate-400 hover:text-white dark:text-slate-500 dark:hover:text-slate-200 transition-colors"
+                    >
+                      {industry.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* Products links */}
             <div>
               <h3 className="text-sm font-semibold leading-6 text-white dark:text-slate-100">Products</h3>
               <ul role="list" className="mt-4 space-y-3">
                 {products.map((product) => (
-                  <li key={product.slug}>
+                  <li key={product.slug} className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <Link
                       href={`/products/${product.slug}`}
                       className="text-sm leading-6 text-slate-400 hover:text-white dark:text-slate-500 dark:hover:text-slate-200 transition-colors"
@@ -144,7 +163,7 @@ export function Footer() {
                       {product.name}
                     </Link>
                     {product.status === 'coming-soon' && (
-                      <span className="ml-2 rounded-full bg-amber-400/10 px-2 py-0.5 text-xs font-medium text-amber-300 ring-1 ring-inset ring-amber-400/20">
+                      <span className="whitespace-nowrap rounded-full bg-amber-400/10 px-2 py-0.5 text-xs font-medium text-amber-300 ring-1 ring-inset ring-amber-400/20">
                         Coming soon
                       </span>
                     )}

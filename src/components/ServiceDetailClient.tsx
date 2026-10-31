@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { CheckCircle2, ArrowRight, Code2, Smartphone, Cloud, Briefcase, Brain } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Code2, Smartphone, Cloud, Briefcase, Brain, BarChart3 } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { ServiceSchema } from '@/components/seo/ServiceSchema'
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
+import { DataTransformationSection } from '@/components/sections/DataTransformationSection'
 import { ServiceProducts } from '@/components/products/ServiceProducts'
 import type { Service } from '@/types'
 
@@ -33,6 +34,7 @@ const getServiceIcon = (iconName: string) => {
     Cloud,
     Briefcase,
     Brain,
+    BarChart3,
   }
   return icons[iconName as keyof typeof icons] || Code2
 }
@@ -43,7 +45,7 @@ interface ServiceDetailClientProps {
 
 export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
   const Icon = getServiceIcon(service.icon)
-  const isNeonmorph = service.slug === 'ai-ml-solutions' || service.slug === 'cloud-devops'
+  const isNeonmorph = service.slug === 'ai-ml-solutions' || service.slug === 'data-analytics' || service.slug === 'cloud-devops'
   const isClaymorphic = service.slug === 'software-development'
   const isGlassmorph = service.slug === 'mobile-app-development' || service.slug === 'business-consultancy'
 
@@ -385,6 +387,8 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
           </Container>
         </section>
       )}
+
+      {service.slug === 'data-analytics' && <DataTransformationSection />}
 
       {/* Features Section */}
       <section className="py-16 sm:py-24 bg-white dark:bg-slate-950">

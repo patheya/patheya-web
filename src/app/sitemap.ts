@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { services } from '@/lib/data/services'
+import { industries } from '@/lib/data/industries'
 import { products } from '@/lib/data/products'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -53,6 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
+  // Industry pages
+  const industryPages = industries.map((industry) => ({
+    url: `${baseUrl}/industries/${industry.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
   // Product pages
   const productPages = products.map((product) => ({
     url: `${baseUrl}/products/${product.slug}`,
@@ -61,5 +70,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...servicePages, ...productPages]
+  return [...staticPages, ...servicePages, ...industryPages, ...productPages]
 }

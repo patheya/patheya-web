@@ -1,6 +1,6 @@
 'use client'
 
-import { Code2, Smartphone, Cloud, Briefcase, Brain } from 'lucide-react'
+import { Code2, Smartphone, Cloud, Briefcase, Brain, BarChart3 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
@@ -14,6 +14,7 @@ const getServiceIcon = (iconName: string) => {
     Cloud,
     Briefcase,
     Brain,
+    BarChart3,
   }
   return icons[iconName as keyof typeof icons] || Code2
 }
@@ -45,6 +46,11 @@ const getServiceColors = (iconName: string) => {
       bg: 'bg-emerald-100 dark:bg-emerald-950',
       text: 'text-emerald-600 dark:text-emerald-400',
       border: 'hover:border-emerald-300 dark:hover:border-emerald-700',
+    },
+    BarChart3: {
+      bg: 'bg-indigo-100 dark:bg-indigo-950',
+      text: 'text-indigo-600 dark:text-indigo-400',
+      border: 'hover:border-indigo-300 dark:hover:border-indigo-700',
     },
   }
   return colorSchemes[iconName as keyof typeof colorSchemes] || colorSchemes.Code2

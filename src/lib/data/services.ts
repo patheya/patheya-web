@@ -1,4 +1,4 @@
-import { Code2, Smartphone, Cloud, Briefcase, Brain } from 'lucide-react'
+import { Code2, Smartphone, Cloud, Briefcase, Brain, BarChart3 } from 'lucide-react'
 import type { Service } from '@/types'
 
 export const services: Service[] = [
@@ -141,6 +141,37 @@ export const services: Service[] = [
       'NLTK',
     ],
   },
+  {
+    id: 'data-analytics',
+    title: 'Data Analytics & Insights',
+    description: 'Turn raw data into decisions: reliable data pipelines, business dashboards, automated reporting and prediction engines built around your KPIs.',
+    icon: 'BarChart3',
+    slug: 'data-analytics',
+    features: [
+      'Data Engineering & Pipelines (ETL/ELT)',
+      'Data Warehouse & Lakehouse Design',
+      'Business Intelligence Dashboards',
+      'Automated & Scheduled Reporting',
+      'Predictive Models & Forecasting',
+      'Prediction Engines Served as APIs',
+      'Anomaly & Fraud Detection',
+      'Data Quality, Governance & Security',
+    ],
+    technologies: [
+      'Python',
+      'SQL',
+      'PostgreSQL',
+      'Apache Spark',
+      'Airflow',
+      'dbt',
+      'Power BI',
+      'Metabase',
+      'Apache Superset',
+      'Pandas',
+      'Scikit-learn',
+      'AWS Redshift',
+    ],
+  },
 ]
 
 export const getServiceBySlug = (slug: string): Service | undefined => {
@@ -154,6 +185,7 @@ export const getServiceIcon = (iconName: string) => {
     Cloud,
     Briefcase,
     Brain,
+    BarChart3,
   }
   return icons[iconName as keyof typeof icons]
 }
