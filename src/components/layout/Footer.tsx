@@ -37,8 +37,8 @@ const navigation = {
       icon: Linkedin,
     },
     {
-      name: 'Pune, Bharat',
-      href: '#',
+      name: 'Erandwane, Pune, Bharat',
+      href: companyInfo.address.mapUrl,
       icon: MapPin,
     },
   ],
@@ -179,7 +179,14 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center space-x-2 text-sm text-slate-400 dark:text-slate-500">
               <MapPin className="h-4 w-4" />
-              <span>Pune, Bharat</span>
+              <a
+                href={companyInfo.address.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                {companyInfo.address.full}
+              </a>
             </div>
             <p className="mt-4 text-sm text-slate-400 dark:text-slate-500 md:mt-0">
               &copy; {new Date().getFullYear()} Patheya Technologies. All rights reserved.

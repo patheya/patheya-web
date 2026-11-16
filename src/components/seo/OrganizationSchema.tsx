@@ -26,10 +26,13 @@ export function OrganizationSchema() {
     ],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Pune',
-      addressRegion: 'Maharashtra',
-      addressCountry: 'IN',
+      streetAddress: companyInfo.address.street,
+      addressLocality: `${companyInfo.address.locality}, ${companyInfo.address.city}`,
+      addressRegion: companyInfo.address.region,
+      postalCode: companyInfo.address.postalCode,
+      addressCountry: companyInfo.address.country,
     },
+    hasMap: companyInfo.address.mapUrl,
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'connect@patheya.tech',

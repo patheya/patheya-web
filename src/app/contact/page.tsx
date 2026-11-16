@@ -29,9 +29,10 @@ const contactMethods = [
     icon: MapPin,
     title: 'Location',
     description: 'Find us at',
-    value: companyInfo.location,
-    href: '#',
-    action: '',
+    value: companyInfo.address.full,
+    detail: `Landmark: ${companyInfo.address.landmark}`,
+    href: companyInfo.address.mapUrl,
+    action: 'View on Google Maps',
   },
   {
     icon: Clock,
@@ -173,6 +174,9 @@ export default function ContactPage() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-slate-900 dark:text-slate-100 font-medium mb-4">{method.value}</p>
+                      {'detail' in method && method.detail && (
+                        <p className="text-slate-600 dark:text-slate-400 text-sm -mt-2 mb-4">{method.detail}</p>
+                      )}
                       {method.action && (
                         <Button
                           asChild
@@ -180,8 +184,8 @@ export default function ContactPage() {
                         >
                           <a
                             href={method.href}
-                            target={method.icon === Linkedin ? '_blank' : undefined}
-                            rel={method.icon === Linkedin ? 'noopener noreferrer' : undefined}
+                            target={method.icon === Linkedin || method.icon === MapPin ? '_blank' : undefined}
+                            rel={method.icon === Linkedin || method.icon === MapPin ? 'noopener noreferrer' : undefined}
                           >
                             {method.action}
                           </a>
